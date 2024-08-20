@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\APIAnakController;
 use App\Http\Controllers\APIDiklatController;
+use App\Http\Controllers\APIEselonController;
+use App\Http\Controllers\APIFakultasController;
 use App\Http\Controllers\APIPegawaiController;
 use App\Http\Controllers\APIPendidikanController;
 use App\Http\Controllers\APIUnitKerjaController;
@@ -59,4 +61,18 @@ Route::middleware('apikey')->group(function () {
     Route::post('/diklat', [APIDiklatController::class, 'create']);
     Route::put('/diklat/{id}', [APIDiklatController::class, 'update']);
     Route::delete('/diklat/{id}', [APIDiklatController::class, 'delete']);
+
+    // Eselon API
+    Route::get('/eselon', [APIEselonController::class, 'getall']);
+    Route::get('/eselon/{id}', [APIEselonController::class, 'get']);
+    Route::post('/eselon', [APIEselonController::class, 'create']);
+    Route::put('/eselon/{id}', [APIEselonController::class, 'update']);
+    Route::delete('/eselon/{id}', [APIEselonController::class, 'delete']);
+
+    // Fakultas API
+    Route::get('/fakultas', [APIFakultasController::class, 'getall']);
+    Route::get('/fakultas/{id}', [APIFakultasController::class, 'get']);
+    Route::post('/fakultas', [APIFakultasController::class, 'create']);
+    Route::put('/fakultas/{id}', [APIFakultasController::class, 'update']);
+    Route::delete('/fakultas/{id}', [APIFakultasController::class, 'delete']);
 });
