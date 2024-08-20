@@ -2,25 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UnitKerja;
+use App\Http\Resources\PendidikanResource;
+use App\Models\Pendidikan;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class APIUnitKerjaController extends Controller
+class APIPendidikanController extends Controller
 {
     /**
-     * Get all records from UnitKerja
+     * Get all records from Pendidikan
      *
      * @return \Illuminate\Http\JsonResponse
+     * @var \App\Models\Pendidikan
      */
     public function getall()
     {
         try {
-            // Retrieve all records from UnitKerja
-            $unitKerja = UnitKerja::all();
+            // Get all records from Pendidikan
+            $pendidikan = Pendidikan::all();
 
             // Check if the result is empty
-            if ($unitKerja->isEmpty()) {
+            if ($pendidikan->isEmpty()) {
                 // Return a 404 Not Found response
                 return response()->json([
                     'message' => 'No records found'
@@ -30,7 +32,7 @@ class APIUnitKerjaController extends Controller
             // Return the data with a 200 OK status
             return response()->json([
                 'message' => 'Success',
-                'data' => $unitKerja
+                'data' =>  PendidikanResource::collection($pendidikan)
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             // Return a 500 Internal Server Error response
@@ -42,7 +44,7 @@ class APIUnitKerjaController extends Controller
     }
 
     /**
-     * Get a record from UnitKerja
+     * Get a record from Pendidikan
      *
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
@@ -50,11 +52,11 @@ class APIUnitKerjaController extends Controller
     public function get($id)
     {
         try {
-            // Retrieve a record from UnitKerja
-            $unitKerja = UnitKerja::find($id);
+            // Retrieve a record from Pendidikan
+            $pendidikan = Pendidikan::find($id);
 
             // Check if the result is empty
-            if ($unitKerja === null) {
+            if ($pendidikan === null) {
                 // Return a 404 Not Found response
                 return response()->json([
                     'message' => 'Record not found'
@@ -64,7 +66,7 @@ class APIUnitKerjaController extends Controller
             // Return the data with a 200 OK status
             return response()->json([
                 'message' => 'Success',
-                'data' => $unitKerja
+                'data' => new PendidikanResource($pendidikan)
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             // Return a 500 Internal Server Error response
@@ -76,7 +78,7 @@ class APIUnitKerjaController extends Controller
     }
 
     /**
-     * Create a new record in UnitKerja
+     * Create a new record in Pendidikan
      *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
@@ -89,15 +91,15 @@ class APIUnitKerjaController extends Controller
                 'name' => 'required|string',
             ]);
 
-            // Create a new record in UnitKerja
-            $unitKerja = UnitKerja::create([
-                'name' => $request->name,
-            ]);
+            // Create a new record in Pendidikan
+            $pendidikan = new Pendidikan();
+            $pendidikan->nama = $request->nama;
+            $pendidikan->tingkat = $request->tingkat;
+            $pendidikan->save();
 
             // Return the data with a 201 Created status
             return response()->json([
-                'message' => 'Record created',
-                'data' => $unitKerja
+                'message' => 'Success Create Record',
             ], Response::HTTP_CREATED);
         } catch (\Throwable $th) {
             // Return a 500 Internal Server Error response
@@ -109,7 +111,7 @@ class APIUnitKerjaController extends Controller
     }
 
     /**
-     * Update a record in UnitKerja
+     * Update a record in Pendidikan
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id
@@ -123,30 +125,25 @@ class APIUnitKerjaController extends Controller
                 'name' => 'required|string',
             ]);
 
-            // Retrieve a record from UnitKerja
-            $unitKerja = UnitKerja::find($id);
+            // Find the record in Pendidikan
+            $pendidikan = Pendidikan::find($id);
 
             // Check if the result is empty
-            if ($unitKerja === null) {
+            if ($pendidikan === null) {
                 // Return a 404 Not Found response
                 return response()->json([
                     'message' => 'Record not found'
                 ], Response::HTTP_NOT_FOUND);
             }
 
-            // Validate the request data
-            $request->validate([
-                'name' => 'required|string',
-            ]);
-
-            // Update the record in UnitKerja
-            $unitKerja->name = $request->name;
-            $unitKerja->save();
+            // Update the record in Pendidikan
+            $pendidikan->nama = $request->nama;
+            $pendidikan->tingkat = $request->tingkat;
+            $pendidikan->save();
 
             // Return the data with a 200 OK status
             return response()->json([
-                'message' => 'Record updated',
-                'data' => $unitKerja
+                'message' => 'Success Update Record',
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             // Return a 500 Internal Server Error response
@@ -158,7 +155,7 @@ class APIUnitKerjaController extends Controller
     }
 
     /**
-     * Delete a record from UnitKerja
+     * Delete a record from Pendidikan
      *
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
@@ -166,24 +163,23 @@ class APIUnitKerjaController extends Controller
     public function delete($id)
     {
         try {
-            // Retrieve a record from UnitKerja
-            $unitKerja = UnitKerja::find($id);
+            // Retrieve a record from Pendidikan
+            $pendidikan = Pendidikan::find($id);
 
             // Check if the result is empty
-            if ($unitKerja === null) {
+            if ($pendidikan === null) {
                 // Return a 404 Not Found response
                 return response()->json([
                     'message' => 'Record not found'
                 ], Response::HTTP_NOT_FOUND);
             }
 
-            // Delete the record from UnitKerja
-            $unitKerja->delete();
+            // Delete the record from Pendidikan
+            $pendidikan->delete();
 
             // Return the data with a 200 OK status
             return response()->json([
-                'message' => 'Record deleted',
-                'data' => $unitKerja
+                'message' => 'Success Delete Record',
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             // Return a 500 Internal Server Error response

@@ -2,35 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UnitKerja;
+use App\Http\Resources\AnakResource;
+use App\Models\Anak;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class APIUnitKerjaController extends Controller
+class APIAnakController extends Controller
 {
     /**
-     * Get all records from UnitKerja
+     * Get all records from Anak
      *
      * @return \Illuminate\Http\JsonResponse
+     * @var \App\Models\Anak
      */
     public function getall()
     {
         try {
-            // Retrieve all records from UnitKerja
-            $unitKerja = UnitKerja::all();
-
+            $anak = Anak::all();
             // Check if the result is empty
-            if ($unitKerja->isEmpty()) {
+            if ($anak->isEmpty()) {
                 // Return a 404 Not Found response
                 return response()->json([
                     'message' => 'No records found'
                 ], Response::HTTP_NOT_FOUND);
             }
-
             // Return the data with a 200 OK status
             return response()->json([
                 'message' => 'Success',
-                'data' => $unitKerja
+                'data' =>  AnakResource::collection($anak)
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             // Return a 500 Internal Server Error response
@@ -42,7 +41,7 @@ class APIUnitKerjaController extends Controller
     }
 
     /**
-     * Get a record from UnitKerja
+     * Get a record from Anak
      *
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
@@ -50,11 +49,11 @@ class APIUnitKerjaController extends Controller
     public function get($id)
     {
         try {
-            // Retrieve a record from UnitKerja
-            $unitKerja = UnitKerja::find($id);
+            // Retrieve a record from Anak
+            $anak = Anak::find($id);
 
             // Check if the result is empty
-            if ($unitKerja === null) {
+            if ($anak === null) {
                 // Return a 404 Not Found response
                 return response()->json([
                     'message' => 'Record not found'
@@ -64,7 +63,7 @@ class APIUnitKerjaController extends Controller
             // Return the data with a 200 OK status
             return response()->json([
                 'message' => 'Success',
-                'data' => $unitKerja
+                'data' => new AnakResource($anak)
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             // Return a 500 Internal Server Error response
@@ -76,7 +75,7 @@ class APIUnitKerjaController extends Controller
     }
 
     /**
-     * Create a new record in UnitKerja
+     * Create a new record in Anak
      *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
@@ -84,20 +83,24 @@ class APIUnitKerjaController extends Controller
     public function create(Request $request)
     {
         try {
-            // Validate the request data
+            // validate the request
             $request->validate([
+                'pegawai_id' => 'required|exists:pegawai,id',
+                'pendidikan_id' => 'required|exists:pendidikan,id',
                 'name' => 'required|string',
+                'jenis_kelamin' => 'required|string',
+                'pekerjaan' => 'required|string',
+                'tempat_tinggal' => 'required|string',
+                'tanggal_lahir' => 'required|date',
+                'status' => 'required|string'
             ]);
-
-            // Create a new record in UnitKerja
-            $unitKerja = UnitKerja::create([
-                'name' => $request->name,
-            ]);
+            // Create a new record in Anak
+            $anak = Anak::create($request->all());
 
             // Return the data with a 201 Created status
             return response()->json([
-                'message' => 'Record created',
-                'data' => $unitKerja
+                'message' => 'Success Create Record',
+                'data' => new AnakResource($anak)
             ], Response::HTTP_CREATED);
         } catch (\Throwable $th) {
             // Return a 500 Internal Server Error response
@@ -109,7 +112,7 @@ class APIUnitKerjaController extends Controller
     }
 
     /**
-     * Update a record in UnitKerja
+     * Update a record in Anak
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id
@@ -120,33 +123,34 @@ class APIUnitKerjaController extends Controller
         try {
             // Validate the request data
             $request->validate([
+                'pegawai_id' => 'required|exists:pegawai,id',
+                'pendidikan_id' => 'required|exists:pendidikan,id',
                 'name' => 'required|string',
+                'jenis_kelamin' => 'required|string',
+                'pekerjaan' => 'required|string',
+                'tempat_tinggal' => 'required|string',
+                'tanggal_lahir' => 'required|date',
+                'status' => 'required|string'
             ]);
 
-            // Retrieve a record from UnitKerja
-            $unitKerja = UnitKerja::find($id);
+            // Find the record in Anak
+            $anak = Anak::find($id);
 
             // Check if the result is empty
-            if ($unitKerja === null) {
+            if ($anak === null) {
                 // Return a 404 Not Found response
                 return response()->json([
                     'message' => 'Record not found'
                 ], Response::HTTP_NOT_FOUND);
             }
 
-            // Validate the request data
-            $request->validate([
-                'name' => 'required|string',
-            ]);
-
-            // Update the record in UnitKerja
-            $unitKerja->name = $request->name;
-            $unitKerja->save();
+            // Update the record in Anak
+            $anak->update($request->all());
 
             // Return the data with a 200 OK status
             return response()->json([
-                'message' => 'Record updated',
-                'data' => $unitKerja
+                'message' => 'Success Update Record',
+                'data' => new AnakResource($anak)
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             // Return a 500 Internal Server Error response
@@ -158,7 +162,7 @@ class APIUnitKerjaController extends Controller
     }
 
     /**
-     * Delete a record from UnitKerja
+     * Delete a record from Anak
      *
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
@@ -166,24 +170,23 @@ class APIUnitKerjaController extends Controller
     public function delete($id)
     {
         try {
-            // Retrieve a record from UnitKerja
-            $unitKerja = UnitKerja::find($id);
+            // Retrieve a record from Anak
+            $anak = Anak::find($id);
 
             // Check if the result is empty
-            if ($unitKerja === null) {
+            if ($anak === null) {
                 // Return a 404 Not Found response
                 return response()->json([
                     'message' => 'Record not found'
                 ], Response::HTTP_NOT_FOUND);
             }
 
-            // Delete the record from UnitKerja
-            $unitKerja->delete();
+            // Delete the record from Anak
+            $anak->delete();
 
             // Return the data with a 200 OK status
             return response()->json([
-                'message' => 'Record deleted',
-                'data' => $unitKerja
+                'message' => 'Success Delete Record',
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             // Return a 500 Internal Server Error response

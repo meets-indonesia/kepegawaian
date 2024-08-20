@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\APIAnakController;
+use App\Http\Controllers\APIPegawaiController;
+use App\Http\Controllers\APIPendidikanController;
 use App\Http\Controllers\APIUnitKerjaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,8 +22,33 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Unit Kerja API
+
 Route::middleware('apikey')->group(function () {
+    // Unit Kerja API
     Route::get('/unit_kerja', [APIUnitKerjaController::class, 'getall']);
     Route::get('/unit_kerja/{id}', [APIUnitKerjaController::class, 'get']);
+    Route::post('/unit_kerja', [APIUnitKerjaController::class, 'create']);
+    Route::put('/unit_kerja/{id}', [APIUnitKerjaController::class, 'update']);
+    Route::delete('/unit_kerja/{id}', [APIUnitKerjaController::class, 'delete']);
+
+    // Pegawai API
+    Route::get('/pegawai', [APIPegawaiController::class, 'getall']);
+    Route::get('/pegawai/{id}', [APIPegawaiController::class, 'get']);
+    Route::post('/pegawai', [APIPegawaiController::class, 'create']);
+    Route::put('/pegawai/{id}', [APIPegawaiController::class, 'update']);
+    Route::delete('/pegawai/{id}', [APIPegawaiController::class, 'delete']);
+
+    // Anak API
+    Route::get('/anak', [APIAnakController::class, 'getall']);
+    Route::get('/anak/{id}', [APIAnakController::class, 'get']);
+    Route::post('/anak', [APIAnakController::class, 'create']);
+    Route::put('/anak/{id}', [APIAnakController::class, 'update']);
+    Route::delete('/anak/{id}', [APIAnakController::class, 'delete']);
+
+    // Pendidikan API
+    Route::get('/pendidikan', [APIPendidikanController::class, 'getall']);
+    Route::get('/pendidikan/{id}', [APIPendidikanController::class, 'get']);
+    Route::post('/pendidikan', [APIPendidikanController::class, 'create']);
+    Route::put('/pendidikan/{id}', [APIPendidikanController::class, 'update']);
+    Route::delete('/pendidikan/{id}', [APIPendidikanController::class, 'delete']);
 });
