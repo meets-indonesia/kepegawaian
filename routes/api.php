@@ -4,7 +4,10 @@ use App\Http\Controllers\APIAnakController;
 use App\Http\Controllers\APIDiklatController;
 use App\Http\Controllers\APIEselonController;
 use App\Http\Controllers\APIFakultasController;
+use App\Http\Controllers\APIGajiPokokController;
 use App\Http\Controllers\APIGolonganController;
+use App\Http\Controllers\APIHukumanDisiplinController;
+use App\Http\Controllers\APIIdentitasController;
 use App\Http\Controllers\APIPegawaiController;
 use App\Http\Controllers\APIPendidikanController;
 use App\Http\Controllers\APIUnitKerjaController;
@@ -84,4 +87,25 @@ Route::middleware('apikey')->group(function () {
     Route::post('/golongan', [APIGolonganController::class, 'create']);
     Route::put('/golongan/{id}', [APIGolonganController::class, 'update']);
     Route::delete('/golongan/{id}', [APIGolonganController::class, 'delete']);
+
+    // GajiPokok API
+    Route::get('/gaji_pokok', [APIGajiPokokController::class, 'getall']);
+    Route::get('/gaji_pokok/{id}', [APIGajiPokokController::class, 'get']);
+    Route::post('/gaji_pokok', [APIGajiPokokController::class, 'create']);
+    Route::put('/gaji_pokok/{id}', [APIGajiPokokController::class, 'update']);
+    Route::delete('/gaji_pokok/{id}', [APIGajiPokokController::class, 'delete']);
+
+    // Hukuman Disiplin API
+    Route::get('/hukuman_disiplin', [APIHukumanDisiplinController::class, 'getall']);
+    Route::get('/hukuman_disiplin/{id}', [APIHukumanDisiplinController::class, 'get']);
+    Route::post('/hukuman_disiplin', [APIHukumanDisiplinController::class, 'create']);
+    Route::put('/hukuman_disiplin/{id}', [APIHukumanDisiplinController::class, 'update']);
+    Route::delete('/hukuman_disiplin/{id}', [APIHukumanDisiplinController::class, 'delete']);
+
+    // Identitas API
+    Route::get('/identitas', [APIIdentitasController::class, 'getall']);
+    Route::get('/identitas/{id}', [APIIdentitasController::class, 'get']);
+    Route::post('/identitas', [APIIdentitasController::class, 'create']);
+    Route::put('/identitas/{id}', [APIIdentitasController::class, 'update']);
+    Route::delete('/identitas/{id}', [APIIdentitasController::class, 'delete']);
 });
