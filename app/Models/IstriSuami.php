@@ -9,8 +9,18 @@ class IstriSuami extends Model
 {
     use HasFactory;
 
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
     protected $table = 'istri_suami';
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'pegawai_id',
         'pendidikan_id',
@@ -21,4 +31,15 @@ class IstriSuami extends Model
         'tempat_tinggal',
         'status',
     ];
+
+    /**
+     * Get the pegawai that owns the IstriSuami
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @var \App\Models\Pegawai
+     */
+    public function pegawai()
+    {
+        return $this->belongsTo(Pegawai::class);
+    }
 }

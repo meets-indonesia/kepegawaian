@@ -9,8 +9,18 @@ class Pegawai extends Model
 {
     use HasFactory;
 
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
     protected $table = 'pegawai';
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'nip',
         'name',
@@ -28,4 +38,142 @@ class Pegawai extends Model
         'jabatan_fungsional_id',
         'jabatan_struktural_id'
     ];
+
+    /**
+     * Get the golongan that owns the Pegawai
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @var \App\Models\Golongan
+     */
+    public function golongan()
+    {
+        return $this->belongsTo(Golongan::class);
+    }
+
+    /**
+     * Get the kelompok_pegawai that owns the Pegawai
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @var \App\Models\KelompokPegawai
+     */
+    public function kelompok_pegawai()
+    {
+        return $this->belongsTo(KelompokPegawai::class);
+    }
+
+    /**
+     * Get the jenis_pegawai that owns the Pegawai
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @var \App\Models\JenisPegawai
+     */
+    public function jenis_pegawai()
+    {
+        return $this->belongsTo(JenisPegawai::class);
+    }
+
+    /**
+     * Get the unit_kerja that owns the Pegawai
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @var \App\Models\UnitKerja
+     */
+    public function unit_kerja()
+    {
+        return $this->belongsTo(UnitKerja::class);
+    }
+
+    /**
+     * Get the jurusan that owns the Pegawai
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @var \App\Models\Jurusan
+     */
+    public function jurusan()
+    {
+        return $this->belongsTo(Jurusan::class);
+    }
+
+    /**
+     * Get the prodi that owns the Pegawai
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @var \App\Models\Prodi
+     */
+
+    public function prodi()
+    {
+        return $this->belongsTo(Prodi::class);
+    }
+
+    /**
+     * Get the grade that owns the Pegawai
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @var \App\Models\Grade
+     */
+    public function grade()
+    {
+        return $this->belongsTo(Grade::class);
+    }
+
+    /**
+     * Get the pendidikan that owns the Pegawai
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @var \App\Models\Pendidikan
+     */
+
+    public function pendidikan()
+    {
+        return $this->belongsTo(Pendidikan::class);
+    }
+
+    /**
+     * Get the jabatan_fungsional that owns the Pegawai
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @var \App\Models\JabatanFungsional
+     */
+
+    public function jabatan_fungsional()
+    {
+        return $this->belongsTo(JabatanFungsional::class);
+    }
+
+    /**
+     * Get the jabatan_struktural that owns the Pegawai
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @var \App\Models\JabatanStruktural
+     */
+
+    public function jabatan_struktural()
+    {
+        return $this->belongsTo(JabatanStruktural::class);
+    }
+
+    /**
+     * Get the anak for the Pegawai
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @var \App\Models\Anak
+     */
+
+    public function anak()
+    {
+        return $this->hasMany(Anak::class);
+    }
+
+    /**
+     * Get the latihan_jabatan for the Pegawai
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @var \App\Models\LatihanJabatan
+     */
+
+    public function latihan_jabatan()
+    {
+        return $this->hasMany(LatihanJabatan::class);
+    }
 }
