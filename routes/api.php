@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\APIAnakController;
+use App\Http\Controllers\APIDiklatController;
 use App\Http\Controllers\APIPegawaiController;
 use App\Http\Controllers\APIPendidikanController;
 use App\Http\Controllers\APIUnitKerjaController;
@@ -51,4 +52,11 @@ Route::middleware('apikey')->group(function () {
     Route::post('/pendidikan', [APIPendidikanController::class, 'create']);
     Route::put('/pendidikan/{id}', [APIPendidikanController::class, 'update']);
     Route::delete('/pendidikan/{id}', [APIPendidikanController::class, 'delete']);
+
+    // Diklat API
+    Route::get('/diklat', [APIDiklatController::class, 'getall']);
+    Route::get('/diklat/{id}', [APIDiklatController::class, 'get']);
+    Route::post('/diklat', [APIDiklatController::class, 'create']);
+    Route::put('/diklat/{id}', [APIDiklatController::class, 'update']);
+    Route::delete('/diklat/{id}', [APIDiklatController::class, 'delete']);
 });
