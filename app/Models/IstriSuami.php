@@ -42,4 +42,15 @@ class IstriSuami extends Model
     {
         return $this->belongsTo(Pegawai::class);
     }
+
+    /**
+     * Get the pendidikan that owns the IstriSuami
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @var \App\Models\Pendidikan
+     */
+    public function pendidikan()
+    {
+        return $this->belongsTo(Pendidikan::class);
+    }
 }

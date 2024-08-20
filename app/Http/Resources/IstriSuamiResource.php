@@ -14,6 +14,18 @@ class IstriSuamiResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'nama' => $this->nama,
+            'pekerjaan' => $this->pekerjaan,
+            'tempat_tinggal' => $this->tempat_tinggal,
+            'status' => $this->status,
+            'tanggal_lahir' => $this->tanggal_lahir,
+            'tanggal_nikah' => $this->tanggal_nikah,
+            'pegawai' => new PegawaiResource($this->whenLoaded('pegawai')),
+            'pendidikan' => new PendidikanResource($this->whenLoaded('pendidikan')),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
     }
 }

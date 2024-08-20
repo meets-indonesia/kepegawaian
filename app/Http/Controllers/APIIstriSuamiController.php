@@ -20,7 +20,10 @@ class APIIstriSuamiController extends Controller
     {
         try {
             // Retrieve all records from IstriSuami
-            $istriSuami = IstriSuami::all();
+            $istriSuami = IstriSuami::with([
+                'pegawai',
+                'pendidikan'
+            ])->get();
 
             // Check if the result is empty
             if ($istriSuami->isEmpty()) {
@@ -53,7 +56,10 @@ class APIIstriSuamiController extends Controller
     {
         try {
             // Retrieve a record from IstriSuami
-            $istriSuami = IstriSuami::find($id);
+            $istriSuami = IstriSuami::with([
+                'pegawai',
+                'pendidikan'
+            ])->find($id);
 
             // Check if the result is empty
             if ($istriSuami === null) {
