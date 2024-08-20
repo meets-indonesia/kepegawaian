@@ -4,9 +4,11 @@ use App\Http\Controllers\APIAnakController;
 use App\Http\Controllers\APIDiklatController;
 use App\Http\Controllers\APIEselonController;
 use App\Http\Controllers\APIFakultasController;
+use App\Http\Controllers\APIGolonganController;
 use App\Http\Controllers\APIPegawaiController;
 use App\Http\Controllers\APIPendidikanController;
 use App\Http\Controllers\APIUnitKerjaController;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -75,4 +77,11 @@ Route::middleware('apikey')->group(function () {
     Route::post('/fakultas', [APIFakultasController::class, 'create']);
     Route::put('/fakultas/{id}', [APIFakultasController::class, 'update']);
     Route::delete('/fakultas/{id}', [APIFakultasController::class, 'delete']);
+
+    // Golongan API
+    Route::get('/golongan', [APIGolonganController::class, 'getall']);
+    Route::get('/golongan/{id}', [APIGolonganController::class, 'get']);
+    Route::post('/golongan', [APIGolonganController::class, 'create']);
+    Route::put('/golongan/{id}', [APIGolonganController::class, 'update']);
+    Route::delete('/golongan/{id}', [APIGolonganController::class, 'delete']);
 });
