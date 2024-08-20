@@ -8,6 +8,7 @@ use App\Http\Controllers\APIGajiPokokController;
 use App\Http\Controllers\APIGolonganController;
 use App\Http\Controllers\APIHukumanDisiplinController;
 use App\Http\Controllers\APIIdentitasController;
+use App\Http\Controllers\APIIstriSuamiController;
 use App\Http\Controllers\APIPegawaiController;
 use App\Http\Controllers\APIPendidikanController;
 use App\Http\Controllers\APIUnitKerjaController;
@@ -108,4 +109,11 @@ Route::middleware('apikey')->group(function () {
     Route::post('/identitas', [APIIdentitasController::class, 'create']);
     Route::put('/identitas/{id}', [APIIdentitasController::class, 'update']);
     Route::delete('/identitas/{id}', [APIIdentitasController::class, 'delete']);
+
+    // IstriSuami API
+    Route::get('/istri_suami', [APIIstriSuamiController::class, 'getall']);
+    Route::get('/istri_suami/{id}', [APIIstriSuamiController::class, 'get']);
+    Route::post('/istri_suami', [APIIstriSuamiController::class, 'create']);
+    Route::put('/istri_suami/{id}', [APIIstriSuamiController::class, 'update']);
+    Route::delete('/istri_suami/{id}', [APIIstriSuamiController::class, 'delete']);
 });
