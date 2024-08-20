@@ -2,25 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\AnakResource;
-use App\Models\Anak;
+use App\Http\Resources\GajiPokokResource;
+use App\Models\GajiPokok;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class APIAnakController extends Controller
+class APIGajiPokokController extends Controller
 {
     /**
-     * Get all records from Anak
-     *
+     * Get all records from GajiPokok
+     * 
      * @return \Illuminate\Http\JsonResponse
-     * @var \App\Models\Anak
+     * @var \App\Models\GajiPokok
      */
     public function getall()
     {
         try {
-            $anak = Anak::with(['pegawai', 'pendidikan'])->get();
+            // Retrieve all records from GajiPokok
+            $gajiPokok = GajiPokok::with(['golongan'])->get();
+
             // Check if the result is empty
-            if ($anak->isEmpty()) {
+            if ($gajiPokok->isEmpty()) {
+
                 // Return a 404 Not Found response
                 return response()->json([
                     'message' => 'No records found'
@@ -29,7 +32,7 @@ class APIAnakController extends Controller
             // Return the data with a 200 OK status
             return response()->json([
                 'message' => 'Success',
-                'data' =>  AnakResource::collection($anak)
+                'data' => GajiPokokResource::collection($gajiPokok)
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             // Return a 500 Internal Server Error response
@@ -41,19 +44,21 @@ class APIAnakController extends Controller
     }
 
     /**
-     * Get a record from Anak
-     *
+     * Get a record from GajiPokok
+     * 
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function get($id)
     {
         try {
-            // Retrieve a record from Anak
-            $anak = Anak::with(['pegawai', 'pendidikan'])->find($id);
+            // Retrieve a record from GajiPokok
+            $gajiPokok = GajiPokok::with([
+                'golongan'
+            ])->find($id);
 
             // Check if the result is empty
-            if ($anak === null) {
+            if ($gajiPokok === null) {
                 // Return a 404 Not Found response
                 return response()->json([
                     'message' => 'Record not found'
@@ -63,7 +68,7 @@ class APIAnakController extends Controller
             // Return the data with a 200 OK status
             return response()->json([
                 'message' => 'Success',
-                'data' => new AnakResource($anak)
+                'data' => new GajiPokokResource($gajiPokok)
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             // Return a 500 Internal Server Error response
@@ -75,31 +80,28 @@ class APIAnakController extends Controller
     }
 
     /**
-     * Create a new record in Anak
-     *
-     * @param \Illuminate\Http\Request $request
+     * Create a new record in GajiPokok
+     * 
+     * @param \Illuminate\Http\Request
      * @return \Illuminate\Http\JsonResponse
      */
     public function create(Request $request)
     {
         try {
-            // validate the request
+            // Validate the request
             $request->validate([
-                'pegawai_id' => 'required|exists:pegawai,id',
-                'pendidikan_id' => 'required|exists:pendidikan,id',
-                'name' => 'required|string',
-                'jenis_kelamin' => 'required|string',
-                'pekerjaan' => 'required|string',
-                'tempat_tinggal' => 'required|string',
-                'tanggal_lahir' => 'required|date',
-                'status' => 'required|string'
+                'golongan_id' => 'required|exists:golongans,id',
+                'masa_kerja' => 'required||string',
+                'gaji_pokok' => 'required|numeric'
             ]);
-            // Create a new record in Anak
-            $anak = Anak::create($request->all());
+
+            // Create a new record in GajiPokok
+            $gajiPokok = GajiPokok::create($request->all());
 
             // Return the data with a 201 Created status
             return response()->json([
-                'message' => 'Success Create Record',
+                'message' => 'Success',
+                'data' => new GajiPokokResource($gajiPokok)
             ], Response::HTTP_CREATED);
         } catch (\Throwable $th) {
             // Return a 500 Internal Server Error response
@@ -111,8 +113,8 @@ class APIAnakController extends Controller
     }
 
     /**
-     * Update a record in Anak
-     *
+     * Update a record in GajiPokok
+     * 
      * @param \Illuminate\Http\Request $request
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
@@ -120,35 +122,31 @@ class APIAnakController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            // Validate the request data
+            // Validate the request
             $request->validate([
-                'pegawai_id' => 'required|exists:pegawai,id',
-                'pendidikan_id' => 'required|exists:pendidikan,id',
-                'name' => 'required|string',
-                'jenis_kelamin' => 'required|string',
-                'pekerjaan' => 'required|string',
-                'tempat_tinggal' => 'required|string',
-                'tanggal_lahir' => 'required|date',
-                'status' => 'required|string'
+                'golongan_id' => 'required|exists:golongans,id',
+                'masa_kerja' => 'required||string',
+                'gaji_pokok' => 'required|numeric'
             ]);
 
-            // Find the record in Anak
-            $anak = Anak::find($id);
+            // Retrieve a record from GajiPokok
+            $gajiPokok = GajiPokok::find($id);
 
             // Check if the result is empty
-            if ($anak === null) {
+            if ($gajiPokok === null) {
                 // Return a 404 Not Found response
                 return response()->json([
                     'message' => 'Record not found'
                 ], Response::HTTP_NOT_FOUND);
             }
 
-            // Update the record in Anak
-            $anak->update($request->all());
+            // Update the record in GajiPokok
+            $gajiPokok->update($request->all());
 
             // Return the data with a 200 OK status
             return response()->json([
-                'message' => 'Success Update Record',
+                'message' => 'Success',
+                'data' => new GajiPokokResource($gajiPokok)
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             // Return a 500 Internal Server Error response
@@ -160,31 +158,31 @@ class APIAnakController extends Controller
     }
 
     /**
-     * Delete a record from Anak
-     *
+     * Delete a record from GajiPokok
+     * 
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function delete($id)
     {
         try {
-            // Retrieve a record from Anak
-            $anak = Anak::find($id);
+            // Find a record in GajiPokok
+            $gajiPokok = GajiPokok::find($id);
 
             // Check if the result is empty
-            if ($anak === null) {
+            if ($gajiPokok === null) {
                 // Return a 404 Not Found response
                 return response()->json([
                     'message' => 'Record not found'
                 ], Response::HTTP_NOT_FOUND);
             }
 
-            // Delete the record from Anak
-            $anak->delete();
+            // Delete the record from GajiPokok
+            $gajiPokok->delete();
 
-            // Return the data with a 200 OK status
+            // Return a 200 OK response
             return response()->json([
-                'message' => 'Success Delete Record',
+                'message' => 'Success'
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             // Return a 500 Internal Server Error response
