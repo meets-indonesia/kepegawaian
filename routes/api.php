@@ -9,6 +9,8 @@ use App\Http\Controllers\APIGolonganController;
 use App\Http\Controllers\APIHukumanDisiplinController;
 use App\Http\Controllers\APIIdentitasController;
 use App\Http\Controllers\APIIstriSuamiController;
+use App\Http\Controllers\APIJabatanFungsionalController;
+use App\Http\Controllers\APIJabatanStrukturalController;
 use App\Http\Controllers\APIPegawaiController;
 use App\Http\Controllers\APIPendidikanController;
 use App\Http\Controllers\APIUnitKerjaController;
@@ -116,4 +118,18 @@ Route::middleware('apikey')->group(function () {
     Route::post('/istri_suami', [APIIstriSuamiController::class, 'create']);
     Route::put('/istri_suami/{id}', [APIIstriSuamiController::class, 'update']);
     Route::delete('/istri_suami/{id}', [APIIstriSuamiController::class, 'delete']);
+
+    // JabatanFungsional API
+    Route::get('/jabatan_fungsional', [APIJabatanFungsionalController::class, 'getall']);
+    Route::get('/jabatan_fungsional/{id}', [APIJabatanFungsionalController::class, 'get']);
+    Route::post('/jabatan_fungsional', [APIJabatanFungsionalController::class, 'create']);
+    Route::put('/jabatan_fungsional/{id}', [APIJabatanFungsionalController::class, 'update']);
+    Route::delete('/jabatan_fungsional/{id}', [APIJabatanFungsionalController::class, 'delete']);
+
+    // JabatanStruktural API
+    Route::get('/jabatan_struktural', [APIJabatanStrukturalController::class, 'getall']);
+    Route::get('/jabatan_struktural/{id}', [APIJabatanStrukturalController::class, 'get']);
+    Route::post('/jabatan_struktural', [APIJabatanStrukturalController::class, 'create']);
+    Route::put('/jabatan_struktural/{id}', [APIJabatanStrukturalController::class, 'update']);
+    Route::delete('/jabatan_struktural/{id}', [APIJabatanStrukturalController::class, 'delete']);
 });
