@@ -19,7 +19,7 @@ class APIFakultasController extends Controller
     public function getall()
     {
         try {
-            $fakultas = Fakultas::all();
+            $fakultas = Fakultas::with('jurusan')->get();
             // Check if the result is empty
             if ($fakultas->isEmpty()) {
                 // Return a 404 Not Found response
@@ -51,7 +51,7 @@ class APIFakultasController extends Controller
     {
         try {
             // Retrieve a record from Fakultas
-            $fakultas = Fakultas::find($id);
+            $fakultas = Fakultas::with('jurusan.prodi')->find($id);
 
             // Check if the result is empty
             if ($fakultas === null) {

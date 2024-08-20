@@ -96,8 +96,7 @@ class APIUnitKerjaController extends Controller
 
             // Return the data with a 201 Created status
             return response()->json([
-                'message' => 'Record created',
-                'data' => $unitKerja
+                'message' => 'Success create new record',
             ], Response::HTTP_CREATED);
         } catch (\Throwable $th) {
             // Return a 500 Internal Server Error response
@@ -145,8 +144,7 @@ class APIUnitKerjaController extends Controller
 
             // Return the data with a 200 OK status
             return response()->json([
-                'message' => 'Record updated',
-                'data' => $unitKerja
+                'message' => 'Success update record',
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             // Return a 500 Internal Server Error response
@@ -182,8 +180,7 @@ class APIUnitKerjaController extends Controller
 
             // Return the data with a 200 OK status
             return response()->json([
-                'message' => 'Record deleted',
-                'data' => $unitKerja
+                'message' => 'Success delete record',
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             // Return a 500 Internal Server Error response

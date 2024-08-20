@@ -19,7 +19,7 @@ class APIGolonganController extends Controller
     {
         try {
             // Get all records from Golongan
-            $golongan = Golongan::all();
+            $golongan = Golongan::with('gajiPokok')->get();
             // Check if the result is empty
             if ($golongan->isEmpty()) {
                 return response()->json([
@@ -50,7 +50,7 @@ class APIGolonganController extends Controller
     {
         try {
             // Retrieve a record from Golongan
-            $golongan = Golongan::find($id);
+            $golongan = Golongan::with('gajiPokok')->find($id);
 
             // Check if the result is empty
             if ($golongan === null) {

@@ -19,7 +19,7 @@ class APIGajiPokokController extends Controller
     {
         try {
             // Retrieve all records from GajiPokok
-            $gajiPokok = GajiPokok::with(['golongan'])->get();
+            $gajiPokok = GajiPokok::all();
 
             // Check if the result is empty
             if ($gajiPokok->isEmpty()) {
@@ -53,9 +53,7 @@ class APIGajiPokokController extends Controller
     {
         try {
             // Retrieve a record from GajiPokok
-            $gajiPokok = GajiPokok::with([
-                'golongan'
-            ])->find($id);
+            $gajiPokok = GajiPokok::find($id);
 
             // Check if the result is empty
             if ($gajiPokok === null) {
@@ -90,7 +88,7 @@ class APIGajiPokokController extends Controller
         try {
             // Validate the request
             $request->validate([
-                'golongan_id' => 'required|exists:golongans,id',
+                'golongan_id' => 'required|exists:golongan,id',
                 'masa_kerja' => 'required||string',
                 'gaji_pokok' => 'required|numeric'
             ]);
@@ -100,8 +98,7 @@ class APIGajiPokokController extends Controller
 
             // Return the data with a 201 Created status
             return response()->json([
-                'message' => 'Success',
-                'data' => new GajiPokokResource($gajiPokok)
+                'message' => 'Success create new record',
             ], Response::HTTP_CREATED);
         } catch (\Throwable $th) {
             // Return a 500 Internal Server Error response
@@ -124,7 +121,7 @@ class APIGajiPokokController extends Controller
         try {
             // Validate the request
             $request->validate([
-                'golongan_id' => 'required|exists:golongans,id',
+                'golongan_id' => 'required|exists:golongan,id',
                 'masa_kerja' => 'required||string',
                 'gaji_pokok' => 'required|numeric'
             ]);
@@ -145,8 +142,7 @@ class APIGajiPokokController extends Controller
 
             // Return the data with a 200 OK status
             return response()->json([
-                'message' => 'Success',
-                'data' => new GajiPokokResource($gajiPokok)
+                'message' => 'Success update record',
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             // Return a 500 Internal Server Error response

@@ -20,7 +20,7 @@ class APIJurusanController extends Controller
     {
         try {
             // Retrieve all records from Jurusan
-            $jurusan = Jurusan::all();
+            $jurusan = Jurusan::with('prodi')->get();
 
             // Check if the result is empty
             if ($jurusan->isEmpty()) {
@@ -53,7 +53,7 @@ class APIJurusanController extends Controller
     {
         try {
             // Retrieve a record from Jurusan
-            $jurusan = Jurusan::find($id);
+            $jurusan = Jurusan::with('fakultas')->find($id);
 
             // Check if the result is empty
             if ($jurusan === null) {

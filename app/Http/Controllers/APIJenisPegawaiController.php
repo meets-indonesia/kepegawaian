@@ -91,9 +91,7 @@ class APIJenisPegawaiController extends Controller
             ]);
 
             // Create a new record
-            $jenisPegawai = new JenisPegawai();
-            $jenisPegawai->nama_jenis_pegawai = $request->nama_jenis_pegawai;
-            $jenisPegawai->save();
+            $jenisPegawai = JenisPegawai::create($request->all());
 
             // Return a 201 Created response
             return response()->json([
@@ -123,10 +121,18 @@ class APIJenisPegawaiController extends Controller
                 'name' => 'required|string'
             ]);
 
-            // Find the record and update it
+            // Retrieve a record from JabatanStruktural
             $jenisPegawai = JenisPegawai::find($id);
-            $jenisPegawai->nama_jenis_pegawai = $request->nama_jenis_pegawai;
-            $jenisPegawai->save();
+
+            // Check if the result is empty
+            if ($jenisPegawai === null) {
+                return response()->json([
+                    'message' => 'Record not found'
+                ], Response::HTTP_NOT_FOUND);
+            }
+
+            // Update the record
+            $jenisPegawai->update($request->all());
 
             // Return a 200 OK response
             return response()->json([

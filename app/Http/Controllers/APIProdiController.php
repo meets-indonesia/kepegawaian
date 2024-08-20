@@ -19,7 +19,7 @@ class APIProdiController extends Controller
     {
         try {
             // Retrieve all records from Prodi
-            $prodi = Prodi::all();
+            $prodi = Prodi::with('jurusan')->get();
 
             // Check if the result is empty
             if ($prodi->isEmpty()) {
@@ -52,7 +52,7 @@ class APIProdiController extends Controller
     {
         try {
             // Retrieve a record from Prodi
-            $prodi = Prodi::find($id);
+            $prodi = Prodi::with('jurusan')->find($id);
 
             // Check if the result is empty
             if ($prodi === null) {

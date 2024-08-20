@@ -18,7 +18,6 @@ class GajiPokokResource extends JsonResource
             'id' => $this->id,
             'masa_kerja' => $this->masa_kerja,
             'gaji_pokok' => $this->gaji_pokok,
-            'golongan' => new GolonganResource($this->whenLoaded('golongan')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
