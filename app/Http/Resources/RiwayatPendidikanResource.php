@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class LatihanJabatanResource extends JsonResource
+class RiwayatPendidikanResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +16,13 @@ class LatihanJabatanResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'tahun' => $this->tahun,
-            'jam' => $this->jam,
-            'sertifikat' => $this->sertifikat,
+            'jurusan_id' => $this->jurusan_id,
+            'tanggal_lulus' => $this->tanggal_lulus,
+            'nama_sekolah' => $this->nama_sekolah,
+            'gelar_depan' => $this->gelar_depan,
+            'gelar_belakang' => $this->gelar_belakang,
             'pegawai' => new PegawaiResource($this->whenLoaded('pegawai')),
+            'pendidikan' => new PendidikanResource($this->whenLoaded('pendidikan')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

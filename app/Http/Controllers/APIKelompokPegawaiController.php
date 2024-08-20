@@ -2,27 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\JabatanStrukturalResource;
-use App\Models\JabatanStruktural;
+use App\Http\Resources\KelompokPegawaiResource;
+use App\Models\KelompokPegawai;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class APIJabatanStrukturalController extends Controller
+class APIKelompokPegawaiController extends Controller
 {
     /**
-     * Get all records from JabatanStruktural
+     *  Get all records from KelompokPegawai
      * 
-     * @return \Illuminate\Http\JsonResponse
-     * @var \App\Models\JabatanStruktural
+     *  @return \Illuminate\Http\JsonResponse
+     *  @var \App\Models\KelompokPegawai
      */
     public function getall()
     {
         try {
-            // Retrieve all records from JabatanStruktural
-            $jabatanStruktural = JabatanStruktural::with(['eselon'])->get();
+            // Retrieve all records from KelompokPegawai
+            $kelompokPegawai = KelompokPegawai::all();
 
             // Check if the result is empty
-            if ($jabatanStruktural->isEmpty()) {
+            if ($kelompokPegawai->isEmpty()) {
+                // Return a 404 Not Found response
                 return response()->json([
                     'message' => 'No records found'
                 ], Response::HTTP_NOT_FOUND);
@@ -31,7 +32,7 @@ class APIJabatanStrukturalController extends Controller
             // Return the data with a 200 OK status
             return response()->json([
                 'message' => 'Success',
-                'data' => JabatanStrukturalResource::collection($jabatanStruktural)
+                'data' => KelompokPegawaiResource::collection($kelompokPegawai)
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             // Return a 500 Internal Server Error response
@@ -43,7 +44,7 @@ class APIJabatanStrukturalController extends Controller
     }
 
     /**
-     * Get a record from JabatanStruktural
+     * Get a record from KelompokPegawai
      * 
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
@@ -51,11 +52,12 @@ class APIJabatanStrukturalController extends Controller
     public function get($id)
     {
         try {
-            // Retrieve a record from JabatanStruktural
-            $jabatanStruktural = JabatanStruktural::with(['eselon'])->find($id);
+            // Retrieve a record from KelompokPegawai
+            $kelompokPegawai = KelompokPegawai::find($id);
 
             // Check if the result is empty
-            if ($jabatanStruktural === null) {
+            if ($kelompokPegawai === null) {
+                // Return a 404 Not Found response
                 return response()->json([
                     'message' => 'Record not found'
                 ], Response::HTTP_NOT_FOUND);
@@ -64,7 +66,7 @@ class APIJabatanStrukturalController extends Controller
             // Return the data with a 200 OK status
             return response()->json([
                 'message' => 'Success',
-                'data' => new JabatanStrukturalResource($jabatanStruktural)
+                'data' => new KelompokPegawaiResource($kelompokPegawai)
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             // Return a 500 Internal Server Error response
@@ -76,7 +78,7 @@ class APIJabatanStrukturalController extends Controller
     }
 
     /**
-     * Create a new record in JabatanStruktural
+     * Create a new record in KelompokPegawai
      * 
      * @param \Illuminate\Http\Request
      * @return \Illuminate\Http\JsonResponse
@@ -86,13 +88,13 @@ class APIJabatanStrukturalController extends Controller
         try {
             // Validate the request
             $request->validate([
-                'name' => 'required|string',
-                'masa' => 'required|numeric',
-                'eselon_id' => 'required|exists:eselon,id',
+                'nama' => 'required|string'
             ]);
 
-            // Create a new record in JabatanStruktural
-            $jabatanStruktural = JabatanStruktural::create($request->all());
+            // Create a new record in KelompokPegawai
+            $kelompokPegawai = KelompokPegawai::create([
+                'nama' => $request->nama
+            ]);
 
             // Return the data with a 201 Created status
             return response()->json([
@@ -108,7 +110,7 @@ class APIJabatanStrukturalController extends Controller
     }
 
     /**
-     * Update a record in JabatanStruktural
+     * Update a record in KelompokPegawai
      * 
      * @param \Illuminate\Http\Request $request
      * @param int $id
@@ -119,23 +121,24 @@ class APIJabatanStrukturalController extends Controller
         try {
             // Validate the request
             $request->validate([
-                'name' => 'required|string',
-                'masa' => 'required|numeric',
-                'eselon_id' => 'required|exists:eselon,id',
+                'nama' => 'required|string'
             ]);
 
-            // Retrieve a record from JabatanStruktural
-            $jabatanStruktural = JabatanStruktural::find($id);
+            // Retrieve a record from KelompokPegawai
+            $kelompokPegawai = KelompokPegawai::find($id);
 
             // Check if the result is empty
-            if ($jabatanStruktural === null) {
+            if ($kelompokPegawai === null) {
+                // Return a 404 Not Found response
                 return response()->json([
                     'message' => 'Record not found'
                 ], Response::HTTP_NOT_FOUND);
             }
 
-            // Update the record
-            $jabatanStruktural->update($request->all());
+            // Update the record in KelompokPegawai
+            $kelompokPegawai->update([
+                'nama' => $request->nama
+            ]);
 
             // Return the data with a 200 OK status
             return response()->json([
@@ -151,7 +154,7 @@ class APIJabatanStrukturalController extends Controller
     }
 
     /**
-     * Delete a record from JabatanStruktural
+     * Delete a record from KelompokPegawai
      * 
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
@@ -159,22 +162,23 @@ class APIJabatanStrukturalController extends Controller
     public function delete($id)
     {
         try {
-            // Find a record in JabatanStruktural
-            $jabatanStruktural = JabatanStruktural::find($id);
+            // Retrieve a record from KelompokPegawai
+            $kelompokPegawai = KelompokPegawai::find($id);
 
             // Check if the result is empty
-            if ($jabatanStruktural === null) {
+            if ($kelompokPegawai === null) {
+                // Return a 404 Not Found response
                 return response()->json([
                     'message' => 'Record not found'
                 ], Response::HTTP_NOT_FOUND);
             }
 
-            // Delete the record
-            $jabatanStruktural->delete();
+            // Delete the record from KelompokPegawai
+            $kelompokPegawai->delete();
 
             // Return the data with a 200 OK status
             return response()->json([
-                'message' => 'Success delete record',
+                'message' => 'Success delete record'
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             // Return a 500 Internal Server Error response

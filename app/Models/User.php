@@ -22,19 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role_id',
-        'first_name',
-        'last_name',
-        'birth_of_day',
-        'address1',
-        'address2',
-        'city',
-        'state',
-        'phone',
-        'country',
-        'avatar',
-        'is_active',
-        'last_login',
-        'activation',
+        'last_login'
     ];
 
     /**
