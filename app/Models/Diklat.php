@@ -9,8 +9,18 @@ class Diklat extends Model
 {
     use HasFactory;
 
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
     protected $table = 'diklat';
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'pegawai_id',
         'name',
@@ -23,4 +33,15 @@ class Diklat extends Model
         'tanggal_sttp',
         'sertifikat'
     ];
+
+    /**
+     * Get the pegawai that owns the Diklat
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @var \App\Models\Pegawai
+     */
+    public function pegawai()
+    {
+        return $this->belongsTo(Pegawai::class);
+    }
 }

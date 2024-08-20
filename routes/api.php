@@ -20,5 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // Unit Kerja API
-Route::get(('/unit-kerja'), [APIUnitKerjaController::class, 'getall']);
-Route::get(('/unit-kerja/{id}'), [APIUnitKerjaController::class, 'get']);
+Route::middleware('apikey')->group(function () {
+    Route::get('/unit_kerja', [APIUnitKerjaController::class, 'getall']);
+    Route::get('/unit_kerja/{id}', [APIUnitKerjaController::class, 'get']);
+});
