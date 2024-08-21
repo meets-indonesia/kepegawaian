@@ -74,7 +74,11 @@
                               <label for="fakultasName" class="form-label">Nama Fakultas</label>
                               <select class="form-control" name="fakultas_id" required>
                                 @foreach($fakultas as $item)
-                                  <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                  <option value="{{ $item->id }}" 
+                                    @if ($jurusan->fakultas_id == $item->id)
+                                      selected
+                                    @endif
+                                  >{{ $item->name }}</option>
                                 @endforeach
                               </select>
                             </div>

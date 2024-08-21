@@ -1,3 +1,30 @@
+  @php
+    $settings = array('unit-kerja', 'fakultas', 'jurusan', 'program-studi', 'kelompok-pegawai', 'jenis-pegawai');
+
+    $referensi = array('golongan', 'struktur', 'gaji-pokok', 'jabatan-struktural', 'jabatan-fungsional', 'grade', 'pendidikan', 'hukuman-disiplin', 'lokasi-kerja', 'eselon');
+
+    $collapseSetting = 'collapse';
+    $collapsedSetting = 'collapsed';
+
+    $collapseReferensi = 'collapse';
+    $collapsedReferensi = 'collapsed';
+
+    $namepage = '';
+
+    if(isset($pagename)) {
+      $namepage = $pagename;
+    }
+
+    if(in_array($namepage, $settings)){
+      $collapseSetting = 'collapse show';
+      $collapsedSetting = '';
+    }
+
+    if(in_array($namepage, $referensi)){
+      $collapseReferensi = 'collapse show';
+      $collapsedReferensi = '';
+    }
+  @endphp
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
 
@@ -18,10 +45,10 @@
       </li><!-- End Pegawai Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link {{$collapsedSetting}}" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-menu-button-wide"></i><span>Settings</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="components-nav" class="nav-content {{$collapseSetting}} " data-bs-parent="#sidebar-nav">
           <li>
             <a href="/unit-kerja">
               <i class="bi bi-circle"></i><span>Unit Kerja</span>
@@ -52,24 +79,14 @@
               <i class="bi bi-circle"></i><span>Jenis Pegawai</span>
             </a>
           </li>
-          <li>
-            <a href="/group-user">
-              <i class="bi bi-circle"></i><span>Group User</span>
-            </a>
-          </li>
-          <li>
-            <a href="/user">
-              <i class="bi bi-circle"></i><span>User</span>
-            </a>
-          </li>
         </ul>
       </li><!-- End Settings Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link {{$collapsedReferensi}}" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-journal-text"></i><span>Referensi</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="forms-nav" class="nav-content {{$collapseReferensi}} " data-bs-parent="#sidebar-nav">
           <li>
             <a href="/golongan">
               <i class="bi bi-circle"></i><span>Golongan</span>
@@ -153,22 +170,17 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-bar-chart"></i><span>Space 1</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-bar-chart"></i><span>Access Permission</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="charts-chartjs.html">
-              <i class="bi bi-circle"></i><span>Chart.js</span>
+            <a href="/group-user">
+              <i class="bi bi-circle"></i><span>Roles</span>
             </a>
           </li>
           <li>
-            <a href="charts-apexcharts.html">
-              <i class="bi bi-circle"></i><span>ApexCharts</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-echarts.html">
-              <i class="bi bi-circle"></i><span>ECharts</span>
+            <a href="/user">
+              <i class="bi bi-circle"></i><span>Users</span>
             </a>
           </li>
         </ul>

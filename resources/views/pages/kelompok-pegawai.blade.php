@@ -23,4 +23,87 @@
       
   </div>
 </div>
+
+<!-- Table to display Kelompok Pegawai data -->
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nama Kelompok Pegawai</th>
+            <th scope="col">Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($data as $kelompokPegawai)
+        <tr>
+            <td>{{ $kelompokPegawai->id }}</td>
+            <td>{{ $kelompokPegawai->name }}</td>
+            <td>
+                <!-- Edit and Delete buttons (Optional) -->
+                <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $kelompokPegawai->id }}">
+                    Edit
+                </button>
+                <form action="{{ route('kelompok-pegawai.destroy', $kelompokPegawai->id) }}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+
+        <!-- Edit Modal (Optional, if you want to implement editing functionality) -->
+        <div class="modal fade" id="editModal{{ $kelompokPegawai->id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="editModalLabel">Edit Kelompok Pegawai</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editKelompokPegawaiForm{{ $kelompokPegawai->id }}" action="{{ route('kelompok-pegawai.update', $kelompokPegawai->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <div class="mb-3">
+                                <input type="hidden" value="{{$kelompokPegawai->id}}" name="id">
+                                <label for="editKelompokPegawaiName{{ $kelompokPegawai->id }}" class="form-label">Nama Kelompok Pegawai</label>
+                                <input type="text" class="form-control" id="editKelompokPegawaiName{{ $kelompokPegawai->id }}" name="name" value="{{ $kelompokPegawai->name }}" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary" form="editKelompokPegawaiForm{{ $kelompokPegawai->id }}">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
+    </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Kelompok Pegawai</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Form to insert data into KelompokPegawaiController -->
+        <form id="kelompokPegawaiForm" action="{{ route('kelompok-pegawai.store') }}" method="POST">
+          @csrf <!-- Include CSRF token for security -->
+          <div class="mb-3">
+            <label for="kelompokPegawaiName" class="form-label">Nama Kelompok Pegawai</label>
+            <input type="text" class="form-control" id="kelompokPegawaiName" name="name" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <button type="submit" class="btn btn-primary" form="kelompokPegawaiForm">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection

@@ -114,7 +114,7 @@ class PegawaiController extends Controller
     {
         // Validate the incoming request data
         $validated = $request->validate([
-            'nip' => 'required|unique:pegawai,nip,',
+            'nip' => 'required',
             'name' => 'required|string|max:255',
             'email' => 'required|email',
             'golongan_id' => 'required',
