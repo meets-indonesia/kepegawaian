@@ -12,7 +12,11 @@ class KelompokPegawaiController extends Controller
      */
     public function index()
     {
-        //
+        $data = KelompokPegawai::all();
+        return view('pages.kelompok-pegawai', [
+            'pagename' => "kelompok-pegawai",
+            'data' => $data
+        ]);
     }
 
     /**

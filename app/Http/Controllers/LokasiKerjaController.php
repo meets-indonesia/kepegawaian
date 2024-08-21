@@ -12,7 +12,11 @@ class LokasiKerjaController extends Controller
      */
     public function index()
     {
-        //
+        $data = LokasiKerja::all();
+        return view('pages.lokasi-kerja', [
+            'pagename' => "lokasi-kerja",
+            'data' => $data
+        ]);
     }
 
     /**

@@ -12,7 +12,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $data = User::all();
+        return view('pages.user', [
+            'pagename' => "user",
+            'data' => $data
+        ]);
     }
 
     /**

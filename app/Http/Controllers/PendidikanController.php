@@ -12,7 +12,11 @@ class PendidikanController extends Controller
      */
     public function index()
     {
-        //
+        $data = Pendidikan::all();
+        return view('pages.pendidikan', [
+            'pagename' => "pendidikan",
+            'data' => $data
+        ]);
     }
 
     /**

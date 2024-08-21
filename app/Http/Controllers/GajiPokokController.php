@@ -12,7 +12,11 @@ class GajiPokokController extends Controller
      */
     public function index()
     {
-        //
+        $data = GajiPokok::all();
+        return view('pages.gaji-pokok', [
+            'pagename' => "gaji-pokok",
+            'data' => $data
+        ]);
     }
 
     /**

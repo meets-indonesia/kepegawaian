@@ -12,7 +12,11 @@ class EselonController extends Controller
      */
     public function index()
     {
-        //
+        $data = Eselon::all();
+        return view('pages.eselon', [
+            'pagename' => "eselon",
+            'data' => $data
+        ]);
     }
 
     /**

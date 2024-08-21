@@ -12,7 +12,11 @@ class JurusanController extends Controller
      */
     public function index()
     {
-        //
+        $data = Jurusan::all();
+        return view('pages.jurusan', [
+            'pagename' => "jurusan",
+            'data' => $data
+        ]);
     }
 
     /**

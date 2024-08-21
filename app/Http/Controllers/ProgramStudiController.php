@@ -12,7 +12,11 @@ class ProgramStudiController extends Controller
      */
     public function index()
     {
-        //
+        $data = Prodi::all();
+        return view('pages.program-studi', [
+            'pagename' => "program-studi",
+            'data' => $data
+        ]);
     }
 
     /**

@@ -12,7 +12,11 @@ class HukumanDisiplinController extends Controller
      */
     public function index()
     {
-        //
+        $data = HukumanDisiplin::all();
+        return view('pages.hukuman-disiplin', [
+            'pagename' => "hukuman-disiplin",
+            'data' => $data
+        ]);
     }
 
     /**

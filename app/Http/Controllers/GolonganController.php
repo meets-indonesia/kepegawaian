@@ -12,7 +12,11 @@ class GolonganController extends Controller
      */
     public function index()
     {
-        //
+        $data = Golongan::all();
+        return view('pages.golongan', [
+            'pagename' => "golongan",
+            'data' => $data
+        ]);
     }
 
     /**

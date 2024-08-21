@@ -23,42 +23,42 @@
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="components-alerts.html">
+            <a href="/unit-kerja">
               <i class="bi bi-circle"></i><span>Unit Kerja</span>
             </a>
           </li>
           <li>
-            <a href="components-accordion.html">
+            <a href="/fakultas">
               <i class="bi bi-circle"></i><span>Fakultas</span>
             </a>
           </li>
           <li>
-            <a href="components-badges.html">
+            <a href="/jurusan">
               <i class="bi bi-circle"></i><span>Jurusan</span>
             </a>
           </li>
           <li>
-            <a href="components-breadcrumbs.html">
+            <a href="/program-studi">
               <i class="bi bi-circle"></i><span>Program Studi</span>
             </a>
           </li>
           <li>
-            <a href="components-buttons.html">
+            <a href="/kelompok-pegawai">
               <i class="bi bi-circle"></i><span>Kelompok Pegawai</span>
             </a>
           </li>
           <li>
-            <a href="components-cards.html">
+            <a href="/jenis-pegawai">
               <i class="bi bi-circle"></i><span>Jenis Pegawai</span>
             </a>
           </li>
           <li>
-            <a href="components-carousel.html">
+            <a href="/group-user">
               <i class="bi bi-circle"></i><span>Group User</span>
             </a>
           </li>
           <li>
-            <a href="components-list-group.html">
+            <a href="/user">
               <i class="bi bi-circle"></i><span>User</span>
             </a>
           </li>
@@ -71,52 +71,52 @@
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="forms-elements.html">
+            <a href="/golongan">
               <i class="bi bi-circle"></i><span>Golongan</span>
             </a>
           </li>
           <li>
-            <a href="forms-layouts.html">
+            <a href="/struktur">
               <i class="bi bi-circle"></i><span>Struktur</span>
             </a>
           </li>
           <li>
-            <a href="forms-editors.html">
+            <a href="/gaji-pokok">
               <i class="bi bi-circle"></i><span>Gaji Pokok</span>
             </a>
           </li>
           <li>
-            <a href="forms-validation.html">
+            <a href="/jabatan-struktural">
               <i class="bi bi-circle"></i><span>Jabatan Struktural</span>
             </a>
           </li>
           <li>
-            <a href="forms-validation.html">
+            <a href="/jabatan-fungsional">
               <i class="bi bi-circle"></i><span>Jabatan Fungsional</span>
             </a>
           </li>
           <li>
-            <a href="forms-validation.html">
+            <a href="/grade">
               <i class="bi bi-circle"></i><span>Grade</span>
             </a>
           </li>
           <li>
-            <a href="forms-validation.html">
+            <a href="/pendidikan">
               <i class="bi bi-circle"></i><span>Pendidikan</span>
             </a>
           </li>
           <li>
-            <a href="forms-validation.html">
+            <a href="/hukuman-disiplin">
               <i class="bi bi-circle"></i><span>Hukuman Disiplin</span>
             </a>
           </li>
           <li>
-            <a href="forms-validation.html">
+            <a href="/lokasi-kerja">
               <i class="bi bi-circle"></i><span>Lokasi Kerja</span>
             </a>
           </li>
           <li>
-            <a href="forms-validation.html">
+            <a href="/eselon">
               <i class="bi bi-circle"></i><span>Eselon</span>
             </a>
           </li>

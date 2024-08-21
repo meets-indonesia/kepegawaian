@@ -12,7 +12,11 @@ class FakultasController extends Controller
      */
     public function index()
     {
-        //
+        $data = Fakultas::all();
+        return view('pages.fakultas', [
+            'pagename' => "fakultas",
+            'data' => $data
+        ]);
     }
 
     /**

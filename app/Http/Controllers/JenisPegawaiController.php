@@ -12,7 +12,11 @@ class JenisPegawaiController extends Controller
      */
     public function index()
     {
-        //
+        $data = JenisPegawai::all();
+        return view('pages.jenis-pegawai', [
+            'pagename' => "jenis-pegawai",
+            'data' => $data
+        ]);
     }
 
     /**

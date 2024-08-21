@@ -12,7 +12,11 @@ class StrukturController extends Controller
      */
     public function index()
     {
-        //
+        $data = Struktur::all();
+        return view('pages.struktur', [
+            'pagename' => "struktur",
+            'data' => $data
+        ]);
     }
 
     /**

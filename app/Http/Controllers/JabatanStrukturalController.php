@@ -12,7 +12,11 @@ class JabatanStrukturalController extends Controller
      */
     public function index()
     {
-        //
+        $data = JabatanStruktural::all();
+        return view('pages.jabatan-struktural', [
+            'pagename' => "jabatan-struktural",
+            'data' => $data
+        ]);
     }
 
     /**

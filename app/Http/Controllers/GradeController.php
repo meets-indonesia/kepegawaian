@@ -12,7 +12,11 @@ class GradeController extends Controller
      */
     public function index()
     {
-        //
+        $data = Grade::all();
+        return view('pages.grade', [
+            'pagename' => "grade",
+            'data' => $data
+        ]);
     }
 
     /**

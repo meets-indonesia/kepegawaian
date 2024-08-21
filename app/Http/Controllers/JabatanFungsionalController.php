@@ -12,7 +12,11 @@ class JabatanFungsionalController extends Controller
      */
     public function index()
     {
-        //
+        $data = JabatanFungsional::all();
+        return view('pages.jabatan-fungsional', [
+            'pagename' => "jabatan-fungsional",
+            'data' => $data
+        ]);
     }
 
     /**
