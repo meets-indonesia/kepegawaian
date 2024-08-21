@@ -80,7 +80,7 @@ class UnitKerjaController extends Controller
         ]);
 
         // Update the existing UnitKerja record
-        $unitKerja->update($validated);
+        UnitKerja::where('id', $request->id)->update($validated);
 
         // Redirect to the index page with a success message
         return redirect()->route('unit-kerja.index')
@@ -92,9 +92,9 @@ class UnitKerjaController extends Controller
      */
     public function destroy(Request $request)
     {
-        dd($request);
+        $data = UnitKerja::find($request->id);
         // Delete the UnitKerja record
-        $unitKerja->delete();
+        $data->delete();
 
         // Redirect to the index page with a success message
         return redirect()->route('unit-kerja.index')

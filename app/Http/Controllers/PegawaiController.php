@@ -24,7 +24,20 @@ class PegawaiController extends Controller
     public function index()
     {
         // Retrieve all necessary data for the form
-        $data = Pegawai::all();
+        $data = Pegawai::with([
+            'golongan', 
+            'kelompok_pegawai', 
+            'jenis_pegawai', 
+            'unit_kerja', 
+            'jurusan', 
+            'prodi', 
+            'grade', 
+            'pendidikan', 
+            'jabatan_fungsional', 
+            'jabatan_struktural'
+        ])->get();
+
+        
         $golongan = Golongan::all();
         $kelompok_pegawai = KelompokPegawai::all();
         $jenis_pegawai = JenisPegawai::all();
@@ -97,29 +110,29 @@ class PegawaiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Pegawai $pegawai)
+    public function update(Request $request)
     {
         // Validate the incoming request data
         $validated = $request->validate([
-            'nip' => 'required|unique:pegawai,nip,' . $pegawai->id,
+            'nip' => 'required|unique:pegawai,nip,',
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:pegawai,email,' . $pegawai->id,
-            'golongan_id' => 'required|exists:golongan,id',
-            'kelompok_pegawai_id' => 'required|exists:kelompok_pegawai,id',
-            'jenis_pegawai_id' => 'required|exists:jenis_pegawai,id',
-            'unit_kerja_id' => 'required|exists:unit_kerja,id',
-            'jurusan_id' => 'required|exists:jurusan,id',
-            'prodi_id' => 'required|exists:prodi,id',
-            'grade_id' => 'required|exists:grade,id',
+            'email' => 'required|email',
+            'golongan_id' => 'required',
+            'kelompok_pegawai_id' => 'required',
+            'jenis_pegawai_id' => 'required',
+            'unit_kerja_id' => 'required',
+            'jurusan_id' => 'required',
+            'prodi_id' => 'required',
+            'grade_id' => 'required',
             'tamat_cpns' => 'nullable|date',
             'tamat_pns' => 'nullable|date',
-            'pendidikan_id' => 'required|exists:pendidikan,id',
-            'jabatan_fungsional_id' => 'nullable|exists:jabatan_fungsional,id',
-            'jabatan_struktural_id' => 'nullable|exists:jabatan_struktural,id',
+            'pendidikan_id' => 'required',
+            'jabatan_fungsional_id' => 'nullable',
+            'jabatan_struktural_id' => 'nullable',
         ]);
 
         // Update the Pegawai instance
-        $pegawai->update($validated);
+        Pegawai::where('id', $request->id)->update($validated);
 
         // Redirect to a page or return a response
         return redirect()->route('pegawai.index')->with('success', 'Pegawai updated successfully.');
@@ -128,10 +141,11 @@ class PegawaiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pegawai $pegawai)
+    public function destroy(Request $request)
     {
-        // Delete the Pegawai instance
-        $pegawai->delete();
+        $data = Pegawai::find($request->id);
+        // Delete the Pegawai record
+        $data->delete();
 
         // Redirect to a page or return a response
         return redirect()->route('pegawai.index')->with('success', 'Pegawai deleted successfully.');

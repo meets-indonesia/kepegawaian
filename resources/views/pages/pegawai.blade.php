@@ -64,13 +64,175 @@
                 <td>{{ $pegawai->jabatan_fungsional->name ?? 'N/A' }}</td>
                 <td>{{ $pegawai->jabatan_struktural->name ?? 'N/A' }}</td>
                 <td>
-                    <a href="{{ route('pegawai.edit', $pegawai->id) }}" class="btn btn-primary">Edit</a>
+                    <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal{{$pegawai->id}}">Edit</button>
                     <form action="{{ route('pegawai.destroy', $pegawai->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </td>
+<div class="modal fade" id="exampleModal{{$pegawai->id}}" tabindex="-1" aria-labelledby="exampleModal{{$pegawai->id}}" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Data</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="{{ route('pegawai.update') }}" method="POST">
+        @csrf
+        @method('PUT')
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="nip" class="form-label">NIP</label>
+            <input type="text" class="form-control" id="nip" name="nip" value="{{$pegawai->nip}}" required>
+            <input type="hidden" class="form-control" id="id" name="id" value="{{$pegawai->id}}" required>
+          </div>
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{$pegawai->name}}" required>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{$pegawai->email}}" required>
+          </div>
+          <div class="mb-3">
+            <label for="golongan_id" class="form-label">Golongan</label>
+            <select class="form-control" id="golongan_id" name="golongan_id" required>
+              @foreach($golongan as $item)
+                @if ($pegawai->golongan_id == $item->id)
+                  <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
+                @else
+                  <option value="{{ $item->id }}">{{ $item->name }}</option>
+                @endif
+              @endforeach
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="kelompok_pegawai_id" class="form-label">Kelompok Pegawai</label>
+            <select class="form-control" id="kelompok_pegawai_id" name="kelompok_pegawai_id" required>
+              @foreach($kelompok_pegawai as $item)
+                @if ($pegawai->kelompok_pegawai_id == $item->id)
+                  <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
+                @else
+                  <option value="{{ $item->id }}">{{ $item->name }}</option>
+                @endif
+              @endforeach
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="jenis_pegawai_id" class="form-label">Jenis Pegawai</label>
+            <select class="form-control" id="jenis_pegawai_id" name="jenis_pegawai_id" required>
+              @foreach($jenis_pegawai as $item)
+                @if ($pegawai->jenis_pegawai_id == $item->id)
+                  <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
+                @else
+                  <option value="{{ $item->id }}">{{ $item->name }}</option>
+                @endif
+              @endforeach
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="unit_kerja_id" class="form-label">Unit Kerja</label>
+            <select class="form-control" id="unit_kerja_id" name="unit_kerja_id" required>
+              @foreach($unit_kerja as $item)
+                @if ($pegawai->unit_kerja_id == $item->id)
+                  <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
+                @else
+                  <option value="{{ $item->id }}">{{ $item->name }}</option>
+                @endif
+              @endforeach
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="jurusan_id" class="form-label">Jurusan</label>
+            <select class="form-control" id="jurusan_id" name="jurusan_id" required>
+              @foreach($jurusan as $item)
+                @if ($pegawai->jurusan_id == $item->id)
+                  <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
+                @else
+                  <option value="{{ $item->id }}">{{ $item->name }}</option>
+                @endif
+              @endforeach
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="prodi_id" class="form-label">Program Studi</label>
+            <select class="form-control" id="prodi_id" name="prodi_id" required>
+              @foreach($prodi as $item)
+                @if ($pegawai->prodi_id == $item->id)
+                  <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
+                @else
+                  <option value="{{ $item->id }}">{{ $item->name }}</option>
+                @endif
+              @endforeach
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="grade_id" class="form-label">Grade</label>
+            <select class="form-control" id="grade_id" name="grade_id" required>
+              @foreach($grade as $item)
+                @if ($pegawai->grade_id == $item->id)
+                  <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
+                @else
+                  <option value="{{ $item->id }}">{{ $item->name }}</option>
+                @endif
+              @endforeach
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="tamat_cpns" class="form-label">Tamat CPNS</label>
+            <input type="date" class="form-control" id="tamat_cpns" name="tamat_cpns" value="{{$pegawai->tamat_cpns}}" required>
+          </div>
+          <div class="mb-3">
+            <label for="tamat_pns" class="form-label">Tamat PNS</label>
+            <input type="date" class="form-control" id="tamat_pns" name="tamat_pns" value="{{$pegawai->tamat_pns}}" required>
+          </div>
+          <div class="mb-3">
+            <label for="pendidikan_id" class="form-label">Pendidikan</label>
+            <select class="form-control" id="pendidikan_id" name="pendidikan_id" required>
+              @foreach($pendidikan as $item)
+                @if ($pegawai->pendidikan_id == $item->id)
+                  <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
+                @else
+                  <option value="{{ $item->id }}">{{ $item->name }}</option>
+                @endif
+              @endforeach
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="jabatan_fungsional_id" class="form-label">Jabatan Fungsional</label>
+            <select class="form-control" id="jabatan_fungsional_id" name="jabatan_fungsional_id" required>
+              @foreach($jabatan_fungsional as $item)
+                @if ($pegawai->jabatan_fungsional_id == $item->id)
+                  <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
+                @else
+                  <option value="{{ $item->id }}">{{ $item->name }}</option>
+                @endif
+              @endforeach
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="jabatan_struktural_id" class="form-label">Jabatan Struktural</label>
+            <select class="form-control" id="jabatan_struktural_id" name="jabatan_struktural_id" required>
+              @foreach($jabatan_struktural as $item)
+                @if ($pegawai->jabatan_struktural_id == $item->id)
+                  <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
+                @else
+                  <option value="{{ $item->id }}">{{ $item->name }}</option>
+                @endif
+              @endforeach
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
             </tr>
             @endforeach
         </tbody>
