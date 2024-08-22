@@ -180,10 +180,13 @@ class UnitKerjaController extends Controller
         }
 
         $keys = Redis::keys('laravel_database_pending_delete:unit_kerja:*');
+
         $deletes = [];
+
         foreach ($keys as $key) {
             $deletes[] = json_decode(Redis::get($key), true);
         }
+
         return view('admin.pending-deletes', ['deletes' => $deletes]);
     }
 
