@@ -119,7 +119,28 @@ class UnitKerjaController extends Controller
      */
     public function destroy(Request $request)
     {
-        $data = UnitKerja::find($request->id);
+        $data = UnitKerja::findOrFail($request->id);
+
+        // check if the user has role_id 2
+        if (Auth::user()->role_id == 2) {
+            // store the delete request in Redis with a unique key
+            $deleteData = [
+                'id' => $data->id,
+                'requested_by' => Auth::user()->id,
+                'requested_at' => now(),
+            ];
+
+            // store the delete request in Redis
+            $key = "pending_delete:unit_kerja:{$data->id}";
+            Redis::set($key, json_encode($deleteData));
+
+            // ensure the key persists indefinitely
+            Redis::persist($key);
+
+            return redirect()->route('unit-kerja.index')
+                ->with('success', 'Delete request has been sent for approval.');
+        }
+
         // Delete the UnitKerja record
         $data->delete();
 
@@ -146,6 +167,50 @@ class UnitKerjaController extends Controller
             $updates[] = json_decode(Redis::get($key), true);
         }
         return view('admin.pending-updates', ['updates' => $updates]);
+    }
+
+    /**
+     * Display a listing of the pending deletes.
+     */
+    public function pendingDeletes()
+    {
+        // Check if the user has role_id 1
+        if (Auth::user()->role_id != 1) {
+            return redirect()->back()->with('error', 'You do not have permission to view pending deletes.');
+        }
+
+        $keys = Redis::keys('laravel_database_pending_delete:unit_kerja:*');
+        $deletes = [];
+        foreach ($keys as $key) {
+            $deletes[] = json_decode(Redis::get($key), true);
+        }
+        return view('admin.pending-deletes', ['deletes' => $deletes]);
+    }
+
+    /**
+     * Approve a pending delete.
+     */
+    public function verifyDelete(Request $request, $id)
+    {
+        // Check if the user has role_id 1
+        if (Auth::user()->role_id != 1) {
+            return redirect()->route('home')->with('error', 'You do not have permission to verify deletes.');
+        }
+
+        $key = "laravel_database_pending_delete:unit_kerja:{$id}";
+        $deleteData = json_decode(Redis::get($key), true);
+
+        if (!$deleteData) {
+            return redirect()->route('admin.pending-deletes')->with('error', 'Delete request not found.');
+        }
+
+        // Delete the record from the database
+        UnitKerja::destroy($deleteData['id']);
+
+        // Remove the key from Redis
+        Redis::del($key);
+
+        return redirect()->route('admin.pending-deletes')->with('success', 'Delete verified and applied successfully.');
     }
 
     /**
