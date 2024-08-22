@@ -20,50 +20,42 @@ class LokasiKerjaController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
-    }
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(LokasiKerja $lokasiKerja)
-    {
-        //
-    }
+        LokasiKerja::create($validatedData);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(LokasiKerja $lokasiKerja)
-    {
-        //
+        return redirect()->back()->with('message', 'Lokasi Kerja created successfully');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, LokasiKerja $lokasiKerja)
+    public function update(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $lokasiKerja = LokasiKerja::whereId($request->id)->first();
+        $lokasiKerja->update($validatedData);
+
+        return redirect()->back()->with('message', 'Lokasi Kerja updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(LokasiKerja $lokasiKerja)
+    public function destroy(Request $request)
     {
-        //
+        $lokasiKerja = LokasiKerja::whereId($request->id)->first();
+        $lokasiKerja->delete();
+
+        return redirect()->back()->with('message', 'Lokasi Kerja deleted successfully');
     }
 }
