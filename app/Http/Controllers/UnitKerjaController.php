@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\UnitKerja;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -94,8 +95,13 @@ class UnitKerjaController extends Controller
                 'requested_at' => now(),
             ];
 
+            // Store the update request in Redis
             $key = "pending_update:unit_kerja:{$unitKerja->id}";
             Redis::set($key, json_encode($updateData));
+
+            // Ensure the key persists indefinitely
+            Redis::persist($key);
+
 
             return redirect()->route('unit-kerja.index')
                 ->with('success', 'Update request has been sent for approval.');
@@ -167,5 +173,26 @@ class UnitKerjaController extends Controller
         Redis::del($key);
 
         return redirect()->route('admin.pending-updates')->with('success', 'Update verified and applied successfully.');
+    }
+
+    /**
+     * 
+     * Clean up old pending updates.
+     * 
+     * This method is called periodically to remove old pending updates from Redis.
+     * 
+     */
+    public function cleanupOldPendingUpdates()
+    {
+        $keys = Redis::keys('laravel_database_pending_update:unit_kerja:*');
+        foreach ($keys as $key) {
+            $updateData = json_decode(Redis::get($key), true);
+            $requestedAt = Carbon::parse($updateData['requested_at']);
+
+            // Remove updates older than 30 days
+            if ($requestedAt->diffInDays(now()) > 30) {
+                Redis::del($key);
+            }
+        }
     }
 }
