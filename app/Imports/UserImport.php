@@ -22,6 +22,6 @@ class UserImport implements ToModel, WithHeadingRow, WithChunkReading
 
     public function chunkSize(): int
     {
-        return 50; // Process 100 rows at a time
+        return 50; // Process 50 rows at a time
     }
 }
