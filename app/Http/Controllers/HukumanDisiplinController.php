@@ -30,7 +30,7 @@ class HukumanDisiplinController extends Controller
 
         HukumanDisiplin::create($validatedData);
 
-        return redirect()->back()->with('message', 'Hukuman Disiplin created successfully');
+        return redirect()->back()->with('success', 'Hukuman Disiplin created successfully');
     }
 
     /**
@@ -45,7 +45,7 @@ class HukumanDisiplinController extends Controller
         $hukumanDisiplin = HukumanDisiplin::findOrFail($id);
         $hukumanDisiplin->update($validatedData);
 
-        return redirect()->back()->with('message', 'Hukuman Disiplin updated successfully');
+        return redirect()->back()->with('success', 'Hukuman Disiplin updated successfully');
     }
 
     /**
@@ -56,6 +56,6 @@ class HukumanDisiplinController extends Controller
         $hukumanDisiplin = HukumanDisiplin::findOrFail($id);
         $hukumanDisiplin->delete();
 
-        return redirect()->back()->with('message', 'Hukuman Disiplin deleted successfully');
+        return redirect()->back()->with('success', 'Hukuman Disiplin deleted successfully');
     }
 }

@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Imports\UserImport;
 use App\Models\User;
 use App\Models\Role; // Add this line to import the Role class
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -42,7 +40,7 @@ class UserController extends Controller
 
         User::create($validatedData);
 
-        return redirect()->back()->with('message', 'User created successfully');
+        return redirect()->back()->with('success', 'User created successfully');
     }
 
     /**
@@ -66,7 +64,7 @@ class UserController extends Controller
 
         $user->update($validatedData);
 
-        return redirect()->back()->with('message', 'User updated successfully');
+        return redirect()->back()->with('success', 'User updated successfully');
     }
 
     /**
@@ -81,6 +79,7 @@ class UserController extends Controller
         $user = User::whereId($validatedData['id'])->firstOrFail();
         $user->delete();
 
-        return redirect()->back()->with('message', 'User deleted successfully');
+        return redirect()->back()->with('success', 'User deleted successfully');
     }
+
 }

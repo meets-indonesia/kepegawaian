@@ -44,7 +44,7 @@
         <td>{{ $user->role->name }}</td>
         <td>
           <!-- Edit Button -->
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ $user->id }}">
+          <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $user->id }}">
             Edit
           </button>
   

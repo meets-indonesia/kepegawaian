@@ -30,7 +30,7 @@ class LokasiKerjaController extends Controller
 
         LokasiKerja::create($validatedData);
 
-        return redirect()->back()->with('message', 'Lokasi Kerja created successfully');
+        return redirect()->back()->with('success', 'Lokasi Kerja created successfully');
     }
 
     /**
@@ -45,7 +45,7 @@ class LokasiKerjaController extends Controller
         $lokasiKerja = LokasiKerja::whereId($request->id)->first();
         $lokasiKerja->update($validatedData);
 
-        return redirect()->back()->with('message', 'Lokasi Kerja updated successfully');
+        return redirect()->back()->with('success', 'Lokasi Kerja updated successfully');
     }
 
     /**
@@ -56,6 +56,6 @@ class LokasiKerjaController extends Controller
         $lokasiKerja = LokasiKerja::whereId($request->id)->first();
         $lokasiKerja->delete();
 
-        return redirect()->back()->with('message', 'Lokasi Kerja deleted successfully');
+        return redirect()->back()->with('success', 'Lokasi Kerja deleted successfully');
     }
 }

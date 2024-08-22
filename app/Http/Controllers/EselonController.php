@@ -30,7 +30,7 @@ class EselonController extends Controller
 
         Eselon::create($validatedData);
 
-        return redirect()->back()->with('message', 'Eselon created successfully');
+        return redirect()->back()->with('success', 'Eselon created successfully');
     }
 
     /**
@@ -45,7 +45,7 @@ class EselonController extends Controller
         $eselon = Eselon::whereId($request->id)->firstOrFail();
         $eselon->update($validatedData);
 
-        return redirect()->back()->with('message', 'Eselon updated successfully');
+        return redirect()->back()->with('success', 'Eselon updated successfully');
     }
 
     /**
@@ -56,6 +56,6 @@ class EselonController extends Controller
         $eselon = Eselon::whereId($request->id)->firstOrFail();
         $eselon->delete();
 
-        return redirect()->back()->with('message', 'Eselon deleted successfully');
+        return redirect()->back()->with('success', 'Eselon deleted successfully');
     }
 }
