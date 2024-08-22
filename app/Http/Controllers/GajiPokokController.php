@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\GajiPokok;
+use App\Models\Golongan; // Add this line
 use Illuminate\Http\Request;
 
 class GajiPokokController extends Controller
@@ -12,19 +13,15 @@ class GajiPokokController extends Controller
      */
     public function index()
     {
-        $data = GajiPokok::all();
+        $data = GajiPokok::with([
+            'golongan'
+        ])->get();
+        $golongan = Golongan::all();
         return view('pages.gaji-pokok', [
             'pagename' => "gaji-pokok",
-            'data' => $data
+            'data' => $data,
+            'golongan' => $golongan
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -32,38 +29,42 @@ class GajiPokokController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'golongan_id' => 'required|exists:golongan,id',
+            'masa_kerja' => 'required',
+            'gaji_pokok' => 'required|numeric',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(GajiPokok $gajiPokok)
-    {
-        //
-    }
+        GajiPokok::create($request->all());
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(GajiPokok $gajiPokok)
-    {
-        //
+        return redirect()->route('gaji-pokok.index')->with('success', 'Gaji Pokok created successfully.');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, GajiPokok $gajiPokok)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'golongan_id' => 'required|exists:golongan,id',
+            'masa_kerja' => 'required',
+            'gaji_pokok' => 'required|numeric',
+        ]);
+
+        GajiPokok::find($request->id)->update($request->all());
+
+        return redirect()->route('gaji-pokok.index')->with('success', 'Gaji Pokok updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(GajiPokok $gajiPokok)
+    public function destroy(Request $request)
     {
-        //
+        $gajiPokok = GajiPokok::find($request->id);
+
+        $gajiPokok->delete();
+
+        return redirect()->route('gaji-pokok.index')->with('success', 'Gaji Pokok deleted successfully.');
     }
 }

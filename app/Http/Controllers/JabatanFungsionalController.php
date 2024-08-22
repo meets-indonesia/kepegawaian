@@ -20,50 +20,45 @@ class JabatanFungsionalController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
-    }
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'masa' => 'nullable|string',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(JabatanFungsional $jabatanFungsional)
-    {
-        //
-    }
+        JabatanFungsional::create($validatedData);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(JabatanFungsional $jabatanFungsional)
-    {
-        //
+        return redirect()->route('jabatan-fungsional.index')->with('success', 'Jabatan Fungsional created successfully.');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, JabatanFungsional $jabatanFungsional)
+    public function update(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'id' => 'required',
+            'name' => 'required|string|max:255',
+            'masa' => 'nullable|string',
+        ]);
+
+
+        JabatanFungsional::whereId($request->id)->first()->update($validatedData);
+
+        return redirect()->route('jabatan-fungsional.index')->with('success', 'Jabatan Fungsional updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(JabatanFungsional $jabatanFungsional)
+    public function destroy(Request $request)
     {
-        //
+        $jabatanFungsional = JabatanFungsional::whereId($request->id)->first();
+        $jabatanFungsional->delete();
+
+        return redirect()->route('jabatan-fungsional.index')->with('success', 'Jabatan Fungsional deleted successfully.');
     }
 }
