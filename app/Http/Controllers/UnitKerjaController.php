@@ -260,4 +260,25 @@ class UnitKerjaController extends Controller
             }
         }
     }
+
+    /**
+     * 
+     * Clean up old pending deletes.
+     * 
+     * This method is called periodically to remove old pending deletes from Redis.
+     * 
+     */
+    public function cleanupOldPendingDeletes()
+    {
+        $keys = Redis::keys('laravel_database_pending_delete:unit_kerja:*');
+        foreach ($keys as $key) {
+            $deleteData = json_decode(Redis::get($key), true);
+            $requestedAt = Carbon::parse($deleteData['requested_at']);
+
+            // Remove deletes older than 30 days
+            if ($requestedAt->diffInDays(now()) > 30) {
+                Redis::del($key);
+            }
+        }
+    }
 }
