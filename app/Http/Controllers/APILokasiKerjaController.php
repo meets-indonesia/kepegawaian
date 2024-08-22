@@ -94,8 +94,7 @@ class APILokasiKerjaController extends Controller
 
             // Return the data with a 201 Created status
             return response()->json([
-                'message' => 'Success',
-                'data' => new LokasiKerjaResource($lokasiKerja)
+                'message' => 'Success create new record',
             ], Response::HTTP_CREATED);
         } catch (\Throwable $th) {
             // Return a 500 Internal Server Error response
@@ -136,8 +135,7 @@ class APILokasiKerjaController extends Controller
 
             // Return the data with a 200 OK status
             return response()->json([
-                'message' => 'Success',
-                'data' => new LokasiKerjaResource($lokasiKerja)
+                'message' => 'Success update record',
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             // Return a 500 Internal Server Error response
@@ -172,7 +170,7 @@ class APILokasiKerjaController extends Controller
 
             // Return the data with a 200 OK status
             return response()->json([
-                'message' => 'Success'
+                'message' => 'Success delete record',
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             // Return a 500 Internal Server Error response
