@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\UserImport;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -65,5 +67,15 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    /**
+     * Import data from Excel file
+     */
+    public function import()
+    {
+        Excel::import(new UserImport, public_path('user.xlsx'));
+
+        return redirect('/')->with('success', 'All good!');
     }
 }

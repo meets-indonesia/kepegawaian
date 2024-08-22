@@ -145,4 +145,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/import', [UserController::class, 'import']);
+
+
 require __DIR__ . '/auth.php';

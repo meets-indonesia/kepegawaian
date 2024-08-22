@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\PegawaiImport;
 use App\Models\Pegawai;
 use App\Models\Golongan;
 use App\Models\KelompokPegawai;
@@ -15,6 +16,7 @@ use App\Models\JabatanFungsional;
 use App\Models\JabatanStruktural;
 
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PegawaiController extends Controller
 {
@@ -25,19 +27,19 @@ class PegawaiController extends Controller
     {
         // Retrieve all necessary data for the form
         $data = Pegawai::with([
-            'golongan', 
-            'kelompok_pegawai', 
-            'jenis_pegawai', 
-            'unit_kerja', 
-            'jurusan', 
-            'prodi', 
-            'grade', 
-            'pendidikan', 
-            'jabatan_fungsional', 
+            'golongan',
+            'kelompok_pegawai',
+            'jenis_pegawai',
+            'unit_kerja',
+            'jurusan',
+            'prodi',
+            'grade',
+            'pendidikan',
+            'jabatan_fungsional',
             'jabatan_struktural'
         ])->get();
 
-        
+
         $golongan = Golongan::all();
         $kelompok_pegawai = KelompokPegawai::all();
         $jenis_pegawai = JenisPegawai::all();
@@ -48,7 +50,7 @@ class PegawaiController extends Controller
         $pendidikan = Pendidikan::all();
         $jabatan_fungsional = JabatanFungsional::all();
         $jabatan_struktural = JabatanStruktural::all();
-    
+
         return view('pages.pegawai', [
             'pagename' => "pegawai",
             'data' => $data,
@@ -150,5 +152,14 @@ class PegawaiController extends Controller
         // Redirect to a page or return a response
         return redirect()->route('pegawai.index')->with('success', 'Pegawai deleted successfully.');
     }
-}
 
+    /**
+     * Import data from Excel file
+     */
+    public function import()
+    {
+        Excel::import(new PegawaiImport, public_path('pegawai.xlsx'));
+
+        return redirect('/')->with('success', 'All good!');
+    }
+}
