@@ -42,6 +42,15 @@ Route::get('/dashboard', function () {
     return view('pages.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::middleware('auth', 'verified', 'superadmin')->group(function() {
+    Route::get('/pending-updates', function() {
+        return view('pages.admin.pending-updates');
+    });
+    Route::get('/pending-deletes', function() {
+        return view('pages.admin.pending-deletes');
+    });
+});
+
 Route::middleware('auth', 'verified')->group(function () {
     Route::get('/pegawai', [PegawaiController::class, 'index'])->name('pegawai.index');
     Route::post('/create-pegawai', [PegawaiController::class, 'store'])->name('pegawai.store');

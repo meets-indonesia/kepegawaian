@@ -20,50 +20,42 @@ class HukumanDisiplinController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
-    }
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(HukumanDisiplin $hukumanDisiplin)
-    {
-        //
-    }
+        HukumanDisiplin::create($validatedData);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(HukumanDisiplin $hukumanDisiplin)
-    {
-        //
+        return redirect()->back()->with('success', 'Hukuman Disiplin created successfully');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, HukumanDisiplin $hukumanDisiplin)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $hukumanDisiplin = HukumanDisiplin::findOrFail($id);
+        $hukumanDisiplin->update($validatedData);
+
+        return redirect()->back()->with('success', 'Hukuman Disiplin updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(HukumanDisiplin $hukumanDisiplin)
+    public function destroy($id)
     {
-        //
+        $hukumanDisiplin = HukumanDisiplin::findOrFail($id);
+        $hukumanDisiplin->delete();
+
+        return redirect()->back()->with('success', 'Hukuman Disiplin deleted successfully');
     }
 }

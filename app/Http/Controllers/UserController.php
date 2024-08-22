@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Imports\UserImport;
 use App\Models\User;
+use App\Models\Role; // Add this line to import the Role class
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -14,19 +14,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = User::all();
+        $data = User::with(['role'])->get();
+        $roles = Role::all();
         return view('pages.user', [
             'pagename' => "user",
-            'data' => $data
+            'data' => $data,
+            'roles' => $roles,
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -34,48 +28,58 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        // dd($request->all());
+        $validatedData = $request->validate([
+            'username' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string',
+            'role_id' => 'required|integer',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(User $user)
-    {
-        //
-    }
+        $validatedData['password'] = Hash::make($validatedData['password']);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(User $user)
-    {
-        //
+        User::create($validatedData);
+
+        return redirect()->back()->with('success', 'User created successfully');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'id' => 'required|integer|exists:users,id',
+            'username' => 'sometimes|string|max:255',
+            'email' => 'sometimes|string|email|max:255|unique:users,email,' . $request->id,
+            'password' => 'sometimes|string',
+            'role_id' => 'sometimes|integer|exists:role,id',
+        ]);
+
+        $user = User::whereId($request->id)->firstOrFail();
+
+        if (isset($validatedData['password'])) {
+            $validatedData['password'] = Hash::make($validatedData['password']);
+        }
+
+        $user->update($validatedData);
+
+        return redirect()->back()->with('success', 'User updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'id' => 'required|integer|exists:users,id',
+        ]);
+
+        $user = User::whereId($validatedData['id'])->firstOrFail();
+        $user->delete();
+
+        return redirect()->back()->with('success', 'User deleted successfully');
     }
 
-    /**
-     * Import data from Excel file
-     */
-    public function import()
-    {
-        Excel::import(new UserImport, public_path('user.xlsx'));
-
-        return redirect('/')->with('success', 'All good!');
-    }
 }

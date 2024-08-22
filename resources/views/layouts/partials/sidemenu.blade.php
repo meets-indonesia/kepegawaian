@@ -3,11 +3,16 @@
 
     $referensi = array('golongan', 'struktur', 'gaji-pokok', 'jabatan-struktural', 'jabatan-fungsional', 'grade', 'pendidikan', 'hukuman-disiplin', 'lokasi-kerja', 'eselon');
 
+    $access = array('roles', 'user');
+
     $collapseSetting = 'collapse';
     $collapsedSetting = 'collapsed';
 
     $collapseReferensi = 'collapse';
     $collapsedReferensi = 'collapsed';
+
+    $collapseAccess = 'collapse';
+    $collapsedAccess = 'collapsed';
 
     $namepage = '';
 
@@ -23,6 +28,11 @@
     if(in_array($namepage, $referensi)){
       $collapseReferensi = 'collapse show';
       $collapsedReferensi = '';
+    }
+
+    if(in_array($namepage, $access)){
+      $collapseAccess = 'collapse show';
+      $collapsedAccess = '';
     }
   @endphp
   <!-- ======= Sidebar ======= -->
@@ -169,10 +179,10 @@
       </li><!-- End Usulan Perubahan Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link {{$collapsedAccess}}" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-bar-chart"></i><span>Access Permission</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="charts-nav" class="nav-content {{$collapseAccess}} " data-bs-parent="#sidebar-nav">
           <li>
             <a href="/group-user">
               <i class="bi bi-circle"></i><span>Roles</span>
@@ -186,28 +196,25 @@
         </ul>
       </li>
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span>Space 2</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="icons-bootstrap.html">
-              <i class="bi bi-circle"></i><span>Bootstrap Icons</span>
-            </a>
-          </li>
-          <li>
-            <a href="icons-remix.html">
-              <i class="bi bi-circle"></i><span>Remix Icons</span>
-            </a>
-          </li>
-          <li>
-            <a href="icons-boxicons.html">
-              <i class="bi bi-circle"></i><span>Boxicons</span>
-            </a>
-          </li>
-        </ul>
-      </li>
+      @if (Auth::user()->role_id == 1)
+        <li class="nav-item">
+          <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-gem"></i><span>Super Admin</span><i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <li>
+              <a href="/pending-updates">
+                <i class="bi bi-circle"></i><span>Pending Updates</span>
+              </a>
+            </li>
+            <li>
+              <a href="/pending-deletes">
+                <i class="bi bi-circle"></i><span>Pending Deletes</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      @endif
 
       <!-- <li class="nav-heading">Pages</li>
 

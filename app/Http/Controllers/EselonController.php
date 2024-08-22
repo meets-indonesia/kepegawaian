@@ -20,50 +20,42 @@ class EselonController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
-    }
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Eselon $eselon)
-    {
-        //
-    }
+        Eselon::create($validatedData);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Eselon $eselon)
-    {
-        //
+        return redirect()->back()->with('success', 'Eselon created successfully');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Eselon $eselon)
+    public function update(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $eselon = Eselon::whereId($request->id)->firstOrFail();
+        $eselon->update($validatedData);
+
+        return redirect()->back()->with('success', 'Eselon updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Eselon $eselon)
+    public function destroy(Request $request)
     {
-        //
+        $eselon = Eselon::whereId($request->id)->firstOrFail();
+        $eselon->delete();
+
+        return redirect()->back()->with('success', 'Eselon deleted successfully');
     }
 }
