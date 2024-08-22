@@ -88,13 +88,11 @@ class APIKelompokPegawaiController extends Controller
         try {
             // Validate the request
             $request->validate([
-                'nama' => 'required|string'
+                'name' => 'required|string'
             ]);
 
             // Create a new record in KelompokPegawai
-            $kelompokPegawai = KelompokPegawai::create([
-                'nama' => $request->nama
-            ]);
+            $kelompokPegawai = KelompokPegawai::create($request->all());
 
             // Return the data with a 201 Created status
             return response()->json([
@@ -121,7 +119,7 @@ class APIKelompokPegawaiController extends Controller
         try {
             // Validate the request
             $request->validate([
-                'nama' => 'required|string'
+                'name' => 'required|string'
             ]);
 
             // Retrieve a record from KelompokPegawai
@@ -137,7 +135,7 @@ class APIKelompokPegawaiController extends Controller
 
             // Update the record in KelompokPegawai
             $kelompokPegawai->update([
-                'nama' => $request->nama
+                'name' => $request->name
             ]);
 
             // Return the data with a 200 OK status
