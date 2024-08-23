@@ -73,7 +73,8 @@ class PegawaiController extends Controller
             'grade' => $grade,
             'pendidikan' => $pendidikan,
             'jabatan_fungsional' => $jabatan_fungsional,
-            'jabatan_struktural' => $jabatan_struktural
+            'jabatan_struktural' => $jabatan_struktural,
+            'search' => request('search')
         ]);
     }
 

@@ -25,13 +25,20 @@
   </div>
 </div>
 
-<form action="{{route('pegawai.index')}}">
+<div class="d-flex w-100">
+@if (isset($search))
+<p class="text-dark-blue fw-bold">Searching for "{{$search}}"</p>
+  
+@endif
+<form action="{{route('pegawai.index')}}" class="w-100">
   <div class="input-group mb-3 w-50 ms-auto">
     <input type="text" class="form-control" placeholder="Search here" aria-label="Search here" aria-describedby="button-addon2" name="search">
     <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
   </div>
 
 </form>
+</div>
+
 
 <div class="table-responsive">
 <table class="table table-bordered table-bordered">

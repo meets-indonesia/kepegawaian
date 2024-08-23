@@ -29,6 +29,7 @@ class UserController extends Controller
             'pagename' => "user",
             'data' => $data,
             'roles' => $roles,
+            'search' => request('search'),
         ]);
     }
 
