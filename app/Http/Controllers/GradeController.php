@@ -7,8 +7,10 @@ use App\Models\JabatanFungsional;
 use App\Models\Grade;
 use App\Models\Pendidikan;
 use App\Models\KelompokPegawai;
+use App\Models\PendingAction;
 use App\Models\UnitKerja;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GradeController extends Controller
 {
@@ -65,6 +67,10 @@ class GradeController extends Controller
      */
     public function update(Request $request)
     {
+        // find the grade
+        $grade = Grade::findOrFail($request->id);
+
+        // Validate the incoming request data
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'value' => 'required|string',
@@ -74,6 +80,21 @@ class GradeController extends Controller
             'kelompok_pegawai_id' => 'required|exists:kelompok_pegawai,id',
             'unit_kerja_id' => 'required|exists:unit_kerja,id',
         ]);
+
+        if (Auth::user()->role_id == 2) {
+            $updateData = [
+                'id' => $grade->id,
+                'validated_data' => $validatedData,
+                'type' => 'Grade',
+                'requested_by' => Auth::user()->id,
+                'requested_at' => now(),
+            ];
+
+            PendingAction::savePendingAction('update', $grade->id, $updateData);
+
+            return redirect()->route('grade.index')
+                ->with('success', 'Update request has been sent for approval.');
+        }
 
         $grade = Grade::whereId($request->id)->first();
         $grade->update($validatedData);
@@ -86,7 +107,30 @@ class GradeController extends Controller
      */
     public function destroy(Request $request)
     {
-        $grade = Grade::whereId($request->id)->first();
+        // find the grade
+        $grade = Grade::findOrFail($request->id);
+
+        if (Auth::user()->role_id == 2) {
+            $deleteData = [
+                'id' => $grade->id,
+                'name' => $grade->name,
+                'value' => $grade->value,
+                'jabatan_fungsional_id' => $grade->jabatan_fungsional_id,
+                'jabatan_struktural_id' => $grade->jabatan_struktural_id,
+                'pendidikan_id' => $grade->pendidikan_id,
+                'kelompok_pegawai_id' => $grade->kelompok_pegawai_id,
+                'unit_kerja_id' => $grade->unit_kerja_id,
+                'type' => 'Grade',
+                'requested_by' => Auth::user()->id,
+                'requested_at' => now(),
+            ];
+
+            PendingAction::savePendingAction('delete', $grade->id, $deleteData);
+
+            return redirect()->route('grade.index')
+                ->with('success', 'Delete request has been sent for approval.');
+        }
+
         $grade->delete();
 
         return redirect()->route('grade.index')->with('success', 'Grade deleted successfully.');

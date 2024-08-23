@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Golongan;
+use App\Models\PendingAction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GolonganController extends Controller
 {
@@ -45,7 +47,7 @@ class GolonganController extends Controller
 
         // Redirect to the index page with a success message
         return redirect()->route('golongan.index')
-                         ->with('success', 'Unit Kerja berhasil ditambah');
+            ->with('success', 'Unit Kerja berhasil ditambah');
     }
 
     /**
@@ -75,18 +77,37 @@ class GolonganController extends Controller
      */
     public function update(Request $request, Golongan $Golongan)
     {
+        // find the existing Golongan record
+        $golongan = Golongan::findOrFail($request->id);
+
         // Validate the incoming request data
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'golongan' => 'required',
         ]);
 
+        // Check if the user is an admin
+        if (Auth::user()->role_id == 2) {
+            $updateData = [
+                'id' => $golongan->id,
+                'validated_data' => $validated,
+                'type' => 'Golongan',
+                'requested_by' => Auth::user()->id,
+                'requested_at' => now(),
+            ];
+
+            PendingAction::savePendingAction('update', $Golongan->id, $updateData);
+
+            return redirect()->back()
+                ->with('success', 'Update request has been sent for approval.');
+        }
+
         // Update the existing Golongan record
         Golongan::where('id', $request->id)->update($validated);
 
         // Redirect to the index page with a success message
         return redirect()->route('golongan.index')
-                         ->with('success', 'Unit Kerja updated successfully.');
+            ->with('success', 'Unit Kerja updated successfully.');
     }
 
     /**
@@ -94,12 +115,30 @@ class GolonganController extends Controller
      */
     public function destroy(Request $request)
     {
-        $data = Golongan::find($request->id);
+        $data = Golongan::findOrFail($request->id);
+
+        // Check if the user is an admin
+        if (Auth::user()->role_id == 2) {
+            $deleteData = [
+                'id' => $data->id,
+                'name' => $data->name,
+                'golongan' => $data->golongan,
+                'type' => 'Golongan',
+                'requested_by' => Auth::user()->id,
+                'requested_at' => now(),
+            ];
+
+            PendingAction::savePendingAction('delete', $data->id, $deleteData);
+
+            return redirect()->route('golongan.index')
+                ->with('success', 'Delete request has been sent for approval.');
+        }
+
         // Delete the Golongan record
         $data->delete();
 
         // Redirect to the index page with a success message
         return redirect()->route('golongan.index')
-                         ->with('success', 'Unit Kerja deleted successfully.');
+            ->with('success', 'Unit Kerja deleted successfully.');
     }
 }

@@ -39,6 +39,7 @@ class JabatanFungsionalController extends Controller
      */
     public function update(Request $request)
     {
+        // Validate the incoming request data
         $validatedData = $request->validate([
             'id' => 'required',
             'name' => 'required|string|max:255',
