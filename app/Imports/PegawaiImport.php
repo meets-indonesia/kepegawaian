@@ -16,17 +16,11 @@ class PegawaiImport implements ToModel, WithHeadingRow
             'name' => $row['name'],
             'email' => $row['email'],
             'golongan_id' => $row['golongan_id'],
-            'kelompok_pegawai_id' => $row['kelompok_pegawai_id'],
             'jenis_pegawai_id' => $row['jenis_pegawai_id'],
             'unit_kerja_id' => $row['unit_kerja_id'],
             'jurusan_id' => $row['jurusan_id'],
-            'prodi_id' => $row['prodi_id'],
-            'grade_id' => $row['grade_id'],
-            'tamat_cpns' => $this->transformDate($row['tamat_cpns']),
-            'tamat_pns' => $this->transformDate($row['tamat_pns']),
             'pendidikan_id' => $row['pendidikan_id'],
             'jabatan_fungsional_id' => $row['jabatan_fungsional_id'],
-            'jabatan_struktural_id' => $row['jabatan_struktural_id'],
         ]);
     }
 

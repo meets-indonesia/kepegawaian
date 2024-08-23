@@ -7,6 +7,7 @@ use App\Http\Controllers\GolonganController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\GroupUserController;
 use App\Http\Controllers\HukumanDisiplinController;
+use App\Http\Controllers\ImportController;
 use App\Http\Controllers\JabatanFungsionalController;
 use App\Http\Controllers\JabatanStrukturalController;
 use App\Http\Controllers\JenisPegawaiController;
@@ -155,7 +156,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/import', [UserController::class, 'import']);
+Route::get('/import', [ImportController::class, 'import']);
 
 
 require __DIR__ . '/auth.php';
