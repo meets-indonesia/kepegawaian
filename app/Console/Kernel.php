@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Http\Controllers\PendingController;
 use App\Http\Controllers\UnitKerjaController;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -13,9 +14,16 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
+        // Schedule cleanup for pending updates
         $schedule->call(function () {
-            (new UnitKerjaController)->cleanupOldPendingUpdates();
-            (new UnitKerjaController)->cleanupOldPendingDeletes();
+            $controller = new PendingController();
+            $controller->cleanupOldPendingActions('update');
+        })->daily();
+
+        // Schedule cleanup for pending deletes
+        $schedule->call(function () {
+            $controller = new PendingController();
+            $controller->cleanupOldPendingActions('delete');
         })->daily();
     }
 

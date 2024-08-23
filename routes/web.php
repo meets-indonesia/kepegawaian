@@ -16,6 +16,7 @@ use App\Http\Controllers\LokasiKerjaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PendidikanController;
+use App\Http\Controllers\PendingController;
 use App\Http\Controllers\ProgramStudiController;
 use App\Http\Controllers\StrukturController;
 use App\Http\Controllers\UnitKerjaController;
@@ -42,13 +43,13 @@ Route::get('/dashboard', function () {
     return view('pages.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth', 'verified', 'superadmin')->group(function() {
-    Route::get('/pending-updates', function() {
-        return view('pages.admin.pending-updates');
-    });
-    Route::get('/pending-deletes', function() {
-        return view('pages.admin.pending-deletes');
-    });
+Route::middleware('auth', 'verified', 'superadmin')->group(function () {
+    Route::get('/pending-updates', [PendingController::class, 'pendingUpdates'])->name('pending-updates');
+    Route::get('/pending-deletes', [PendingController::class, 'pendingDeletes'])->name('pending-deletes');
+    Route::get('/verify-update/{id}', [PendingController::class, 'verifyUpdate']);
+    Route::get('/verify-delete/{id}', [PendingController::class, 'verifyDelete']);
+    Route::get('/reject-update/{id}', [PendingController::class, 'rejectUpdate']);
+    Route::get('/reject-delete/{id}', [PendingController::class, 'rejectDelete']);
 });
 
 Route::middleware('auth', 'verified')->group(function () {
