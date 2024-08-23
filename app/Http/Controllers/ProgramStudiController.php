@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Prodi;
 use App\Models\Jurusan;
+use App\Models\PendingAction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProgramStudiController extends Controller
 {
@@ -48,7 +50,7 @@ class ProgramStudiController extends Controller
 
         // Redirect to the index page with a success message
         return redirect()->route('program-studi.index')
-                         ->with('success', 'Unit Kerja berhasil ditambah');
+            ->with('success', 'Unit Kerja berhasil ditambah');
     }
 
     /**
@@ -78,18 +80,36 @@ class ProgramStudiController extends Controller
      */
     public function update(Request $request, Prodi $Prodi)
     {
+        // find the program studi
+        $data = Prodi::findOrFail($request->id);
+
         // Validate the incoming request data
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'jurusan_id' => 'required'
         ]);
 
+        // If the user is not an admin, save the update request to the pending actions table
+        if (Auth::user()->role_id == 2) {
+            $updateData = [
+                'id' => $data->id,
+                'validated_data' => $validated,
+                'type' => 'Prodi',
+                'requested_by' => Auth::user()->id,
+                'requested_at' => now(),
+            ];
+
+            PendingAction::savePendingAction('update', $data->id, $updateData);
+
+            return redirect()->back()->with('success', 'Program Studi updated successfully.');
+        }
+
         // Update the existing Prodi record
         Prodi::where('id', $request->id)->update($validated);
 
         // Redirect to the index page with a success message
         return redirect()->route('program-studi.index')
-                         ->with('success', 'Unit Kerja updated successfully.');
+            ->with('success', 'Unit Kerja updated successfully.');
     }
 
     /**
@@ -97,12 +117,30 @@ class ProgramStudiController extends Controller
      */
     public function destroy(Request $request)
     {
-        $data = Prodi::find($request->id);
+        // Find the Prodi record
+        $data = Prodi::findOrFail($request->id);
+
+        // If the user is not an admin, save the delete request to the pending actions table
+        if (Auth::user()->role_id == 2) {
+            $deleteData = [
+                'id' => $data->id,
+                'name' => $data->name,
+                'jurusan_id' => $data->jurusan_id,
+                'type' => 'Prodi',
+                'requested_by' => Auth::user()->id,
+                'requested_at' => now(),
+            ];
+
+            PendingAction::savePendingAction('delete', $data->id, $deleteData);
+            return redirect()->route('program-studi.index')
+                ->with('success', 'Program Studi delete request submitted successfully.');
+        }
+
         // Delete the Prodi record
         $data->delete();
 
         // Redirect to the index page with a success message
         return redirect()->route('program-studi.index')
-                         ->with('success', 'Unit Kerja deleted successfully.');
+            ->with('success', 'Unit Kerja deleted successfully.');
     }
 }

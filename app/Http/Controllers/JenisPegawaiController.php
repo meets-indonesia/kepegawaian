@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\JenisPegawai;
+use App\Models\PendingAction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class JenisPegawaiController extends Controller
 {
@@ -44,7 +46,7 @@ class JenisPegawaiController extends Controller
 
         // Redirect to the index page with a success message
         return redirect()->route('jenis-pegawai.index')
-                         ->with('success', 'Unit Kerja berhasil ditambah');
+            ->with('success', 'Unit Kerja berhasil ditambah');
     }
 
     /**
@@ -74,17 +76,35 @@ class JenisPegawaiController extends Controller
      */
     public function update(Request $request, JenisPegawai $unitKerja)
     {
+        // find the existing JenisPegawai record
+        $data = JenisPegawai::findOrFail($request->id);
+
         // Validate the incoming request data
         $validated = $request->validate([
             'name' => 'required|string|max:255',
         ]);
+
+        // If the user is not an admin, save the delete request to the pending actions table
+        if (Auth::user()->role_id == 2) {
+            $updateData = [
+                'id' => $data->id,
+                'validated_data' => $validated,
+                'type' => 'JenisPegawai',
+                'requested_by' => Auth::user()->id,
+                'requested_at' => now(),
+            ];
+
+            PendingAction::savePendingAction('update', $data->id, $updateData);
+            return redirect()->route('jenis-pegawai.index')
+                ->with('success', 'Jenis Pegawai delete request submitted successfully.');
+        }
 
         // Update the existing JenisPegawai record
         JenisPegawai::where('id', $request->id)->update($validated);
 
         // Redirect to the index page with a success message
         return redirect()->route('jenis-pegawai.index')
-                         ->with('success', 'Unit Kerja updated successfully.');
+            ->with('success', 'Jenis Pegawai updated successfully.');
     }
 
     /**
@@ -92,12 +112,29 @@ class JenisPegawaiController extends Controller
      */
     public function destroy(Request $request)
     {
-        $data = JenisPegawai::find($request->id);
+        // Find the JenisPegawai record
+        $data = JenisPegawai::findOrFail($request->id);
+
+        // If the user is not an admin, save the delete request to the pending actions table
+        if (Auth::user()->role_id == 2) {
+            $deleteData = [
+                'id' => $data->id,
+                'name' => $data->name,
+                'type' => 'JenisPegawai',
+                'requested_by' => Auth::user()->id,
+                'requested_at' => now(),
+            ];
+
+            PendingAction::savePendingAction('delete', $data->id, $deleteData);
+            return redirect()->route('jenis-pegawai.index')
+                ->with('success', 'Jenis Pegawai delete request submitted successfully.');
+        }
+
         // Delete the JenisPegawai record
         $data->delete();
 
         // Redirect to the index page with a success message
         return redirect()->route('jenis-pegawai.index')
-                         ->with('success', 'Unit Kerja deleted successfully.');
+            ->with('success', 'Jenis Pegawai deleted successfully.');
     }
 }

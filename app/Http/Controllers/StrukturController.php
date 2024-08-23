@@ -6,8 +6,10 @@ use App\Models\Eselon;
 use App\Models\Grade;
 use App\Models\JabatanFungsional;
 use App\Models\JabatanStruktural;
+use App\Models\PendingAction;
 use App\Models\Struktur;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StrukturController extends Controller
 {
@@ -34,7 +36,7 @@ class StrukturController extends Controller
             'pagename' => "struktur",
             'data' => $data,
             'jabatan_struktural' => $jabatan_struktural,
-            'jabatan_fungsional' => $jabatan_fungsional,   
+            'jabatan_fungsional' => $jabatan_fungsional,
             'grade' => $grade,
             'eselon' => $eselon,
             'parent' => $parent,
@@ -65,6 +67,10 @@ class StrukturController extends Controller
      */
     public function update(Request $request)
     {
+        // Find the struktur
+        $struktur = Struktur::findOrFail($request->id);
+
+        // Validate the incoming request data
         $validated = $request->validate([
             'jabatan_struktural_id' => 'required|exists:jabatan_struktural,id',
             'jabatan_fungsional_id' => 'nullable|exists:jabatan_fungsional,id',
@@ -73,6 +79,20 @@ class StrukturController extends Controller
             'parent_id' => 'nullable|exists:struktur,id',
             'jv' => 'required|string|max:255',
         ]);
+
+        if (Auth::user()->role_id == 2) {
+            $updateData = [
+                'id' => $struktur->id,
+                'validated_data' => $validated,
+                'type' => 'Struktur',
+                'requested_by' => Auth::user()->id,
+                'requested_at' => now(),
+            ];
+
+            PendingAction::savePendingAction('update', $struktur->id, $updateData);
+
+            return redirect()->back()->with('success', 'Struktur update request submitted successfully.');
+        }
 
         Struktur::where('id', $request->id)->update($validated);
 
@@ -84,7 +104,28 @@ class StrukturController extends Controller
      */
     public function destroy(Request $request)
     {
-        $struktur = Struktur::find($request->id);
+        // Find the struktur
+        $struktur = Struktur::findOrFail($request->id);
+
+        // If the user is not an admin, save the delete request to the pending actions table
+        if (Auth::user()->role_id == 2) {
+            $deleteData = [
+                'id' => $struktur->id,
+                'jabatan_struktural_id' => $struktur->jabatan_struktural_id,
+                'jabatan_fungsional_id' => $struktur->jabatan_fungsional_id,
+                'grade_id' => $struktur->grade_id,
+                'eselon_id' => $struktur->eselon_id,
+                'parent_id' => $struktur->parent_id,
+                'jv' => $struktur->jv,
+                'type' => 'Struktur',
+                'requested_by' => Auth::user()->id,
+                'requested_at' => now(),
+            ];
+
+            PendingAction::savePendingAction('delete', $struktur->id, $deleteData);
+
+            return redirect()->route('struktur.index')->with('success', 'Struktur delete request submitted successfully.');
+        }
 
         $struktur->delete();
 

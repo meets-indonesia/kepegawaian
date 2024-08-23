@@ -52,7 +52,7 @@ class HukumanDisiplinController extends Controller
             $updateData = [
                 'id' => $hukumanDisiplin->id,
                 'validated_data' => $validatedData,
-                'type' => 'Hukuman Disiplin',
+                'type' => 'HukumanDisiplin',
                 'requested_by' => Auth::user()->id,
                 'requested_at' => now(),
             ];
@@ -80,7 +80,7 @@ class HukumanDisiplinController extends Controller
             $deleteData = [
                 'id' => $hukumanDisiplin->id,
                 'name' => $hukumanDisiplin->name,
-                'type' => 'Hukuman Disiplin',
+                'type' => 'HukumanDisiplin',
                 'requested_by' => Auth::user()->id,
                 'requested_at' => now(),
             ];

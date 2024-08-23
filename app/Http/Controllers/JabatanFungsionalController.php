@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\JabatanFungsional;
+use App\Models\PendingAction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class JabatanFungsionalController extends Controller
 {
@@ -39,12 +41,30 @@ class JabatanFungsionalController extends Controller
      */
     public function update(Request $request)
     {
+        // Find the jabatan fungsional
+        $jabatanFungsional = JabatanFungsional::findOrFail($request->id);
+
         // Validate the incoming request data
         $validatedData = $request->validate([
             'id' => 'required',
             'name' => 'required|string|max:255',
             'masa' => 'nullable|string',
         ]);
+
+        // If the user is not an admin, save the update request to the pending actions table
+        if (Auth::user()->role_id == 2) {
+            $updateData = [
+                'id' => $jabatanFungsional->id,
+                'validated_data' => $validatedData,
+                'type' => 'JabatanFungsional',
+                'requested_by' => Auth::user()->id,
+                'requested_at' => now(),
+            ];
+
+            PendingAction::savePendingAction('update', $jabatanFungsional->id, $updateData);
+
+            return redirect()->back()->with('success', 'Jabatan Fungsional updated successfully');
+        }
 
 
         JabatanFungsional::whereId($request->id)->first()->update($validatedData);
@@ -57,7 +77,24 @@ class JabatanFungsionalController extends Controller
      */
     public function destroy(Request $request)
     {
-        $jabatanFungsional = JabatanFungsional::whereId($request->id)->first();
+        // Find the jabatan fungsional
+        $jabatanFungsional = JabatanFungsional::findOrFail($request->id);
+
+        // If the user is not an admin, save the delete request to the pending actions table
+        if (Auth::user()->role_id == 2) {
+            $deleteData = [
+                'id' => $jabatanFungsional->id,
+                'name' => $jabatanFungsional->name,
+                'type' => 'JabatanFungsional',
+                'requested_by' => Auth::user()->id,
+                'requested_at' => now(),
+            ];
+
+            PendingAction::savePendingAction('delete', $jabatanFungsional->id, $deleteData);
+
+            return redirect()->back()->with('success', 'Delete request has been sent for approval.');
+        }
+
         $jabatanFungsional->delete();
 
         return redirect()->route('jabatan-fungsional.index')->with('success', 'Jabatan Fungsional deleted successfully.');

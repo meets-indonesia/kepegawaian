@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\LokasiKerja;
+use App\Models\PendingAction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LokasiKerjaController extends Controller
 {
@@ -38,9 +40,27 @@ class LokasiKerjaController extends Controller
      */
     public function update(Request $request)
     {
+        // find the lokasi kerja
+        $data = LokasiKerja::findOrFail($request->id);
+
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
         ]);
+
+        // If the user is not an admin, create a pending action
+        if (Auth::user()->role_id == 2) {
+            $updateData = [
+                'id' => $data->id,
+                'validated_data' => $validatedData,
+                'type' => 'LokasiKerja',
+                'requested_by' => Auth::user()->id,
+                'requested_at' => now(),
+            ];
+
+            PendingAction::savePendingAction('update', $data->id, $updateData);
+
+            return redirect()->back()->with('success', 'Lokasi Kerja update requested successfully');
+        }
 
         $lokasiKerja = LokasiKerja::whereId($request->id)->first();
         $lokasiKerja->update($validatedData);
@@ -53,7 +73,24 @@ class LokasiKerjaController extends Controller
      */
     public function destroy(Request $request)
     {
-        $lokasiKerja = LokasiKerja::whereId($request->id)->first();
+        // find the lokasi kerja
+        $lokasiKerja = LokasiKerja::findOrFail($request->id);
+
+        // If the user is not an admin, create a pending action
+        if (Auth::user()->role_id == 2) {
+            $deleteData = [
+                'id' => $lokasiKerja->id,
+                'name' => $lokasiKerja->name,
+                'type' => 'LokasiKerja',
+                'requested_by' => Auth::user()->id,
+                'requested_at' => now(),
+            ];
+
+            PendingAction::savePendingAction('delete', $lokasiKerja->id, $deleteData);
+
+            return redirect()->back()->with('success', 'Lokasi Kerja delete requested successfully');
+        }
+
         $lokasiKerja->delete();
 
         return redirect()->back()->with('success', 'Lokasi Kerja deleted successfully');

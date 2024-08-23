@@ -14,8 +14,9 @@ use App\Models\Grade;
 use App\Models\Pendidikan;
 use App\Models\JabatanFungsional;
 use App\Models\JabatanStruktural;
-
+use App\Models\PendingAction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PegawaiController extends Controller
@@ -114,6 +115,9 @@ class PegawaiController extends Controller
      */
     public function update(Request $request)
     {
+        // find the pegawai 
+        $data = Pegawai::findOrFail($request->id);
+
         // Validate the incoming request data
         $validated = $request->validate([
             'nip' => 'required',
@@ -133,6 +137,20 @@ class PegawaiController extends Controller
             'jabatan_struktural_id' => 'nullable',
         ]);
 
+        if (Auth::user()->role_id == 2) {
+            $updateData = [
+                'id' => $data->id,
+                'validated_data' => $validated,
+                'type' => 'Pegawai',
+                'requested_by' => Auth::user()->id,
+                'requested_at' => now(),
+            ];
+
+            PendingAction::savePendingAction('update', $data->id, $updateData);
+
+            return redirect()->back()->with('success', 'Pegawai update requested successfully');
+        }
+
         // Update the Pegawai instance
         Pegawai::where('id', $request->id)->update($validated);
 
@@ -145,7 +163,24 @@ class PegawaiController extends Controller
      */
     public function destroy(Request $request)
     {
-        $data = Pegawai::find($request->id);
+        // Find the Pegawai record
+        $data = Pegawai::findOrFail($request->id);
+
+        // If the user is not an admin, save the delete request to the pending actions table
+        if (Auth::user()->role_id == 2) {
+            $deleteData = [
+                'id' => $data->id,
+                'name' => $data->name,
+                'type' => 'Pegawai',
+                'requested_by' => Auth::user()->id,
+                'requested_at' => now(),
+            ];
+
+            PendingAction::savePendingAction('delete', $data->id, $deleteData);
+
+            return redirect()->route('pegawai.index')->with('success', 'Pegawai delete request submitted successfully.');
+        }
+
         // Delete the Pegawai record
         $data->delete();
 
