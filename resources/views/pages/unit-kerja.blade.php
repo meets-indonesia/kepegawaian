@@ -25,12 +25,15 @@
 </div>
 
 <!-- Table to display Unit Kerja data -->
-<table class="table table-bordered">
+<table id="tablePagination" class="table table-bordered">
     <thead>
         <tr>
             <th scope="col">No</th>
             <th scope="col">Nama Unit Kerja</th>
+            @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
             <th scope="col">Aksi</th>
+              
+            @endif
         </tr>
     </thead>
     <tbody>
@@ -38,6 +41,7 @@
         <tr>
             <td>{{ $index+1 }}</td>
             <td>{{ $unitKerja->name }}</td>
+            @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
             <td>
                 <!-- Edit and Delete buttons (Optional) -->
                 <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $unitKerja->id }}">
@@ -49,6 +53,8 @@
                     <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $unitKerja->id }})">Delete</button>
                 </form>
             </td>
+              
+            @endif
         </tr>
 
         <!-- Edit Modal (Optional, if you want to implement editing functionality) -->

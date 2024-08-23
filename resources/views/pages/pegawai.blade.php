@@ -24,7 +24,7 @@
 </div>
 
 <div class="table-responsive">
-<table class="table table-bordered table-striped">
+<table id="tablePagination" class="table table-bordered table-bordered">
         <thead>
             <tr>
                 <th>No</th>
@@ -43,7 +43,10 @@
                 <th>Pendidikan</th>
                 <th>Jabatan Fungsional</th>
                 <th>Jabatan Struktural</th>
+                @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                 <th>Actions</th>
+                  
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -65,6 +68,7 @@
                 <td>{{ $pegawai->pendidikan->name ?? 'N/A' }}</td>
                 <td>{{ $pegawai->jabatan_fungsional->name ?? 'N/A' }}</td>
                 <td>{{ $pegawai->jabatan_struktural->name ?? 'N/A' }}</td>
+                @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                 <td>
                     <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal{{$pegawai->id}}">Edit</button>
                     <form action="{{ route('pegawai.destroy', $pegawai->id) }}" method="POST" style="display:inline;" id="delete-form-{{ $pegawai->id }}">
@@ -73,6 +77,8 @@
                         <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $pegawai->id }})">Delete</button>
                     </form>
                 </td>
+                  
+                @endif
 <div class="modal fade" id="exampleModal{{$pegawai->id}}" tabindex="-1" aria-labelledby="exampleModal{{$pegawai->id}}" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

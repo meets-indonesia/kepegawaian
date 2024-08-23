@@ -26,12 +26,15 @@
 
 <!-- Table to Display Data -->
 <div class="table-responsive">
-  <table class="table table-bordered">
+  <table id="tablePagination" class="table table-bordered">
     <thead>
       <tr>
         <th scope="col">No</th>
         <th scope="col">Name</th>
+        @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
         <th scope="col">Actions</th>
+          
+        @endif
       </tr>
     </thead>
     <tbody>
@@ -39,6 +42,7 @@
       <tr>
         <th scope="row">{{ $loop->iteration }}</th>
         <td>{{ $item->name }}</td>
+        @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
         <td>
           <!-- Edit Button triggers the specific modal -->
           <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">Edit</button>
@@ -48,6 +52,8 @@
             <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete({{ $item->id }})">Delete</button>
           </form>
         </td>
+          
+        @endif
       </tr>
   
       <!-- Edit Modal for each item -->

@@ -25,13 +25,16 @@
 </div>
 
 <!-- Table to display Golongan data -->
-<table class="table table-bordered">
+<table id="tablePagination" class="table table-bordered">
     <thead>
         <tr>
             <th scope="col">No</th>
             <th scope="col">Nama Golongan</th>
             <th scope="col">Golongan</th>
+            @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+              
             <th scope="col">Aksi</th>
+            @endif
         </tr>
     </thead>
     <tbody>
@@ -40,6 +43,7 @@
             <td>{{$index+1}}</td>
             <td>{{ $golongan->name }}</td>
             <td>{{ $golongan->golongan }}</td>
+            @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
             <td>
                 <!-- Edit and Delete buttons (Optional) -->
                 <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $golongan->id }}">
@@ -51,6 +55,8 @@
                     <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $golongan->id }})">Delete</button>
                 </form>
             </td>
+              
+            @endif
         </tr>
 
         <!-- Edit Modal (Optional, if you want to implement editing functionality) -->

@@ -14,6 +14,9 @@
     $collapseAccess = 'collapse';
     $collapsedAccess = 'collapsed';
 
+    $collapseSuper = 'collapse';
+    $collapsedSuper = 'collapsed';
+
     $namepage = '';
 
     if(isset($pagename)) {
@@ -33,6 +36,12 @@
     if(in_array($namepage, $access)){
       $collapseAccess = 'collapse show';
       $collapsedAccess = '';
+    }
+
+    if(isset($updates) || isset($deletes)){
+      $collapseSuper = 'collapse show';
+      $collapsedSuper = '';
+
     }
   @endphp
   <!-- ======= Sidebar ======= -->
@@ -150,58 +159,60 @@
         </ul>
       </li><!-- End Referensi Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Usulan Perubahan</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="tables-general.html">
-              <i class="bi bi-circle"></i><span>Riwayat Pendidikan</span>
-            </a>
-          </li>
-          <li>
-            <a href="tables-data.html">
-              <i class="bi bi-circle"></i><span>Riwayat Kepegawaian</span>
-            </a>
-          </li>
-          <li>
-            <a href="tables-data.html">
-              <i class="bi bi-circle"></i><span>Riwayat Mutasi</span>
-            </a>
-          </li>
-          <li>
-            <a href="tables-data.html">
-              <i class="bi bi-circle"></i><span>Riwayat Keluarga</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Usulan Perubahan Nav -->
+      @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+        <li class="nav-item">
+          <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-layout-text-window-reverse"></i><span>Usulan Perubahan</span><i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <li>
+              <a href="tables-general.html">
+                <i class="bi bi-circle"></i><span>Riwayat Pendidikan</span>
+              </a>
+            </li>
+            <li>
+              <a href="tables-data.html">
+                <i class="bi bi-circle"></i><span>Riwayat Kepegawaian</span>
+              </a>
+            </li>
+            <li>
+              <a href="tables-data.html">
+                <i class="bi bi-circle"></i><span>Riwayat Mutasi</span>
+              </a>
+            </li>
+            <li>
+              <a href="tables-data.html">
+                <i class="bi bi-circle"></i><span>Riwayat Keluarga</span>
+              </a>
+            </li>
+          </ul>
+        </li><!-- End Usulan Perubahan Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link {{$collapsedAccess}}" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-bar-chart"></i><span>Access Permission</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="charts-nav" class="nav-content {{$collapseAccess}} " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="/group-user">
-              <i class="bi bi-circle"></i><span>Roles</span>
-            </a>
-          </li>
-          <li>
-            <a href="/user">
-              <i class="bi bi-circle"></i><span>Users</span>
-            </a>
-          </li>
-        </ul>
-      </li>
+        <li class="nav-item">
+          <a class="nav-link {{$collapsedAccess}}" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-bar-chart"></i><span>Access Permission</span><i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul id="charts-nav" class="nav-content {{$collapseAccess}} " data-bs-parent="#sidebar-nav">
+            <li>
+              <a href="/group-user">
+                <i class="bi bi-circle"></i><span>Roles</span>
+              </a>
+            </li>
+            <li>
+              <a href="/user">
+                <i class="bi bi-circle"></i><span>Users</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      @endif
 
       @if (Auth::user()->role_id == 1)
         <li class="nav-item">
-          <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+          <a class="nav-link {{$collapsedSuper}}" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-gem"></i><span>Super Admin</span><i class="bi bi-chevron-down ms-auto"></i>
           </a>
-          <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <ul id="icons-nav" class="nav-content {{$collapseSuper}} " data-bs-parent="#sidebar-nav">
             <li>
               <a href="/pending-updates">
                 <i class="bi bi-circle"></i><span>Pending Updates</span>

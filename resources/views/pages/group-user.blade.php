@@ -25,14 +25,17 @@
 </div>
 
 <div class="table-responsive">
-    <table class="table table-bordered">
+    <table id="tablePagination" class="table table-bordered">
         <thead>
             <tr>
                 <th>No</th>
                 <th>Role Name</th>
                 <th>Description</th>
                 <th>Level</th>
+                @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                 <th>Actions</th>
+                  
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -42,6 +45,7 @@
                 <td>{{ $role->name }}</td>
                 <td>{{ $role->description }}</td>
                 <td>{{ $role->level }}</td>
+                @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                 <td>
                     <!-- Edit Button -->
                     <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $role->id }}">
@@ -90,6 +94,8 @@
                         </div>
                     </div>
                 </td>
+                  
+                @endif
             </tr>
             @endforeach
         </tbody>

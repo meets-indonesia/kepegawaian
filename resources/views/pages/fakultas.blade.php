@@ -26,12 +26,15 @@
 
 <!-- Table to display Fakultas data -->
 <div class="table-responsive">
-  <table class="table table-bordered">
+  <table id="tablePagination" class="table table-bordered">
       <thead>
           <tr>
               <th scope="col">No</th>
               <th scope="col">Nama Fakultas</th>
-              <th scope="col">Aksi</th>
+              @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+                <th scope="col">Aksi</th>
+                
+              @endif
           </tr>
       </thead>
       <tbody>
@@ -39,6 +42,7 @@
           <tr>
               <td>{{$index+1}}</td>
               <td>{{ $fakultas->name }}</td>
+              @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
               <td>
                   <!-- Edit and Delete buttons (Optional) -->
                   <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $fakultas->id }}">
@@ -52,6 +56,8 @@
                   </form>
                 
               </td>
+                
+              @endif
           </tr>
   
           <!-- Edit Modal (Optional, if you want to implement editing functionality) -->

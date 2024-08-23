@@ -19,7 +19,7 @@
             </div>
             <h6 class="card-subtitle mb-2 text-body-secondary">Pending Deletes</h6>
             @if (count($deletes) > 0)
-                <table class="table table-striped">
+                <table id="tablePagination" class="table table-striped">
                     <thead>
                         <tr>
                             <th>ID</th>

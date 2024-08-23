@@ -25,14 +25,17 @@
 </div>
 
 <div class="table-responsive">
-  <table class="table table-striped">
+  <table id="tablePagination" class="table table-bordered">
     <thead>
       <tr>
         <th>No</th>
         <th>Username</th>
         <th>Email</th>
         <th>Role</th>
+        @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
         <th>Actions</th>
+          
+        @endif
       </tr>
     </thead>
     <tbody>
@@ -42,6 +45,7 @@
         <td>{{ $user->username }}</td>
         <td>{{ $user->email }}</td>
         <td>{{ $user->role->name }}</td>
+        @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
         <td>
           <!-- Edit Button -->
           <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $user->id }}">
@@ -56,6 +60,8 @@
             <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $user->id }})">Delete</button>
           </form>
         </td>
+          
+        @endif
       </tr>
   
       <!-- Edit Modal -->

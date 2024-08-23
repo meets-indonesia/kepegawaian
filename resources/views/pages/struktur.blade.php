@@ -25,7 +25,7 @@
 </div>
 
 <div class="table-responsive">
-  <table class="table table-bordered">
+  <table id="tablePagination" class="table table-bordered">
     <thead>
       <tr>
         <th>No</th>
@@ -35,7 +35,10 @@
         <th>Eselon</th>
         <th>Parent Struktur</th>
         <th>JV</th>
+        @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
         <th>Actions</th>
+          
+        @endif
       </tr>
     </thead>
     <tbody>
@@ -48,6 +51,7 @@
         <td>{{ $item->eselon->name }}</td>
         <td>{{ $item->parent ? $item->parent->jabatan_struktural->name : '-' }}</td>
         <td>{{ $item->jv }}</td>
+        @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
         <td>
           <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal-{{ $item->id }}">
             Edit
@@ -60,6 +64,8 @@
             </button>
           </form>
         </td>
+          
+        @endif
       </tr>
       @endforeach
     </tbody>

@@ -26,7 +26,7 @@
 
   <!-- Grades Table -->
    <div class="table-responsive">
-     <table class="table table-bordered">
+     <table id="tablePagination" class="table table-bordered">
        <thead>
          <tr>
           <th>No</th>
@@ -37,7 +37,10 @@
            <th>Pendidikan</th>
            <th>Kelompok Pegawai</th>
            <th>Unit Kerja</th>
+           @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
            <th>Actions</th>
+             
+           @endif
          </tr>
        </thead>
        <tbody>
@@ -51,6 +54,7 @@
            <td>{{ $item->pendidikan->name }}</td>
            <td>{{ $item->kelompokPegawai->name }}</td>
            <td>{{ $item->unitKerja->name }}</td>
+           @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
            <td>
              <!-- Edit Button -->
              <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editGradeModal{{ $item->id }}">
@@ -64,6 +68,8 @@
                <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $item->id }})">Delete</button>
              </form>
            </td>
+             
+           @endif
          </tr>
    
          <!-- Edit Grade Modal -->

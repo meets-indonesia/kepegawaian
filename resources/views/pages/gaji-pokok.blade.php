@@ -25,14 +25,17 @@
 </div>
 
 <div class="table-responsive">
-  <table class="table table-bordered">
+  <table id="tablePagination" class="table table-bordered">
     <thead>
       <tr>
         <th>No</th>
         <th>Golongan</th>
         <th>Masa Kerja</th>
         <th>Gaji Pokok</th>
-        <th>Actions</th>
+        @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+          <th>Actions</th>
+          
+        @endif
       </tr>
     </thead>
     <tbody>
@@ -42,18 +45,21 @@
         <td>{{ $item->golongan->name }}</td>
         <td>{{ $item->masa_kerja }}</td>
         <td>{{ $item->gaji_pokok }}</td>
-        <td>
-          <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal-{{ $item->id }}">
-            Edit
-          </button>
-          <form action="{{ route('gaji-pokok.destroy', $item->id) }}" method="POST" style="display:inline;" id="delete-form-{{ $item->id }}">
-            @csrf
-            @method('DELETE')
-            <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $item->id }})">
-              Delete
+        @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+          <td>
+            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal-{{ $item->id }}">
+              Edit
             </button>
-          </form>
-        </td>
+            <form action="{{ route('gaji-pokok.destroy', $item->id) }}" method="POST" style="display:inline;" id="delete-form-{{ $item->id }}">
+              @csrf
+              @method('DELETE')
+              <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $item->id }})">
+                Delete
+              </button>
+            </form>
+          </td>
+          
+        @endif
       </tr>
       @endforeach
     </tbody>

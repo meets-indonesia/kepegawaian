@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+  @php
+    $previleged = true;
+    if(Auth::user()->role_id != 1 && Auth::user()->role_id != 2){
+      $previleged = false;
+    }
+  @endphp
 
 <head>
   <meta charset="utf-8">
@@ -10,7 +16,7 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/logo-unsri.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -25,6 +31,7 @@
   <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link href="assets/css/datatable.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
@@ -99,6 +106,16 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
+  <script src="assets/js/jquery.js"></script>
+  <script src="assets/js/datatable.js"></script>
+  <script src="assets/js/datatableBootstrap.js"></script>
+  <script> 
+    $('#tablePagination').DataTable({
+    columnDefs: [
+            { className: 'dt-left', targets: '_all' },
+        ],
+    });
+  </script>
 </body>
 
 </html>

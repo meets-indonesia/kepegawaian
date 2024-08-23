@@ -24,12 +24,14 @@
   </div>
 </div>
 
-<table class="table">
+<table id="tablePagination" class="table table-bordered">
   <thead>
     <tr>
       <th scope="col">No</th>
       <th scope="col">Name</th>
-      <th scope="col">Actions</th>
+      @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+        <th scope="col">Actions</th>    
+      @endif
     </tr>
   </thead>
   <tbody>
@@ -37,21 +39,23 @@
     <tr>
       <th scope="row">{{ $index + 1 }}</th>
       <td>{{ $eselon->name }}</td>
-      <td>
-        <!-- Edit Button -->
-        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $eselon->id }}">
-          Edit
-        </button>
-      
-        <!-- Delete Form -->
-        <form action="{{ route('eselon.destroy', $eselon->id) }}" method="POST" style="display:inline;" id="delete-form-{{ $eselon->id }}">
-          @csrf
-          @method('DELETE')
-          <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete({{ $eselon->id }})">
-            Delete
+      @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+        <td>
+          <!-- Edit Button -->
+          <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $eselon->id }}">
+            Edit
           </button>
-        </form>
-      </td>
+        
+          <!-- Delete Form -->
+          <form action="{{ route('eselon.destroy', $eselon->id) }}" method="POST" style="display:inline;" id="delete-form-{{ $eselon->id }}">
+            @csrf
+            @method('DELETE')
+            <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete({{ $eselon->id }})">
+              Delete
+            </button>
+          </form>
+        </td>
+      @endif
       </tr>
       @endforeach
       </tbody>
