@@ -77,7 +77,7 @@ class KelompokPegawaiController extends Controller
     public function update(Request $request, KelompokPegawai $unitKerja)
     {
         // Find the existing KelompokPegawai record
-        $data = KelompokPegawai::findorFail($unitKerja->id);
+        $data = KelompokPegawai::whereId($request->id)->first();
 
         // Validate the incoming request data
         $validated = $request->validate([

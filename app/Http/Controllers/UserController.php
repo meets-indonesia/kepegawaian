@@ -59,7 +59,7 @@ class UserController extends Controller
             'username' => 'sometimes|string|max:255',
             'email' => 'sometimes|string|email|max:255|unique:users,email,' . $request->id,
             'password' => 'sometimes|string',
-            'role_id' => 'sometimes|integer|exists:role,id',
+            'role_id' => 'sometimes|integer',
         ]);
 
         // If the user is not an admin, save the update request to the pending actions table
