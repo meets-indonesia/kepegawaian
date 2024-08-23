@@ -46,10 +46,10 @@
                   <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $jurusan->id }}">
                       Edit
                   </button>
-                  <form action="{{ route('jurusan.destroy', $jurusan->id) }}" method="POST" style="display:inline;">
+                  <form action="{{ route('jurusan.destroy', $jurusan->id) }}" method="POST" style="display:inline;" id="delete-form-{{ $jurusan->id }}">
                       @csrf
                       @method('DELETE')
-                      <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
+                      <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $jurusan->id }})">Delete</button>
                   </form>
               </td>
           </tr>
@@ -130,4 +130,21 @@
     </div>
   </div>
 </div>
+<script>
+  function confirmDelete(id) {
+      Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+          if (result.isConfirmed) {
+              document.getElementById('delete-form-' + id).submit();
+          }
+      });
+  }
+</script>
 @endsection

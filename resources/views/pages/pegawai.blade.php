@@ -67,10 +67,10 @@
                 <td>{{ $pegawai->jabatan_struktural->name ?? 'N/A' }}</td>
                 <td>
                     <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal{{$pegawai->id}}">Edit</button>
-                    <form action="{{ route('pegawai.destroy', $pegawai->id) }}" method="POST" style="display:inline;">
+                    <form action="{{ route('pegawai.destroy', $pegawai->id) }}" method="POST" style="display:inline;" id="delete-form-{{ $pegawai->id }}">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
+                        <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $pegawai->id }})">Delete</button>
                     </form>
                 </td>
 <div class="modal fade" id="exampleModal{{$pegawai->id}}" tabindex="-1" aria-labelledby="exampleModal{{$pegawai->id}}" aria-hidden="true">
@@ -364,5 +364,21 @@
   </div>
 </div>
 
-
+<script>
+  function confirmDelete(id) {
+      Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+          if (result.isConfirmed) {
+              document.getElementById('delete-form-' + id).submit();
+          }
+      });
+  }
+</script>
 @endsection

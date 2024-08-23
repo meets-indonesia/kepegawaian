@@ -42,19 +42,37 @@
         <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $eselon->id }}">
           Edit
         </button>
-
+      
         <!-- Delete Form -->
-        <form action="{{ route('eselon.destroy', $eselon->id) }}" method="POST" style="display:inline;">
+        <form action="{{ route('eselon.destroy', $eselon->id) }}" method="POST" style="display:inline;" id="delete-form-{{ $eselon->id }}">
           @csrf
           @method('DELETE')
-          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">
+          <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete({{ $eselon->id }})">
             Delete
           </button>
         </form>
       </td>
-    </tr>
-    @endforeach
-  </tbody>
+      </tr>
+      @endforeach
+      </tbody>
+      
+      <script>
+      function confirmDelete(eselonId) {
+          Swal.fire({
+              title: 'Are you sure?',
+              text: "You won't be able to revert this!",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+              if (result.isConfirmed) {
+                  document.getElementById('delete-form-' + eselonId).submit();
+              }
+          });
+      }
+      </script>
 </table>
 
 @foreach($data as $eselon)

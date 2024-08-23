@@ -49,10 +49,10 @@
                     </button>
 
                     <!-- Delete Form -->
-                    <form action="{{ route('group-user.destroy', $role->id) }}" method="POST" style="display:inline-block;">
+                    <form action="{{ route('group-user.destroy', $role->id) }}" method="POST" style="display:inline;" id="delete-form-{{ $role->id }}">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+                        <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $role->id }})">Delete</button>
                     </form>
 
                     <!-- Edit Modal -->
@@ -129,5 +129,21 @@
     </div>
   </div>
 </div>
-
+<script>
+                    function confirmDelete(roleId) {
+                        Swal.fire({
+                            title: 'Are you sure?',
+                            text: "You won't be able to revert this!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes, delete it!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                document.getElementById('delete-form-' + roleId).submit();
+                            }
+                        });
+                    }
+                    </script>
 @endsection

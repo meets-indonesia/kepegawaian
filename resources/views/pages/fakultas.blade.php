@@ -44,11 +44,13 @@
                   <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $fakultas->id }}">
                       Edit
                   </button>
-                  <form action="{{ route('fakultas.destroy', $fakultas->id) }}" method="POST" style="display:inline;">
+                  <!-- Delete Button -->
+                  <form action="{{ route('fakultas.destroy', $fakultas->id) }}" method="POST" style="display:inline;" id="delete-form-{{ $fakultas->id }}">
                       @csrf
                       @method('DELETE')
-                      <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
+                      <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $fakultas->id }})">Delete</button>
                   </form>
+                
               </td>
           </tr>
   
@@ -83,6 +85,24 @@
   </table>
 
 </div>
+
+<script>
+                  function confirmDelete(fakultasId) {
+                      Swal.fire({
+                          title: 'Are you sure?',
+                          text: "You won't be able to revert this!",
+                          icon: 'warning',
+                          showCancelButton: true,
+                          confirmButtonColor: '#3085d6',
+                          cancelButtonColor: '#d33',
+                          confirmButtonText: 'Yes, delete it!'
+                      }).then((result) => {
+                          if (result.isConfirmed) {
+                              document.getElementById('delete-form-' + fakultasId).submit();
+                          }
+                      });
+                  }
+                  </script>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

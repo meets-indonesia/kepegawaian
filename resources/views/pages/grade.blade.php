@@ -58,10 +58,10 @@
              </button>
    
              <!-- Delete Button -->
-             <form action="{{ route('grade.destroy', $item->id) }}" method="POST" style="display:inline;">
+             <form action="{{ route('grade.destroy', $item->id) }}" method="POST" style="display:inline;" id="delete-form-{{ $item->id }}">
                @csrf
                @method('DELETE')
-               <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
+               <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $item->id }})">Delete</button>
              </form>
            </td>
          </tr>
@@ -218,5 +218,21 @@
     </div>
   </div>
 </div>
-
+<script>
+             function confirmDelete(gradeId) {
+                 Swal.fire({
+                     title: 'Are you sure?',
+                     text: "You won't be able to revert this!",
+                     icon: 'warning',
+                     showCancelButton: true,
+                     confirmButtonColor: '#3085d6',
+                     cancelButtonColor: '#d33',
+                     confirmButtonText: 'Yes, delete it!'
+                 }).then((result) => {
+                     if (result.isConfirmed) {
+                         document.getElementById('delete-form-' + gradeId).submit();
+                     }
+                 });
+             }
+             </script>
 @endsection

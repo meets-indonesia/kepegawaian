@@ -49,11 +49,11 @@
           </button>
   
           <!-- Delete Button -->
-          <form action="{{ route('user.destroy', $user->id) }}" method="POST" style="display:inline-block;">
+          <form action="{{ route('user.destroy', $user->id) }}" method="POST" style="display:inline-block;" id="delete-form-{{ $user->id }}">
             @csrf
             @method('DELETE')
             <input type="hidden" value="{{$user->id}}" name="id" />
-            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?');">Delete</button>
+            <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $user->id }})">Delete</button>
           </form>
         </td>
       </tr>
@@ -146,5 +146,21 @@
   </div>
 </div>
 
-
+<script>
+  function confirmDelete(id) {
+      Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+          if (result.isConfirmed) {
+              document.getElementById('delete-form-' + id).submit();
+          }
+      });
+  }
+</script>
 @endsection

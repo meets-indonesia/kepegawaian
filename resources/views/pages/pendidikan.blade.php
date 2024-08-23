@@ -45,10 +45,10 @@
                 </button>
 
                 <!-- Delete Form -->
-                <form action="{{ route('pendidikan.destroy', $pendidikan->id) }}" method="POST" style="display:inline;">
+                <form action="{{ route('pendidikan.destroy', $pendidikan->id) }}" method="POST" style="display:inline;" id="delete-form-{{ $pendidikan->id }}">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">
+                    <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete({{ $pendidikan->id }})">
                         Delete
                     </button>
                 </form>
@@ -109,5 +109,21 @@
     </div>
   </div>
 </div>
-
+<script>
+  function confirmDelete(id) {
+      Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+          if (result.isConfirmed) {
+              document.getElementById('delete-form-' + id).submit();
+          }
+      });
+  }
+</script>
 @endsection

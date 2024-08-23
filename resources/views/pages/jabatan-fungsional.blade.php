@@ -47,10 +47,10 @@
           </button>
   
           <!-- Delete Button -->
-          <form action="{{ route('jabatan-fungsional.destroy', $item->id) }}" method="POST" style="display:inline-block;">
+          <form action="{{ route('jabatan-fungsional.destroy', $item->id) }}" method="POST" style="display:inline-block;" id="delete-form-{{ $item->id }}">
             @csrf
             @method('DELETE')
-            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">
+            <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete({{ $item->id }})">
               Delete
             </button>
           </form>
@@ -75,7 +75,7 @@
                   <input type="text" class="form-control" id="name{{ $item->id }}" name="name" value="{{ $item->name }}" required>
                 </div>
                 <div class="mb-3">
-                  <label for="masa{{ $item->id }}" class="form-label">Description</label>
+                  <label for="masa{{ $item->id }}" class="form-label">Masa</label>
                   <input type="number" class="form-control" id="masa{{ $item->id }}" name="masa" value="{{ $item->masa }}" required />
                 </div>
                 <div class="modal-footer">
@@ -109,7 +109,7 @@
             <input type="text" class="form-control" id="name" name="name" required>
           </div>
           <div class="mb-3">
-            <label for="masa" class="form-label">Description</label>
+            <label for="masa" class="form-label">Masa</label>
             <input type="number" class="form-control" id="masa" name="masa"></input>
           </div>
         </form>
@@ -121,5 +121,21 @@
     </div>
   </div>
 </div>
-
+<script>
+  function confirmDelete(id) {
+      Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+          if (result.isConfirmed) {
+              document.getElementById('delete-form-' + id).submit();
+          }
+      });
+  }
+</script>
 @endsection
