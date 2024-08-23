@@ -1,11 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-  @php
-    $previleged = true;
-    if(Auth::user()->role_id != 1 && Auth::user()->role_id != 2){
-      $previleged = false;
-    }
-  @endphp
 
 <head>
   <meta charset="utf-8">

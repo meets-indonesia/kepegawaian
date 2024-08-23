@@ -104,7 +104,7 @@ class KelompokPegawaiController extends Controller
 
         // Redirect to the index page with a success message
         return redirect()->route('kelompok-pegawai.index')
-            ->with('success', 'Unit Kerja updated successfully.');
+            ->with('success', 'Kelompok pegawai updated successfully.');
     }
 
     /**

@@ -16,7 +16,9 @@
   <div class="card-body">
       <div class="d-flex">
           <h5 class="card-title">Lokasi Kerja</h5>
-          <button type="button" class="btn btn-success ms-auto mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Tambah data</button>
+          @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+            <button type="button" class="btn btn-success ms-auto mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Tambah data</button>   
+          @endif
 
       </div>
       <h6 class="card-subtitle mb-2 text-body-secondary">Lokasi Kerja</h6>

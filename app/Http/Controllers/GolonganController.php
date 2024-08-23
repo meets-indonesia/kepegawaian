@@ -47,7 +47,7 @@ class GolonganController extends Controller
 
         // Redirect to the index page with a success message
         return redirect()->route('golongan.index')
-            ->with('success', 'Unit Kerja berhasil ditambah');
+            ->with('success', 'Golongan berhasil ditambah');
     }
 
     /**
@@ -107,7 +107,7 @@ class GolonganController extends Controller
 
         // Redirect to the index page with a success message
         return redirect()->route('golongan.index')
-            ->with('success', 'Unit Kerja updated successfully.');
+            ->with('success', 'Golongan updated successfully.');
     }
 
     /**
@@ -139,6 +139,6 @@ class GolonganController extends Controller
 
         // Redirect to the index page with a success message
         return redirect()->route('golongan.index')
-            ->with('success', 'Unit Kerja deleted successfully.');
+            ->with('success', 'Golongan deleted successfully.');
     }
 }

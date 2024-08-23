@@ -15,7 +15,9 @@
   <div class="card-body">
       <div class="d-flex">
           <h5 class="card-title">Data pegawai</h5>
-          <button type="button" class="btn btn-success ms-auto mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Tambah data</button>
+          @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+            <button type="button" class="btn btn-success ms-auto mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Tambah data</button>   
+          @endif
 
       </div>
       <h6 class="card-subtitle mb-2 text-body-secondary">Data pegawai</h6>
@@ -23,11 +25,18 @@
   </div>
 </div>
 
+<form action="{{route('pegawai.index')}}">
+  <div class="input-group mb-3 w-50 ms-auto">
+    <input type="text" class="form-control" placeholder="Search here" aria-label="Search here" aria-describedby="button-addon2" name="search">
+    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+  </div>
+
+</form>
+
 <div class="table-responsive">
-<table id="tablePagination" class="table table-bordered table-bordered">
+<table class="table table-bordered table-bordered">
         <thead>
             <tr>
-                <th>No</th>
                 <th>NIP</th>
                 <th>Name</th>
                 <th>Email</th>
@@ -52,7 +61,6 @@
         <tbody>
             @foreach($data as $index => $pegawai)
             <tr>
-                <td>{{$index+1}}</td>
                 <td>{{ $pegawai->nip }}</td>
                 <td>{{ $pegawai->name }}</td>
                 <td>{{ $pegawai->email }}</td>
@@ -387,4 +395,6 @@
       });
   }
 </script>
+<div class="mb-3"></div>
+{{ $data->links() }}
 @endsection

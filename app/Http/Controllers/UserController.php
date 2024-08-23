@@ -16,7 +16,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = User::with(['role'])->get();
+        $data = User::with(['role']);
+
+        if(request('search')){
+            $data = $data->where('username', 'LIKE', '%' . request('search') . '%')
+            ->orWhere('email', 'LIKE', '%' . request('search') . '%');
+        }
+
+        $data = $data->paginate('10');
         $roles = Role::all();
         return view('pages.user', [
             'pagename' => "user",

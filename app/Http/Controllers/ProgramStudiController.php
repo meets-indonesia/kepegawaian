@@ -50,7 +50,7 @@ class ProgramStudiController extends Controller
 
         // Redirect to the index page with a success message
         return redirect()->route('program-studi.index')
-            ->with('success', 'Unit Kerja berhasil ditambah');
+            ->with('success', 'Program Studi berhasil ditambah');
     }
 
     /**
@@ -109,7 +109,7 @@ class ProgramStudiController extends Controller
 
         // Redirect to the index page with a success message
         return redirect()->route('program-studi.index')
-            ->with('success', 'Unit Kerja updated successfully.');
+            ->with('success', 'Program Studi updated successfully.');
     }
 
     /**
@@ -141,6 +141,6 @@ class ProgramStudiController extends Controller
 
         // Redirect to the index page with a success message
         return redirect()->route('program-studi.index')
-            ->with('success', 'Unit Kerja deleted successfully.');
+            ->with('success', 'Program Studi deleted successfully.');
     }
 }

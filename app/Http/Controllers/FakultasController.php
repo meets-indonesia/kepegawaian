@@ -46,7 +46,7 @@ class FakultasController extends Controller
 
         // Redirect to the index page with a success message
         return redirect()->route('fakultas.index')
-            ->with('success', 'Unit Kerja berhasil ditambah');
+            ->with('success', 'Fakultas berhasil ditambah');
     }
 
     /**
@@ -95,7 +95,7 @@ class FakultasController extends Controller
             PendingAction::savePendingAction('update', $Fakultas->id, $updateData);
 
             return redirect()->route('fakultas.index')
-                ->with('success', 'Unit Kerja update request submitted successfully.');
+                ->with('success', 'Fakultas update request submitted successfully.');
         }
 
         // Update the existing Fakultas record
@@ -103,7 +103,7 @@ class FakultasController extends Controller
 
         // Redirect to the index page with a success message
         return redirect()->route('fakultas.index')
-            ->with('success', 'Unit Kerja updated successfully.');
+            ->with('success', 'Fakultas updated successfully.');
     }
 
     /**
@@ -133,6 +133,6 @@ class FakultasController extends Controller
 
         // Redirect to the index page with a success message
         return redirect()->route('fakultas.index')
-            ->with('success', 'Unit Kerja deleted successfully.');
+            ->with('success', 'Fakultas deleted successfully.');
     }
 }

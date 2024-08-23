@@ -16,7 +16,9 @@
   <div class="card-body">
       <div class="d-flex">
           <h5 class="card-title">User</h5>
-          <button type="button" class="btn btn-success ms-auto mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Tambah data</button>
+          @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+            <button type="button" class="btn btn-success ms-auto mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Tambah data</button>   
+          @endif
 
       </div>
       <h6 class="card-subtitle mb-2 text-body-secondary">User</h6>
@@ -24,11 +26,18 @@
   </div>
 </div>
 
+<form action="{{route('user.index')}}">
+  <div class="input-group mb-3 w-50 ms-auto">
+    <input type="text" class="form-control" placeholder="Search here" aria-label="Search here" aria-describedby="button-addon2" name="search">
+    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+  </div>
+
+</form>
+
 <div class="table-responsive">
-  <table id="tablePagination" class="table table-bordered">
+  <table class="table table-bordered">
     <thead>
       <tr>
-        <th>No</th>
         <th>Username</th>
         <th>Email</th>
         <th>Role</th>
@@ -41,7 +50,6 @@
     <tbody>
       @foreach($data as $index => $user)
       <tr>
-        <td>{{ $index+1 }}</td>
         <td>{{ $user->username }}</td>
         <td>{{ $user->email }}</td>
         <td>{{ $user->role->name }}</td>
@@ -169,4 +177,6 @@
       });
   }
 </script>
+<div class="mb-3"></div>
+{{ $data->links() }}
 @endsection

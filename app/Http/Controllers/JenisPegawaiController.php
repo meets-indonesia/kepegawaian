@@ -46,7 +46,7 @@ class JenisPegawaiController extends Controller
 
         // Redirect to the index page with a success message
         return redirect()->route('jenis-pegawai.index')
-            ->with('success', 'Unit Kerja berhasil ditambah');
+            ->with('success', 'Jenis Pegawai berhasil ditambah');
     }
 
     /**

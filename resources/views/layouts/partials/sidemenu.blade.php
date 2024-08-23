@@ -50,14 +50,14 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="/dashboard">
+        <a class="nav-link {{$namepage == 'dashboard' ? '' : 'collapsed'}}" href="/dashboard">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/pegawai">
+        <a class="nav-link {{$namepage == 'pegawai' ? '' : 'collapsed'}}" href="/pegawai">
           <i class="bi bi-person"></i>
           <span>Pegawai</span>
         </a>
@@ -69,32 +69,32 @@
         </a>
         <ul id="components-nav" class="nav-content {{$collapseSetting}} " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="/unit-kerja">
+            <a class="{{$namepage == 'unit-kerja' ? 'active' : ''}}" href="/unit-kerja">
               <i class="bi bi-circle"></i><span>Unit Kerja</span>
             </a>
           </li>
           <li>
-            <a href="/fakultas">
+            <a class="{{$namepage == 'fakultas' ? 'active' : ''}}" href="/fakultas">
               <i class="bi bi-circle"></i><span>Fakultas</span>
             </a>
           </li>
           <li>
-            <a href="/jurusan">
+            <a class="{{$namepage == 'jurusan' ? 'active' : ''}}" href="/jurusan">
               <i class="bi bi-circle"></i><span>Jurusan</span>
             </a>
           </li>
           <li>
-            <a href="/program-studi">
+            <a class="{{$namepage == 'program-studi' ? 'active' : ''}}" href="/program-studi">
               <i class="bi bi-circle"></i><span>Program Studi</span>
             </a>
           </li>
           <li>
-            <a href="/kelompok-pegawai">
+            <a class="{{$namepage == 'kelompok-pegawai' ? 'active' : ''}}" href="/kelompok-pegawai">
               <i class="bi bi-circle"></i><span>Kelompok Pegawai</span>
             </a>
           </li>
           <li>
-            <a href="/jenis-pegawai">
+            <a class="{{$namepage == 'jenis-pegawai' ? 'active' : ''}}" href="/jenis-pegawai">
               <i class="bi bi-circle"></i><span>Jenis Pegawai</span>
             </a>
           </li>
@@ -107,52 +107,52 @@
         </a>
         <ul id="forms-nav" class="nav-content {{$collapseReferensi}} " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="/golongan">
+            <a class="{{$namepage == 'golongan' ? 'active' : ''}}" href="/golongan">
               <i class="bi bi-circle"></i><span>Golongan</span>
             </a>
           </li>
           <li>
-            <a href="/struktur">
+            <a class="{{$namepage == 'struktur' ? 'active' : ''}}" href="/struktur">
               <i class="bi bi-circle"></i><span>Struktur</span>
             </a>
           </li>
           <li>
-            <a href="/gaji-pokok">
+            <a class="{{$namepage == 'gaji-pokok' ? 'active' : ''}}" href="/gaji-pokok">
               <i class="bi bi-circle"></i><span>Gaji Pokok</span>
             </a>
           </li>
           <li>
-            <a href="/jabatan-struktural">
+            <a class="{{$namepage == 'jabatan-struktural' ? 'active' : ''}}" href="/jabatan-struktural">
               <i class="bi bi-circle"></i><span>Jabatan Struktural</span>
             </a>
           </li>
           <li>
-            <a href="/jabatan-fungsional">
+            <a class="{{$namepage == 'jabatan-fungsional' ? 'active' : ''}}" href="/jabatan-fungsional">
               <i class="bi bi-circle"></i><span>Jabatan Fungsional</span>
             </a>
           </li>
           <li>
-            <a href="/grade">
+            <a class="{{$namepage == 'grade' ? 'active' : ''}}" href="/grade">
               <i class="bi bi-circle"></i><span>Grade</span>
             </a>
           </li>
           <li>
-            <a href="/pendidikan">
+            <a class="{{$namepage == 'pendidikan' ? 'active' : ''}}" href="/pendidikan">
               <i class="bi bi-circle"></i><span>Pendidikan</span>
             </a>
           </li>
           <li>
-            <a href="/hukuman-disiplin">
+            <a class="{{$namepage == 'hukuman-disiplin' ? 'active' : ''}}" href="/hukuman-disiplin">
               <i class="bi bi-circle"></i><span>Hukuman Disiplin</span>
             </a>
           </li>
           <li>
-            <a href="/lokasi-kerja">
+            <a class="{{$namepage == 'lokasi-kerja' ? 'active' : ''}}" href="/lokasi-kerja">
               <i class="bi bi-circle"></i><span>Lokasi Kerja</span>
             </a>
           </li>
           <li>
-            <a href="/eselon">
+            <a class="{{$namepage == 'eselon' ? 'active' : ''}}" href="/eselon">
               <i class="bi bi-circle"></i><span>Eselon</span>
             </a>
           </li>
@@ -188,38 +188,39 @@
           </ul>
         </li><!-- End Usulan Perubahan Nav -->
 
-        <li class="nav-item">
+
+      @endif
+
+      @if (Auth::user()->role_id == 1)
+      <li class="nav-item">
           <a class="nav-link {{$collapsedAccess}}" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-bar-chart"></i><span>Access Permission</span><i class="bi bi-chevron-down ms-auto"></i>
           </a>
           <ul id="charts-nav" class="nav-content {{$collapseAccess}} " data-bs-parent="#sidebar-nav">
             <li>
-              <a href="/group-user">
+              <a class="{{$namepage == 'roles' ? 'active' : ''}}" href="/group-user">
                 <i class="bi bi-circle"></i><span>Roles</span>
               </a>
             </li>
             <li>
-              <a href="/user">
+              <a class="{{$namepage == 'user' ? 'active' : ''}}" href="/user">
                 <i class="bi bi-circle"></i><span>Users</span>
               </a>
             </li>
           </ul>
         </li>
-      @endif
-
-      @if (Auth::user()->role_id == 1)
         <li class="nav-item">
           <a class="nav-link {{$collapsedSuper}}" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-gem"></i><span>Super Admin</span><i class="bi bi-chevron-down ms-auto"></i>
           </a>
           <ul id="icons-nav" class="nav-content {{$collapseSuper}} " data-bs-parent="#sidebar-nav">
             <li>
-              <a href="/pending-updates">
+              <a class="{{isset($updates) == 'pending-updates' ? 'active' : ''}}" href="/pending-updates">
                 <i class="bi bi-circle"></i><span>Pending Updates</span>
               </a>
             </li>
             <li>
-              <a href="/pending-deletes">
+              <a class="{{isset($deletes) == 'pending-deletes' ? 'active' : ''}}"  href="/pending-deletes">
                 <i class="bi bi-circle"></i><span>Pending Deletes</span>
               </a>
             </li>

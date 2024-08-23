@@ -38,7 +38,16 @@ class PegawaiController extends Controller
             'pendidikan',
             'jabatan_fungsional',
             'jabatan_struktural'
-        ])->get();
+        ]);
+
+        if(request('search')){
+            $data = $data->where('nip', 'LIKE', '%' . request('search') . '%')
+            ->orWhere('name', 'LIKE', '%' . request('search') . '%')
+            ->orWhere('email', 'LIKE', '%' . request('search') . '%');
+        }
+
+
+        $data = $data->paginate('10');
 
 
         $golongan = Golongan::all();
