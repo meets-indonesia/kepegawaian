@@ -28,15 +28,15 @@
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th scope="col">ID</th>
+            <th scope="col">No</th>
             <th scope="col">Nama Unit Kerja</th>
             <th scope="col">Aksi</th>
         </tr>
     </thead>
     <tbody>
-        @foreach($data as $unitKerja)
+        @foreach($data as $index => $unitKerja)
         <tr>
-            <td>{{ $unitKerja->id }}</td>
+            <td>{{ $index+1 }}</td>
             <td>{{ $unitKerja->name }}</td>
             <td>
                 <!-- Edit and Delete buttons (Optional) -->
@@ -46,7 +46,7 @@
                 <form action="{{ route('unit-kerja.destroy', $unitKerja->id) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
                 </form>
             </td>
         </tr>

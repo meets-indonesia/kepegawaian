@@ -24,38 +24,40 @@
   </div>
 </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach($data as $index => $lokasi)
-    <tr>
-      <th scope="row">{{ $index + 1 }}</th>
-      <td>{{ $lokasi->name }}</td>
-      <td>
-        <!-- Edit Button -->
-        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $lokasi->id }}">
-          Edit
-        </button>
-
-        <!-- Delete Form -->
-        <form action="{{ route('lokasi-kerja.destroy', $lokasi->id) }}" method="POST" style="display:inline;">
-          @csrf
-          @method('DELETE')
-          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">
-            Delete
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">No</th>
+        <th scope="col">Name</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach($data as $index => $lokasi)
+      <tr>
+        <th scope="row">{{ $index + 1 }}</th>
+        <td>{{ $lokasi->name }}</td>
+        <td>
+          <!-- Edit Button -->
+          <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $lokasi->id }}">
+            Edit
           </button>
-        </form>
-      </td>
-    </tr>
-    @endforeach
-  </tbody>
-</table>
+
+          <!-- Delete Form -->
+          <form action="{{ route('lokasi-kerja.destroy', $lokasi->id) }}" method="POST" style="display:inline;">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">
+              Delete
+            </button>
+          </form>
+        </td>
+      </tr>
+      @endforeach
+    </tbody>
+  </table>
+</div>
 
 @foreach($data as $lokasi)
 <div class="modal fade" id="editModal{{ $lokasi->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $lokasi->id }}" aria-hidden="true">

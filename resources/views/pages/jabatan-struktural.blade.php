@@ -61,39 +61,42 @@
   </div>
 </div>
 
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th>No</th>
-      <th>Nama</th>
-      <th>Masa</th>
-      <th>Eselon</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach($data as $key => $item)
-    <tr>
-      <td>{{ $key + 1 }}</td>
-      <td>{{ $item->name }}</td>
-      <td>{{ $item->masa }}</td>
-      <td>{{ $item->eselon->name }}</td>
-      <td>
-        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal-{{ $item->id }}">
-          Edit
-        </button>
-        <form action="{{ route('jabatan-struktural.destroy', $item->id) }}" method="POST" style="display:inline;">
-          @csrf
-          @method('DELETE')
-          <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">
-            Delete
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Nama</th>
+        <th>Masa</th>
+        <th>Eselon</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach($data as $key => $item)
+      <tr>
+        <td>{{ $key + 1 }}</td>
+        <td>{{ $item->name }}</td>
+        <td>{{ $item->masa }}</td>
+        <td>{{ $item->eselon->name }}</td>
+        <td>
+          <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal-{{ $item->id }}">
+            Edit
           </button>
-        </form>
-      </td>
-    </tr>
-    @endforeach
-  </tbody>
-</table>
+          <form action="{{ route('jabatan-struktural.destroy', $item->id) }}" method="POST" style="display:inline;">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">
+              Delete
+            </button>
+          </form>
+        </td>
+      </tr>
+      @endforeach
+    </tbody>
+  </table>
+</div>
+
 
 <!-- Edit Modal -->
 @foreach($data as $item)

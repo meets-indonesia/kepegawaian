@@ -28,7 +28,7 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>ID</th>
+        <th>No</th>
         <th>Username</th>
         <th>Email</th>
         <th>Role</th>
@@ -36,9 +36,9 @@
       </tr>
     </thead>
     <tbody>
-      @foreach($data as $user)
+      @foreach($data as $index => $user)
       <tr>
-        <td>{{ $user->id }}</td>
+        <td>{{ $index+1 }}</td>
         <td>{{ $user->username }}</td>
         <td>{{ $user->email }}</td>
         <td>{{ $user->role->name }}</td>

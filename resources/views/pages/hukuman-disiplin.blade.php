@@ -25,55 +25,57 @@
 </div>
 
 <!-- Table to Display Data -->
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach($data as $item)
-    <tr>
-      <th scope="row">{{ $loop->iteration }}</th>
-      <td>{{ $item->name }}</td>
-      <td>
-        <!-- Edit Button triggers the specific modal -->
-        <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">Edit</button>
-        <form action="{{ route('hukuman-disiplin.destroy', $item->id) }}" method="POST" style="display:inline;">
-          @csrf
-          @method('DELETE')
-          <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-        </form>
-      </td>
-    </tr>
-
-    <!-- Edit Modal for each item -->
-    <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="editModalLabel{{ $item->id }}">Edit Hukuman Disiplin</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form method="POST" action="{{ route('hukuman-disiplin.update', $item->id) }}">
-              @csrf
-              @method('PUT')
-              <div class="mb-3">
-                <label for="editName{{ $item->id }}" class="form-label">Name</label>
-                <input type="text" class="form-control" id="editName{{ $item->id }}" name="name" value="{{ $item->name }}" required>
-              </div>
-              <button type="submit" class="btn btn-primary">Save changes</button>
-            </form>
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">No</th>
+        <th scope="col">Name</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach($data as $item)
+      <tr>
+        <th scope="row">{{ $loop->iteration }}</th>
+        <td>{{ $item->name }}</td>
+        <td>
+          <!-- Edit Button triggers the specific modal -->
+          <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $item->id }}">Edit</button>
+          <form action="{{ route('hukuman-disiplin.destroy', $item->id) }}" method="POST" style="display:inline;">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
+          </form>
+        </td>
+      </tr>
+  
+      <!-- Edit Modal for each item -->
+      <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="editModalLabel{{ $item->id }}">Edit Hukuman Disiplin</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form method="POST" action="{{ route('hukuman-disiplin.update', $item->id) }}">
+                @csrf
+                @method('PUT')
+                <div class="mb-3">
+                  <label for="editName{{ $item->id }}" class="form-label">Name</label>
+                  <input type="text" class="form-control" id="editName{{ $item->id }}" name="name" value="{{ $item->name }}" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    @endforeach
-  </tbody>
-</table>
+      @endforeach
+    </tbody>
+  </table>
+</div>
 
 
 <!-- Modal -->

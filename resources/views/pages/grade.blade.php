@@ -29,6 +29,7 @@
      <table class="table table-bordered">
        <thead>
          <tr>
+          <th>No</th>
            <th>Name</th>
            <th>Value</th>
            <th>Jabatan Fungsional</th>
@@ -40,8 +41,9 @@
          </tr>
        </thead>
        <tbody>
-         @foreach($data as $item)
+         @foreach($data as $index => $item)
          <tr>
+            <td>{{$index+1}}</td>
            <td>{{ $item->name }}</td>
            <td>{{ $item->value }}</td>
            <td>{{ $item->jabatanFungsional->name }}</td>
@@ -59,7 +61,7 @@
              <form action="{{ route('grade.destroy', $item->id) }}" method="POST" style="display:inline;">
                @csrf
                @method('DELETE')
-               <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+               <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
              </form>
            </td>
          </tr>

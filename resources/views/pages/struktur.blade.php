@@ -24,45 +24,47 @@
   </div>
 </div>
 
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th>No</th>
-      <th>Jabatan Struktural</th>
-      <th>Jabatan Fungsional</th>
-      <th>Grade</th>
-      <th>Eselon</th>
-      <th>Parent Struktur</th>
-      <th>JV</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach($data as $key => $item)
-    <tr>
-      <td>{{ $key + 1 }}</td>
-      <td>{{ $item->jabatan_struktural->name }}</td>
-      <td>{{ $item->jabatan_fungsional ? $item->jabatan_fungsional->name : '-' }}</td>
-      <td>{{ $item->grade->name }}</td>
-      <td>{{ $item->eselon->name }}</td>
-      <td>{{ $item->parent ? $item->parent->jabatan_struktural->name : '-' }}</td>
-      <td>{{ $item->jv }}</td>
-      <td>
-        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal-{{ $item->id }}">
-          Edit
-        </button>
-        <form action="{{ route('struktur.destroy', $item->id) }}" method="POST" style="display:inline;">
-          @csrf
-          @method('DELETE')
-          <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">
-            Delete
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Jabatan Struktural</th>
+        <th>Jabatan Fungsional</th>
+        <th>Grade</th>
+        <th>Eselon</th>
+        <th>Parent Struktur</th>
+        <th>JV</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach($data as $key => $item)
+      <tr>
+        <td>{{ $key + 1 }}</td>
+        <td>{{ $item->jabatan_struktural->name }}</td>
+        <td>{{ $item->jabatan_fungsional ? $item->jabatan_fungsional->name : '-' }}</td>
+        <td>{{ $item->grade->name }}</td>
+        <td>{{ $item->eselon->name }}</td>
+        <td>{{ $item->parent ? $item->parent->jabatan_struktural->name : '-' }}</td>
+        <td>{{ $item->jv }}</td>
+        <td>
+          <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal-{{ $item->id }}">
+            Edit
           </button>
-        </form>
-      </td>
-    </tr>
-    @endforeach
-  </tbody>
-</table>
+          <form action="{{ route('struktur.destroy', $item->id) }}" method="POST" style="display:inline;">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">
+              Delete
+            </button>
+          </form>
+        </td>
+      </tr>
+      @endforeach
+    </tbody>
+  </table>
+</div>
 
 <!-- Edit Modal -->
 @foreach($data as $item)

@@ -25,61 +25,63 @@
 </div>
 
 <!-- Table to display Jenis Pegawai data -->
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Nama Jenis Pegawai</th>
-            <th scope="col">Aksi</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($data as $jenisPegawai)
-        <tr>
-            <td>{{ $jenisPegawai->id }}</td>
-            <td>{{ $jenisPegawai->name }}</td>
-            <td>
-                <!-- Edit and Delete buttons (Optional) -->
-                <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $jenisPegawai->id }}">
-                    Edit
-                </button>
-                <form action="{{ route('jenis-pegawai.destroy', $jenisPegawai->id) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                </form>
-            </td>
-        </tr>
-
-        <!-- Edit Modal (Optional, if you want to implement editing functionality) -->
-        <div class="modal fade" id="editModal{{ $jenisPegawai->id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="editModalLabel">Edit Jenis Pegawai</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="editJenisPegawaiForm{{ $jenisPegawai->id }}" action="{{ route('jenis-pegawai.update', $jenisPegawai->id) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <div class="mb-3">
-                                <input type="hidden" value="{{$jenisPegawai->id}}" name="id">
-                                <label for="editJenisPegawaiName{{ $jenisPegawai->id }}" class="form-label">Nama Jenis Pegawai</label>
-                                <input type="text" class="form-control" id="editJenisPegawaiName{{ $jenisPegawai->id }}" name="name" value="{{ $jenisPegawai->name }}" required>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-primary" form="editJenisPegawaiForm{{ $jenisPegawai->id }}">Submit</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @endforeach
-    </tbody>
-</table>
+<div class="table-responsive">
+  <table class="table table-bordered">
+      <thead>
+          <tr>
+              <th scope="col">No</th>
+              <th scope="col">Nama Jenis Pegawai</th>
+              <th scope="col">Aksi</th>
+          </tr>
+      </thead>
+      <tbody>
+          @foreach($data as $index => $jenisPegawai)
+          <tr>
+              <td>{{ $index+1 }}</td>
+              <td>{{ $jenisPegawai->name }}</td>
+              <td>
+                  <!-- Edit and Delete buttons (Optional) -->
+                  <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ $jenisPegawai->id }}">
+                      Edit
+                  </button>
+                  <form action="{{ route('jenis-pegawai.destroy', $jenisPegawai->id) }}" method="POST" style="display:inline;">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
+                  </form>
+              </td>
+          </tr>
+  
+          <!-- Edit Modal (Optional, if you want to implement editing functionality) -->
+          <div class="modal fade" id="editModal{{ $jenisPegawai->id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="editModalLabel">Edit Jenis Pegawai</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                          <form id="editJenisPegawaiForm{{ $jenisPegawai->id }}" action="{{ route('jenis-pegawai.update', $jenisPegawai->id) }}" method="POST">
+                              @csrf
+                              @method('PUT')
+                              <div class="mb-3">
+                                  <input type="hidden" value="{{$jenisPegawai->id}}" name="id">
+                                  <label for="editJenisPegawaiName{{ $jenisPegawai->id }}" class="form-label">Nama Jenis Pegawai</label>
+                                  <input type="text" class="form-control" id="editJenisPegawaiName{{ $jenisPegawai->id }}" name="name" value="{{ $jenisPegawai->name }}" required>
+                              </div>
+                          </form>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                          <button type="submit" class="btn btn-primary" form="editJenisPegawaiForm{{ $jenisPegawai->id }}">Submit</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          @endforeach
+      </tbody>
+  </table>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

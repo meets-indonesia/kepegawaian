@@ -27,6 +27,7 @@
 <table class="table table-bordered table-striped">
         <thead>
             <tr>
+                <th>No</th>
                 <th>NIP</th>
                 <th>Name</th>
                 <th>Email</th>
@@ -46,8 +47,9 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($data as $pegawai)
+            @foreach($data as $index => $pegawai)
             <tr>
+                <td>{{$index+1}}</td>
                 <td>{{ $pegawai->nip }}</td>
                 <td>{{ $pegawai->name }}</td>
                 <td>{{ $pegawai->email }}</td>
@@ -68,7 +70,7 @@
                     <form action="{{ route('pegawai.destroy', $pegawai->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
                     </form>
                 </td>
 <div class="modal fade" id="exampleModal{{$pegawai->id}}" tabindex="-1" aria-labelledby="exampleModal{{$pegawai->id}}" aria-hidden="true">
