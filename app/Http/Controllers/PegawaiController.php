@@ -47,7 +47,7 @@ class PegawaiController extends Controller
         }
 
 
-        $data = $data->paginate('10');
+        $data = $data->paginate('10')->appends(request()->query());
 
 
         $golongan = Golongan::all();
