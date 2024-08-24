@@ -23,6 +23,7 @@ use App\Http\Controllers\APIProdiController;
 use App\Http\Controllers\APIRiwayatHukumanDisiplinController;
 use App\Http\Controllers\APIRiwayatJabatanController;
 use App\Http\Controllers\APIRiwayatMutasiController;
+use App\Http\Controllers\APIRiwayatPangkatController;
 use App\Http\Controllers\APIRiwayatPangkatGolonganController;
 use App\Http\Controllers\APIRiwayatPendidikanController;
 use App\Http\Controllers\APIRiwayatPenghargaanController;
@@ -239,8 +240,14 @@ Route::middleware('apikey')->group(function () {
     Route::put('/riwayat_penghargaan/{id}', [APIRiwayatPenghargaanController::class, 'update']);
     Route::delete('/riwayat_penghargaan/{id}', [APIRiwayatPenghargaanController::class, 'delete']);
 
+    // RiwayatPangkat API
+    Route::get('/riwayat_pangkat', [APIRiwayatPangkatController::class, 'getall']);
+    Route::get('/riwayat_pangkat/{id}', [APIRiwayatPangkatController::class, 'get']);
+    Route::post('/riwayat_pangkat', [APIRiwayatPangkatController::class, 'create']);
+    Route::put('/riwayat_pangkat/{id}', [APIRiwayatPangkatController::class, 'update']);
+    Route::delete('/riwayat_pangkat/{id}', [APIRiwayatPangkatController::class, 'delete']);
 
-    // Strultur API
+    // Struktur API
     Route::get('/struktur', [APIStrukturController::class, 'getall']);
     Route::get('/struktur/{id}', [APIStrukturController::class, 'get']);
     Route::post('/struktur', [APIStrukturController::class, 'create']);
