@@ -10,7 +10,7 @@ class RiwayatJabatanFungsional extends Model
     use HasFactory;
 
     // Table name
-    protected $table = 'riwayat_pangkat';
+    protected $table = 'riwayat_jabatan_fungsional';
 
     // fillable
     protected $fillable = [

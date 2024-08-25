@@ -176,4 +176,14 @@ class Pegawai extends Model
     {
         return $this->hasMany(LatihanJabatan::class);
     }
+
+    public function riwayatJabatanStruktural()
+    {
+        return $this->hasMany(RiwayatJabatanStruktural::class);
+    }
+
+    public function riwayatJabatanFungsional()
+    {
+        return $this->hasMany(RiwayatJabatanFungsional::class);
+    }
 }

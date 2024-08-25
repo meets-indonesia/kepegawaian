@@ -37,7 +37,9 @@ class PegawaiController extends Controller
             'grade',
             'pendidikan',
             'jabatan_fungsional',
-            'jabatan_struktural'
+            'jabatan_struktural',
+            'riwayatJabatanStruktural',
+            'riwayatJabatanFungsional',
         ]);
 
         if(request('search')){

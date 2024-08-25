@@ -23,6 +23,9 @@ use App\Http\Controllers\StrukturController;
 use App\Http\Controllers\UnitKerjaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RiwayatJabatanStrukturalController;
+use App\Http\Controllers\RiwayatJabatanFungsionalController;
+use App\Models\RiwayatJabatanStruktural;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Route;
 
@@ -96,6 +99,10 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/lokasi-kerja', [LokasiKerjaController::class, 'index'])->name('lokasi-kerja.index');
 
     Route::get('/eselon', [EselonController::class, 'index'])->name('eselon.index');
+
+    Route::get('/riwayat-jabatan-struktural', [RiwayatJabatanStrukturalController::class, 'index'])->name('riwayat-jabatan-struktural.index');
+
+    Route::get('/riwayat-jabatan-fungsional', [RiwayatJabatanFungsionalController::class, 'index'])->name('riwayat-jabatan-fungsional.index');
 });
 
 Route::middleware('auth', 'verified', 'superadminoradmin')->group(function () {
@@ -166,6 +173,14 @@ Route::middleware('auth', 'verified', 'superadminoradmin')->group(function () {
     Route::post('/create-eselon', [EselonController::class, 'store'])->name('eselon.store');
     Route::put('/update-eselon/{id}', [EselonController::class, 'update'])->name('eselon.update');
     Route::delete('/delete-eselon/{id}', [EselonController::class, 'destroy'])->name('eselon.destroy');
+
+    Route::post('/riwayat-jabatan-struktural', [RiwayatJabatanStrukturalController::class, 'store'])->name('riwayat-jabatan-struktural.store');
+    Route::put('/update-riwayat-jabatan-struktural/{id}', [RiwayatJabatanStrukturalController::class, 'update'])->name('riwayat-jabatan-struktural.update');
+    Route::delete('/delete-riwayat-jabatan-struktural/{id}', [RiwayatJabatanStrukturalController::class, 'destroy'])->name('riwayat-jabatan-struktural.destroy');
+
+    Route::post('/riwayat-jabatan-fungsional', [RiwayatJabatanFungsionalController::class, 'store'])->name('riwayat-jabatan-fungsional.store');
+    Route::put('/update-riwayat-jabatan-fungsional/{id}', [RiwayatJabatanFungsionalController::class, 'update'])->name('riwayat-jabatan-fungsional.update');
+    Route::delete('/delete-riwayat-jabatan-fungsional/{id}', [RiwayatJabatanFungsionalController::class, 'destroy'])->name('riwayat-jabatan-fungsional.destroy');
 });
 
 

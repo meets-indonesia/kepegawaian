@@ -3,6 +3,8 @@
 
     $referensi = array('golongan', 'struktur', 'gaji-pokok', 'jabatan-struktural', 'jabatan-fungsional', 'grade', 'pendidikan', 'hukuman-disiplin', 'lokasi-kerja', 'eselon');
 
+    $riwayat = array('riwayat-jabatan-struktural', 'riwayat-jabatan-fungsional');
+
     $access = array('roles', 'user');
 
     $collapseSetting = 'collapse';
@@ -16,6 +18,9 @@
 
     $collapseSuper = 'collapse';
     $collapsedSuper = 'collapsed';
+
+    $collapseRiwayat = 'collapse';
+    $collapsedRiwayat = 'collapsed';
 
     $namepage = '';
 
@@ -36,6 +41,11 @@
     if(in_array($namepage, $access)){
       $collapseAccess = 'collapse show';
       $collapsedAccess = '';
+    }
+
+    if(in_array($namepage, $riwayat)){
+      $collapseRiwayat = 'collapse show';
+      $collapsedRiwayat = '';
     }
 
     if(isset($updates) || isset($deletes)){
@@ -159,30 +169,20 @@
         </ul>
       </li><!-- End Referensi Nav -->
 
-      @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+      @if (Auth::user()->role_id == 1)
         <li class="nav-item">
-          <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-layout-text-window-reverse"></i><span>Usulan Perubahan</span><i class="bi bi-chevron-down ms-auto"></i>
+          <a class="nav-link {{$collapsedRiwayat}}" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-layout-text-window-reverse"></i><span>Riwayat Jabatan</span><i class="bi bi-chevron-down ms-auto"></i>
           </a>
-          <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <ul id="tables-nav" class="nav-content {{$collapseRiwayat}} " data-bs-parent="#sidebar-nav">
             <li>
-              <a href="tables-general.html">
-                <i class="bi bi-circle"></i><span>Riwayat Pendidikan</span>
+              <a class="{{$namepage == 'riwayat-jabatan-fungsional' ? 'active' : ''}}" href="/riwayat-jabatan-fungsional">
+                <i class="bi bi-circle"></i><span>Riwayat Jabatan Fungsional</span>
               </a>
             </li>
             <li>
-              <a href="tables-data.html">
-                <i class="bi bi-circle"></i><span>Riwayat Kepegawaian</span>
-              </a>
-            </li>
-            <li>
-              <a href="tables-data.html">
-                <i class="bi bi-circle"></i><span>Riwayat Mutasi</span>
-              </a>
-            </li>
-            <li>
-              <a href="tables-data.html">
-                <i class="bi bi-circle"></i><span>Riwayat Keluarga</span>
+              <a class="{{$namepage == 'riwayat-jabatan-struktural' ? 'active' : ''}}" href="/riwayat-jabatan-struktural">
+                <i class="bi bi-circle"></i><span>Riwayat Jabatan Struktural</span>
               </a>
             </li>
           </ul>

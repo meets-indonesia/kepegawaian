@@ -47,44 +47,24 @@
                 <th>NIP</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Golongan</th>
-                <th>Kelompok Pegawai</th>
-                <th>Jenis Pegawai</th>
-                <th>Unit Kerja</th>
-                <th>Jurusan</th>
-                <th>Program Studi</th>
-                <th>Grade</th>
-                <th>Tamat CPNS</th>
-                <th>Tamat PNS</th>
-                <th>Pendidikan</th>
-                <th>Jabatan Fungsional</th>
-                <th>Jabatan Struktural</th>
-                @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+
                 <th>Actions</th>
                   
-                @endif
+
             </tr>
         </thead>
         <tbody>
+
             @foreach($data as $index => $pegawai)
             <tr>
                 <td>{{ $pegawai->nip }}</td>
                 <td>{{ $pegawai->name }}</td>
                 <td>{{ $pegawai->email }}</td>
-                <td>{{ $pegawai->golongan->name ?? 'N/A' }}</td>
-                <td>{{ $pegawai->kelompok_pegawai->name ?? 'N/A' }}</td>
-                <td>{{ $pegawai->jenis_pegawai->name ?? 'N/A' }}</td>
-                <td>{{ $pegawai->unit_kerja->name ?? 'N/A' }}</td>
-                <td>{{ $pegawai->jurusan->name ?? 'N/A' }}</td>
-                <td>{{ $pegawai->prodi->name ?? 'N/A' }}</td>
-                <td>{{ $pegawai->grade->name ?? 'N/A' }}</td>
-                <td>{{ $pegawai->tamat_cpns }}</td>
-                <td>{{ $pegawai->tamat_pns }}</td>
-                <td>{{ $pegawai->pendidikan->name ?? 'N/A' }}</td>
-                <td>{{ $pegawai->jabatan_fungsional->name ?? 'N/A' }}</td>
-                <td>{{ $pegawai->jabatan_struktural->name ?? 'N/A' }}</td>
                 @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                 <td>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#showModal{{$pegawai->id}}">
+                      Detail
+                    </button>
                     <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal{{$pegawai->id}}">Edit</button>
                     <form action="{{ route('pegawai.destroy', $pegawai->id) }}" method="POST" style="display:inline;" id="delete-form-{{ $pegawai->id }}">
                         @csrf
@@ -92,8 +72,98 @@
                         <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $pegawai->id }})">Delete</button>
                     </form>
                 </td>
-                  
+                @else
+                  <td>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#showModal{{$pegawai->id}}">
+                      Detail
+                    </button>
+                  </td>
                 @endif
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="showModal{{$pegawai->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Informasi pegawai</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <div id="carouselExampleIndicators{{$pegawai->id}}" class="carousel slide">
+    <div class="d-flex mb-3">
+      <button type="button" data-bs-target="#carouselExampleIndicators{{$pegawai->id}}" data-bs-slide="prev" class="btn btn-primary" aria-current="true" aria-label="Slide 1"><</button>
+      <!-- <button type="button" data-bs-target="#carouselExampleIndicators{{$pegawai->id}}" data-bs-slide-to="1" class="btn btn-primary" aria-label="Slide 2">Riwayat Jabatan Struktural</button> -->
+      <button type="button" data-bs-target="#carouselExampleIndicators{{$pegawai->id}}" data-bs-slide="next" class="btn btn-primary ms-auto" aria-label="Slide 3">></button>
+
+    </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+
+    <h5 class="fw-bold">NIP</h5>
+            <p>{{ $pegawai->nip }}</p>
+            <h5 class="fw-bold">Name</h5>
+            <p>{{ $pegawai->name }}</p>
+            <h5 class="fw-bold">Email</h5>
+            <p>{{ $pegawai->email }}</p>
+            <h5 class="fw-bold">Golongan</h5>
+            <p>{{ $pegawai->golongan->name ?? 'N/A' }}</p>
+            <h5 class="fw-bold">Kelompok pegawai</h5>
+            <p>{{ $pegawai->kelompok_pegawai->name ?? 'N/A' }}</p>
+            <h5 class="fw-bold">Jenis pegawai</h5>
+            <p>{{ $pegawai->jenis_pegawai->name ?? 'N/A' }}</p>
+            <h5 class="fw-bold">Unit kerja</h5>
+            <p>{{ $pegawai->unit_kerja->name ?? 'N/A' }}</p>
+            <h5 class="fw-bold">Jurusan</h5>
+            <p>{{ $pegawai->jurusan->name ?? 'N/A' }}</p>
+            <h5 class="fw-bold">Prodi</h5>
+            <p>{{ $pegawai->prodi->name ?? 'N/A' }}</p>
+            <h5 class="fw-bold">Grade</h5>
+            <p>{{ $pegawai->grade->name ?? 'N/A' }}</p>
+            <h5 class="fw-bold">Tamat cpns</h5>
+            <p>{{ $pegawai->tamat_cpns ?? 'N/A' }}</p>
+            <h5 class="fw-bold">Tamat pns</h5>
+            <p>{{ $pegawai->tamat_pns ?? 'N/A' }}</p>
+            <h5 class="fw-bold">Pendidikan</h5>
+            <p>{{ $pegawai->pendidikan->name ?? 'N/A' }}</p>
+            <h5 class="fw-bold">Jabatan fungsional</h5>
+            <p>{{ $pegawai->jabatan_fungsional->name ?? 'N/A' }}</p>
+            <h5 class="fw-bold">Jabatan struktural</h5>
+            <p>{{ $pegawai->jabatan_struktural->name ?? 'N/A' }}</p>
+    </div>
+    <div class="carousel-item">
+    <h5 class="fw-bold">Riwayat Jabatan Struktural</h5>
+      @foreach ($pegawai->riwayatJabatanStruktural as $index => $riwayatStruktural)
+        <p>{{ $index+1 }}.  {{ $riwayatStruktural->jabatanStruktural->name }} ({{ $riwayatStruktural->tahun_mulai }} - {{ $riwayatStruktural->tahun_selesai }})</p>
+      @endforeach
+    </div>
+    <div class="carousel-item">
+    <h5 class="fw-bold">Riwayat Jabatan Fungsional</h5>
+      @foreach ($pegawai->riwayatJabatanFungsional as $index => $riwayatFungsional)
+        <p>{{ $index+1 }}.  {{ $riwayatFungsional->jabatanFungsional->name }} ({{ $riwayatFungsional->tahun_mulai }} - {{ $riwayatFungsional->tahun_selesai }})</p>
+      @endforeach
+    </div>
+  </div>
+  <!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators{{$pegawai->id}}" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="false"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators{{$pegawai->id}}" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button> -->
+</div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="modal fade" id="exampleModal{{$pegawai->id}}" tabindex="-1" aria-labelledby="exampleModal{{$pegawai->id}}" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
