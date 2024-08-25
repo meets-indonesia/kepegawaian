@@ -23,7 +23,7 @@ class UserController extends Controller
             ->orWhere('email', 'LIKE', '%' . request('search') . '%');
         }
 
-        $data = $data->paginate('10');
+        $data = $data->paginate('10')->appends(request()->query());
         $roles = Role::all();
         return view('pages.user', [
             'pagename' => "user",
