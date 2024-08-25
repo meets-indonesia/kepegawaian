@@ -50,7 +50,7 @@ class JurusanController extends Controller
 
         // Redirect to the index page with a success message
         return redirect()->route('jurusan.index')
-            ->with('success', 'Unit Kerja berhasil ditambah');
+            ->with('success', 'Jurusan berhasil ditambah');
     }
 
     /**
