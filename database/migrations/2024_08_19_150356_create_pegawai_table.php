@@ -23,8 +23,8 @@ return new class extends Migration
             $table->foreignId('jurusan_id')->constrained('jurusan')->onDelete('cascade')->nullable();
             $table->foreignId('prodi_id')->constrained('prodi')->onDelete('cascade')->nullable();
             $table->foreignId('grade_id')->constrained('grade')->onDelete('cascade')->nullable();
-            $table->date('tamat_cpns');
-            $table->date('tamat_pns');
+            $table->date('tamat_cpns')->nullable();
+            $table->date('tamat_pns')->nullable();
             $table->foreignId('pendidikan_id')->constrained('pendidikan')->onDelete('cascade')->nullable();
             $table->foreignId('jabatan_fungsional_id')->constrained('jabatan_fungsional')->onDelete('cascade')->nullable();
             $table->foreignId('jabatan_struktural_id')->constrained('jabatan_struktural')->onDelete('cascade')->nullable();
