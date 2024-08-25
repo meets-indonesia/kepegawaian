@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('riwayat_jabatan_struktural', function (Blueprint $table) {
+        Schema::create('riwayat_jabatan_fungsional', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pegawai_id')->constrained('pegawai')->cascadeOnDelete();
-            $table->foreignId('jabatan_struktural_id')->constrained('jabatan_struktural')->cascadeOnDelete();
+            $table->foreignId('jabatan_fungsional_id')->constrained('jabatan_fungsional')->cascadeOnDelete();
             $table->year('tahun_mulai');
             $table->year('tahun_selesai');
             $table->timestamps();
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('riwayat_pangkat');
+        Schema::dropIfExists('riwayat_jabatan_fungsional');
     }
 };
