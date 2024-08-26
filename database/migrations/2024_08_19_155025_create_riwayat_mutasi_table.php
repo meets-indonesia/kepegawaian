@@ -16,6 +16,9 @@ return new class extends Migration
             $table->foreignId('pegawai_id')->constrained('pegawai')->onDelete('cascade');
             $table->string('no_sk', 100);
             $table->enum('jenis', ['Masuk', 'Keluar', 'Pindah Antar Instansi', 'Pensiun', 'Wafat', 'Kenaikan Pangkat']);
+            $table->foreignId('fakultas_id')->constrained('fakultas')->nullable()->onDelete('cascade');
+            $table->foreignId('jurusan_id')->constrained('jurusan')->nullable()->onDelete('cascade');
+            $table->foreignId('prodi_id')->constrained('prodi')->nullable()->onDelete('cascade');
             $table->date('tanggal_sk');
             $table->timestamps();
         });

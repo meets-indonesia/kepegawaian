@@ -11,15 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('riwayat_pangkat_golongan', function (Blueprint $table) {
+        Schema::create('riwayat_golongan', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pegawai_id')->constrained('pegawai')->onDelete('cascade');
-            $table->foreignId('unit_kerja_id')->constrained('unit_kerja')->onDelete('cascade');
-            $table->foreignId('lokasi_kerja_id')->constrained('lokasi_kerja')->onDelete('cascade');
-            $table->string('golongan_ruang', 25);
-            $table->date('tmt_golongan');
-            $table->date('tanggal_sk');
-            $table->string('nomor_sk', 100);
+            $table->foreignId('golongan_id')->constrained('golongan')->onDelete('cascade');
+            $table->date('tahun_mulai');
             $table->timestamps();
         });
     }
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('riwayat_pangkat_golongan');
+        Schema::dropIfExists('riwayat_golongan');
     }
 };

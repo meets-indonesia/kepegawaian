@@ -24,11 +24,9 @@ class RiwayatPendidikan extends Model
     protected $fillable = [
         'pegawai_id',
         'pendidikan_id',
-        'jurusan_id',
-        'tanggal_lulus',
+        'bidang_ilmu',
         'nama_sekolah',
-        'gelar_depan',
-        'gelar_belakang'
+        'tahun_selesai',
     ];
 
     /**

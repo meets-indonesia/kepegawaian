@@ -198,55 +198,6 @@ Route::middleware('apikey')->group(function () {
     Route::put('/prodi/{id}', [APIProdiController::class, 'update']);
     Route::delete('/prodi/{id}', [APIProdiController::class, 'delete']);
 
-    // RiwayatHukumanDisiplin API
-    Route::get('/riwayat_hukuman_disiplin', [APIRiwayatHukumanDisiplinController::class, 'getall']);
-    Route::get('/riwayat_hukuman_disiplin/{id}', [APIRiwayatHukumanDisiplinController::class, 'get']);
-    Route::post('/riwayat_hukuman_disiplin', [APIRiwayatHukumanDisiplinController::class, 'create']);
-    Route::put('/riwayat_hukuman_disiplin/{id}', [APIRiwayatHukumanDisiplinController::class, 'update']);
-    Route::delete('/riwayat_hukuman_disiplin/{id}', [APIRiwayatHukumanDisiplinController::class, 'delete']);
-
-    // RiwayatJabatan API
-    Route::get('/riwayat_jabatan', [APIRiwayatJabatanController::class, 'getall']);
-    Route::get('/riwayat_jabatan/{id}', [APIRiwayatJabatanController::class, 'get']);
-    Route::post('/riwayat_jabatan', [APIRiwayatJabatanController::class, 'create']);
-    Route::put('/riwayat_jabatan/{id}', [APIRiwayatJabatanController::class, 'update']);
-    Route::delete('/riwayat_jabatan/{id}', [APIRiwayatJabatanController::class, 'delete']);
-
-    // RiwayatMutasi API
-    Route::get('/riwayat_mutasi', [APIRiwayatMutasiController::class, 'getall']);
-    Route::get('/riwayat_mutasi/{id}', [APIRiwayatMutasiController::class, 'get']);
-    Route::post('/riwayat_mutasi', [APIRiwayatMutasiController::class, 'create']);
-    Route::put('/riwayat_mutasi/{id}', [APIRiwayatMutasiController::class, 'update']);
-    Route::delete('/riwayat_mutasi/{id}', [APIRiwayatMutasiController::class, 'delete']);
-
-    // RiwayatPangkatGolongan API
-    Route::get('/riwayat_pangkat_golongan', [APIRiwayatPangkatGolonganController::class, 'getall']);
-    Route::get('/riwayat_pangkat_golongan/{id}', [APIRiwayatPangkatGolonganController::class, 'get']);
-    Route::post('/riwayat_pangkat_golongan', [APIRiwayatPangkatGolonganController::class, 'create']);
-    Route::put('/riwayat_pangkat_golongan/{id}', [APIRiwayatPangkatGolonganController::class, 'update']);
-    Route::delete('/riwayat_pangkat_golongan/{id}', [APIRiwayatPangkatGolonganController::class, 'delete']);
-
-    // RiwayatPendidikan API
-    Route::get('/riwayat_pendidikan', [APIRiwayatPendidikanController::class, 'getall']);
-    Route::get('/riwayat_pendidikan/{id}', [APIRiwayatPendidikanController::class, 'get']);
-    Route::post('/riwayat_pendidikan', [APIRiwayatPendidikanController::class, 'create']);
-    Route::put('/riwayat_pendidikan/{id}', [APIRiwayatPendidikanController::class, 'update']);
-    Route::delete('/riwayat_pendidikan/{id}', [APIRiwayatPendidikanController::class, 'delete']);
-
-    // RiwayatPenghargaan API
-    Route::get('/riwayat_penghargaan', [APIRiwayatPenghargaanController::class, 'getall']);
-    Route::get('/riwayat_penghargaan/{id}', [APIRiwayatPenghargaanController::class, 'get']);
-    Route::post('/riwayat_penghargaan', [APIRiwayatPenghargaanController::class, 'create']);
-    Route::put('/riwayat_penghargaan/{id}', [APIRiwayatPenghargaanController::class, 'update']);
-    Route::delete('/riwayat_penghargaan/{id}', [APIRiwayatPenghargaanController::class, 'delete']);
-
-    // RiwayatPangkat API
-    Route::get('/riwayat_pangkat', [APIRiwayatPangkatController::class, 'getall']);
-    Route::get('/riwayat_pangkat/{id}', [APIRiwayatPangkatController::class, 'get']);
-    Route::post('/riwayat_pangkat', [APIRiwayatPangkatController::class, 'create']);
-    Route::put('/riwayat_pangkat/{id}', [APIRiwayatPangkatController::class, 'update']);
-    Route::delete('/riwayat_pangkat/{id}', [APIRiwayatPangkatController::class, 'delete']);
-
     // Struktur API
     Route::get('/struktur', [APIStrukturController::class, 'getall']);
     Route::get('/struktur/{id}', [APIStrukturController::class, 'get']);

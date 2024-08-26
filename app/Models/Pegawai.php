@@ -172,18 +172,93 @@ class Pegawai extends Model
      * @var \App\Models\LatihanJabatan
      */
 
+    /**
+     * Get the latihan_jabatan for the Pegawai
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @var \App\Models\LatihanJabatan
+     */
     public function latihan_jabatan()
     {
         return $this->hasMany(LatihanJabatan::class);
     }
 
+    /**
+     * Get the riwayat_golongan for the Pegawai
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @var \App\Models\RiwayatGolongan
+     */
+    public function riwayatGolongan()
+    {
+        return $this->hasMany(RiwayatGolongan::class);
+    }
+
+    /**
+     * Get the riwayat_kelompok_pegawai for the Pegawai
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @var \App\Models\RiwayatKelompokPegawai
+     */
+    public function riwayatKelompokPegawai()
+    {
+        return $this->hasMany(RiwayatKelompokPegawai::class);
+    }
+
+    /**
+     * Get the riwayat_jenis_pegawai for the Pegawai
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @var \App\Models\RiwayatJenisPegawai
+     */
+    public function riwayatJenisPegawai()
+    {
+        return $this->hasMany(RiwayatJenisPegawai::class);
+    }
+
+    /**
+     * Get the riwayat_pendidikan for the Pegawai
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @var \App\Models\RiwayatPendidikan
+     */
+
+    public function riwayatPendidikan()
+    {
+        return $this->hasMany(RiwayatPendidikan::class);
+    }
+
+    /**
+     * Get the riwayat_jabatan_struktural for the Pegawai
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @var \App\Models\RiwayatJabatanStruktural
+     */
     public function riwayatJabatanStruktural()
     {
         return $this->hasMany(RiwayatJabatanStruktural::class);
     }
 
+
+    /**
+     * Get the riwayat_jabatan_fungsional for the Pegawai
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @var \App\Models\RiwayatJabatanFungsional
+     */
     public function riwayatJabatanFungsional()
     {
         return $this->hasMany(RiwayatJabatanFungsional::class);
+    }
+
+    /**
+     * Get the riwayat_mutasi for the Pegawai
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @var \App\Models\RiwayatMutasi
+     */
+    public function riwayatMutasi()
+    {
+        return $this->hasMany(RiwayatMutasi::class);
     }
 }

@@ -16,7 +16,6 @@ class RiwayatJabatanFungsional extends Model
     protected $fillable = [
         'pegawai_id',
         'jabatan_fungsional_id',
-        'tahun_mulai',
         'tahun_selesai',
     ];
 

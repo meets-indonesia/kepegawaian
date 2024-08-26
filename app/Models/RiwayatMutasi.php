@@ -25,6 +25,9 @@ class RiwayatMutasi extends Model
         'pegawai_id',
         'no_sk',
         'jenis',
+        'fakultas_id',
+        'jurusan_id',
+        'prodi_id',
         'tanggal_sk'
     ];
 
