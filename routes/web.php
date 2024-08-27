@@ -100,6 +100,8 @@ Route::middleware('auth', 'verified')->group(function () {
 
     Route::get('/eselon', [EselonController::class, 'index'])->name('eselon.index');
 
+    Route::get('/detail-pegawai/{id}', [PegawaiController::class, 'show'])->name('pegawai.show');
+
     Route::get('/riwayat-jabatan-struktural', [RiwayatJabatanStrukturalController::class, 'index'])->name('riwayat-jabatan-struktural.index');
 
     Route::get('/riwayat-jabatan-fungsional', [RiwayatJabatanFungsionalController::class, 'index'])->name('riwayat-jabatan-fungsional.index');
