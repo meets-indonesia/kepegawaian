@@ -36,6 +36,9 @@
   <div class="card-body">
       <div class="d-flex">
           <h5 class="card-title">Riwayat Golongan</h5>
+          @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+            <button class="ms-auto my-auto btn btn-warning" data-bs-toggle="modal" data-bs-target="#editGolongan{{$pegawai->id}}">Edit</button>  
+          @endif
       </div>
       <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">Golongan Saat ini : </span> {{$pegawai->golongan->name}}</h6>
         <table class="table table-bordered table-responsive">
@@ -54,7 +57,7 @@
                         <td>{{$riwayat->golongan->name}}</td>
                         <td>{{$riwayat->tahun_mulai}}</td>
                         <td>
-                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editRiwayatGolongan{{ $riwayat->id }}">
+                            <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editRiwayatGolongan{{ $riwayat->id }}">
                                 Edit
                             </button>
                             <div class="modal fade" id="editRiwayatGolongan{{ $riwayat->id }}" tabindex="-1" aria-labelledby="editRiwayatGolongan{{ $riwayat->id }}" aria-hidden="true">
@@ -92,6 +95,9 @@
   <div class="card-body">
       <div class="d-flex">
           <h5 class="card-title">Riwayat Kelompok Pegawai</h5>
+          @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+            <button class="ms-auto my-auto btn btn-warning" data-bs-toggle="modal" data-bs-target="#editKelompokPegawai{{$pegawai->id}}">Edit</button>  
+          @endif
       </div>
       <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">Kelompok Pegawai Saat ini : </span> {{$pegawai->kelompok_pegawai->name}}</h6>
         <table class="table table-bordered table-responsive">
@@ -148,6 +154,9 @@
   <div class="card-body">
       <div class="d-flex">
           <h5 class="card-title">Riwayat Jenis Pegawai</h5>
+          @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+            <button class="ms-auto my-auto btn btn-warning" data-bs-toggle="modal" data-bs-target="#editJenisPegawai{{$pegawai->id}}">Edit</button>  
+          @endif
       </div>
       <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">Jenis Pegawai Saat ini : </span> {{$pegawai->jenis_pegawai->name}}</h6>
       <table class="table table-bordered table-responsive">
@@ -204,6 +213,9 @@
   <div class="card-body">
       <div class="d-flex">
           <h5 class="card-title">Riwayat Pendidikan</h5>
+          @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+            <button class="ms-auto my-auto btn btn-warning" data-bs-toggle="modal" data-bs-target="#editPendidikan{{$pegawai->id}}">Edit</button>  
+          @endif
       </div>
       <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">Pendidikan Saat ini : </span> {{$pegawai->pendidikan->name}}</h6>
       <table class="table table-bordered table-responsive">
@@ -274,6 +286,9 @@
   <div class="card-body">
       <div class="d-flex">
           <h5 class="card-title">Riwayat Jabatan Struktural</h5>
+          @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+            <button class="ms-auto my-auto btn btn-warning" data-bs-toggle="modal" data-bs-target="#editJabatanStruktural{{$pegawai->id}}">Edit</button>  
+          @endif
       </div>
       <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">Jabatan Struktural Saat ini : </span> {{$pegawai->jabatan_struktural->name}}</h6>
       <table class="table table-bordered table-responsive">
@@ -337,6 +352,9 @@
   <div class="card-body">
       <div class="d-flex">
           <h5 class="card-title">Riwayat Jabatan Fungsional</h5>
+          @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+            <button class="ms-auto my-auto btn btn-warning" data-bs-toggle="modal" data-bs-target="#editJabatanFungsional{{$pegawai->id}}">Edit</button>  
+          @endif
       </div>
       <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">Jabatan Fungsional Saat ini : </span> {{$pegawai->jabatan_fungsional->name}}</h6>
       <table class="table table-bordered table-responsive">
@@ -355,10 +373,10 @@
                         <td>{{$riwayat->jabatanFungsional->name}}</td>
                         <td>{{$riwayat->tahun_selesai}}</td>
                         <td>
-                            <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editJabatanFungsional{{ $riwayat->id }}">
+                            <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editRiwayatJabatanFungsional{{ $riwayat->id }}">
                                 Edit
                             </button>
-                            <div class="modal fade" id="editJabatanFungsional{{ $riwayat->id }}" tabindex="-1" aria-labelledby="editJabatanFungsional{{ $riwayat->id }}" aria-hidden="true">
+                            <div class="modal fade" id="editRiwayatJabatanFungsional{{ $riwayat->id }}" tabindex="-1" aria-labelledby="editRiwayatJabatanFungsional{{ $riwayat->id }}" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -413,7 +431,9 @@
             <label for="email" class="form-label">Email</label>
             <input type="email" class="form-control" id="email" name="email" value="{{$pegawai->email}}" required>
           </div>
-          <div class="mb-3">
+
+          <input type="hidden" class="form-control" id="golongan_id" name="golongan_id" value="{{$pegawai->golongan_id}}" required>
+          <!-- <div class="mb-3">
             <label for="golongan_id" class="form-label">Golongan</label>
             <select class="form-control" id="golongan_id" name="golongan_id" required>
               @foreach($golongan as $riwayat)
@@ -424,8 +444,10 @@
                 @endif
               @endforeach
             </select>
-          </div>
-          <div class="mb-3">
+          </div> -->
+
+          <input type="hidden" class="form-control" id="kelompok_pegawai_id" name="kelompok_pegawai_id" value="{{$pegawai->kelompok_pegawai_id}}" required>
+          <!-- <div class="mb-3">
             <label for="kelompok_pegawai_id" class="form-label">Kelompok Pegawai</label>
             <select class="form-control" id="kelompok_pegawai_id" name="kelompok_pegawai_id" required>
               @foreach($kelompok_pegawai as $riwayat)
@@ -436,8 +458,10 @@
                 @endif
               @endforeach
             </select>
-          </div>
-          <div class="mb-3">
+          </div> -->
+
+          <input type="hidden" class="form-control" id="jenis_pegawai_id" name="jenis_pegawai_id" value="{{$pegawai->jenis_pegawai_id}}" required>
+          <!-- <div class="mb-3">
             <label for="jenis_pegawai_id" class="form-label">Jenis Pegawai</label>
             <select class="form-control" id="jenis_pegawai_id" name="jenis_pegawai_id" required>
               @foreach($jenis_pegawai as $riwayat)
@@ -448,7 +472,8 @@
                 @endif
               @endforeach
             </select>
-          </div>
+          </div> -->
+
           <div class="mb-3">
             <label for="unit_kerja_id" class="form-label">Unit Kerja</label>
             <select class="form-control" id="unit_kerja_id" name="unit_kerja_id" required>
@@ -505,6 +530,238 @@
             <label for="tamat_pns" class="form-label">Tamat PNS</label>
             <input type="date" class="form-control" id="tamat_pns" name="tamat_pns" value="{{$pegawai->tamat_pns}}" required>
           </div>
+
+          <input type="hidden" class="form-control" id="pendidikan_id" name="pendidikan_id" value="{{$pegawai->pendidikan_id}}" required>
+          <!-- <div class="mb-3">
+            <label for="pendidikan_id" class="form-label">Pendidikan</label>
+            <select class="form-control" id="pendidikan_id" name="pendidikan_id" required>
+              @foreach($pendidikan as $riwayat)
+                @if ($pegawai->pendidikan_id == $riwayat->id)
+                  <option value="{{ $riwayat->id }}" selected>{{ $riwayat->name }}</option>
+                @else
+                  <option value="{{ $riwayat->id }}">{{ $riwayat->name }}</option>
+                @endif
+              @endforeach
+            </select>
+          </div> -->
+
+          <input type="hidden" class="form-control" id="jabatan_fungsional_id" name="jabatan_fungsional_id" value="{{$pegawai->jabatan_fungsional_id}}" required>
+          <div class="mb-3">
+          <!-- <div class="mb-3">
+            <label for="jabatan_fungsional_id" class="form-label">Jabatan Fungsional</label>
+            <select class="form-control" id="jabatan_fungsional_id" name="jabatan_fungsional_id" required>
+              @foreach($jabatan_fungsional as $riwayat)
+                @if ($pegawai->jabatan_fungsional_id == $riwayat->id)
+                  <option value="{{ $riwayat->id }}" selected>{{ $riwayat->name }}</option>
+                @else
+                  <option value="{{ $riwayat->id }}">{{ $riwayat->name }}</option>
+                @endif
+              @endforeach
+            </select>
+          </div> -->
+
+          <input type="hidden" class="form-control" id="jabatan_struktural_id" name="jabatan_struktural_id" value="{{$pegawai->jabatan_struktural_id}}" required>   
+          <!-- <div class="mb-3">
+            <label for="jabatan_struktural_id" class="form-label">Jabatan Struktural</label>
+            <select class="form-control" id="jabatan_struktural_id" name="jabatan_struktural_id" required>
+              @foreach($jabatan_struktural as $riwayat)
+                @if ($pegawai->jabatan_struktural_id == $riwayat->id)
+                  <option value="{{ $riwayat->id }}" selected>{{ $riwayat->name }}</option>
+                @else
+                  <option value="{{ $riwayat->id }}">{{ $riwayat->name }}</option>
+                @endif
+              @endforeach
+            </select>
+          </div> -->
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editGolongan{{$pegawai->id}}" tabindex="-1" aria-labelledby="editGolongan{{$pegawai->id}}" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editGolonganLabel">Edit Data</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="{{ route('pegawai.update') }}" method="POST">
+        @csrf
+        @method('PUT')
+        <div class="modal-body">
+
+          <input type="hidden" class="form-control" id="nip" name="nip" value="{{$pegawai->nip}}" required>
+          <input type="hidden" class="form-control" id="id" name="id" value="{{$pegawai->id}}" required>
+          <input type="hidden" class="form-control" id="name" name="name" value="{{$pegawai->name}}" required>
+          <input type="hidden" class="form-control" id="email" name="email" value="{{$pegawai->email}}" required>
+
+          <div class="mb-3">
+            <label for="golongan_id" class="form-label">Golongan</label>
+            <select class="form-control" id="golongan_id" name="golongan_id" required>
+              @foreach($golongan as $riwayat)
+                @if ($pegawai->golongan_id == $riwayat->id)
+                  <option value="{{ $riwayat->id }}" selected>{{ $riwayat->name }}</option>
+                @else
+                  <option value="{{ $riwayat->id }}">{{ $riwayat->name }}</option>
+                @endif
+              @endforeach
+            </select>
+          </div>
+          <input type="hidden" class="form-control" id="kelompok_pegawai_id" name="kelompok_pegawai_id" value="{{$pegawai->kelompok_pegawai_id}}" required>
+          <input type="hidden" class="form-control" id="jenis_pegawai_id" name="jenis_pegawai_id" value="{{$pegawai->jenis_pegawai_id}}" required>
+          <input type="hidden" class="form-control" id="unit_kerja_id" name="unit_kerja_id" value="{{$pegawai->unit_kerja_id}}" required>
+          <input type="hidden" class="form-control" id="jurusan_id" name="jurusan_id" value="{{$pegawai->jurusan_id}}" required>
+          <input type="hidden" class="form-control" id="prodi_id" name="prodi_id" value="{{$pegawai->prodi_id}}" required>                   
+          <input type="hidden" class="form-control" id="grade_id" name="grade_id" value="{{$pegawai->grade_id}}" required>     
+          <input type="hidden" class="form-control" id="tamat_cpns" name="tamat_cpns" value="{{$pegawai->tamat_cpns}}" required>  
+          <input type="hidden" class="form-control" id="tamat_pns" name="tamat_pns" value="{{$pegawai->tamat_pns}}" required>
+          <input type="hidden" class="form-control" id="pendidikan_id" name="pendidikan_id" value="{{$pegawai->pendidikan_id}}" required>
+          <input type="hidden" class="form-control" id="jabatan_fungsional_id" name="jabatan_fungsional_id" value="{{$pegawai->jabatan_fungsional_id}}" required>
+          <input type="hidden" class="form-control" id="jabatan_struktural_id" name="jabatan_struktural_id" value="{{$pegawai->jabatan_struktural_id}}" required>             
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="editKelompokPegawai{{$pegawai->id}}" tabindex="-1" aria-labelledby="editKelompokPegawai{{$pegawai->id}}" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editKelompokPegawaiLabel">Edit Data</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="{{ route('pegawai.update') }}" method="POST">
+        @csrf
+        @method('PUT')
+        <div class="modal-body">
+
+          <input type="hidden" class="form-control" id="nip" name="nip" value="{{$pegawai->nip}}" required>
+          <input type="hidden" class="form-control" id="id" name="id" value="{{$pegawai->id}}" required>
+          <input type="hidden" class="form-control" id="name" name="name" value="{{$pegawai->name}}" required>
+          <input type="hidden" class="form-control" id="email" name="email" value="{{$pegawai->email}}" required>
+          <input type="hidden" class="form-control" id="golongan_id" name="golongan_id" value="{{$pegawai->golongan_id}}" required>
+          <div class="mb-3">
+            <label for="kelompok_pegawai_id" class="form-label">Kelompok Pegawai</label>
+            <select class="form-control" id="kelompok_pegawai_id" name="kelompok_pegawai_id" required>
+              @foreach($kelompok_pegawai as $riwayat)
+                @if ($pegawai->kelompok_pegawai_id == $riwayat->id)
+                  <option value="{{ $riwayat->id }}" selected>{{ $riwayat->name }}</option>
+                @else
+                  <option value="{{ $riwayat->id }}">{{ $riwayat->name }}</option>
+                @endif
+              @endforeach
+            </select>
+          </div>
+          <input type="hidden" class="form-control" id="jenis_pegawai_id" name="jenis_pegawai_id" value="{{$pegawai->jenis_pegawai_id}}" required>
+          <input type="hidden" class="form-control" id="unit_kerja_id" name="unit_kerja_id" value="{{$pegawai->unit_kerja_id}}" required>
+          <input type="hidden" class="form-control" id="jurusan_id" name="jurusan_id" value="{{$pegawai->jurusan_id}}" required>
+          <input type="hidden" class="form-control" id="prodi_id" name="prodi_id" value="{{$pegawai->prodi_id}}" required>                   
+          <input type="hidden" class="form-control" id="grade_id" name="grade_id" value="{{$pegawai->grade_id}}" required>     
+          <input type="hidden" class="form-control" id="tamat_cpns" name="tamat_cpns" value="{{$pegawai->tamat_cpns}}" required>  
+          <input type="hidden" class="form-control" id="tamat_pns" name="tamat_pns" value="{{$pegawai->tamat_pns}}" required>
+          <input type="hidden" class="form-control" id="pendidikan_id" name="pendidikan_id" value="{{$pegawai->pendidikan_id}}" required>
+          <input type="hidden" class="form-control" id="jabatan_fungsional_id" name="jabatan_fungsional_id" value="{{$pegawai->jabatan_fungsional_id}}" required>
+          <input type="hidden" class="form-control" id="jabatan_struktural_id" name="jabatan_struktural_id" value="{{$pegawai->jabatan_struktural_id}}" required>             
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="editJenisPegawai{{$pegawai->id}}" tabindex="-1" aria-labelledby="editJenisPegawai{{$pegawai->id}}" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editJenisPegawaiLabel">Edit Data</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="{{ route('pegawai.update') }}" method="POST">
+        @csrf
+        @method('PUT')
+        <div class="modal-body">
+
+          <input type="hidden" class="form-control" id="nip" name="nip" value="{{$pegawai->nip}}" required>
+          <input type="hidden" class="form-control" id="id" name="id" value="{{$pegawai->id}}" required>
+          <input type="hidden" class="form-control" id="name" name="name" value="{{$pegawai->name}}" required>
+          <input type="hidden" class="form-control" id="email" name="email" value="{{$pegawai->email}}" required>
+          <input type="hidden" class="form-control" id="golongan_id" name="golongan_id" value="{{$pegawai->golongan_id}}" required>
+          <input type="hidden" class="form-control" id="kelompok_pegawai_id" name="kelompok_pegawai_id" value="{{$pegawai->kelompok_pegawai_id}}" required>
+          <div class="mb-3">
+            <label for="jenis_pegawai_id" class="form-label">Jenis Pegawai</label>
+            <select class="form-control" id="jenis_pegawai_id" name="jenis_pegawai_id" required>
+              @foreach($jenis_pegawai as $riwayat)
+                @if ($pegawai->jenis_pegawai_id == $riwayat->id)
+                  <option value="{{ $riwayat->id }}" selected>{{ $riwayat->name }}</option>
+                @else
+                  <option value="{{ $riwayat->id }}">{{ $riwayat->name }}</option>
+                @endif
+              @endforeach
+            </select>
+          </div>
+          <input type="hidden" class="form-control" id="unit_kerja_id" name="unit_kerja_id" value="{{$pegawai->unit_kerja_id}}" required>
+          <input type="hidden" class="form-control" id="jurusan_id" name="jurusan_id" value="{{$pegawai->jurusan_id}}" required>
+          <input type="hidden" class="form-control" id="prodi_id" name="prodi_id" value="{{$pegawai->prodi_id}}" required>                   
+          <input type="hidden" class="form-control" id="grade_id" name="grade_id" value="{{$pegawai->grade_id}}" required>     
+          <input type="hidden" class="form-control" id="tamat_cpns" name="tamat_cpns" value="{{$pegawai->tamat_cpns}}" required>  
+          <input type="hidden" class="form-control" id="tamat_pns" name="tamat_pns" value="{{$pegawai->tamat_pns}}" required>
+          <input type="hidden" class="form-control" id="pendidikan_id" name="pendidikan_id" value="{{$pegawai->pendidikan_id}}" required>
+          <input type="hidden" class="form-control" id="jabatan_fungsional_id" name="jabatan_fungsional_id" value="{{$pegawai->jabatan_fungsional_id}}" required>
+          <input type="hidden" class="form-control" id="jabatan_struktural_id" name="jabatan_struktural_id" value="{{$pegawai->jabatan_struktural_id}}" required>             
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editPendidikan{{$pegawai->id}}" tabindex="-1" aria-labelledby="editPendidikan{{$pegawai->id}}" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editPendidikanLabel">Edit Data</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="{{ route('pegawai.update') }}" method="POST">
+        @csrf
+        @method('PUT')
+        <div class="modal-body">
+
+          <input type="hidden" class="form-control" id="nip" name="nip" value="{{$pegawai->nip}}" required>
+          <input type="hidden" class="form-control" id="id" name="id" value="{{$pegawai->id}}" required>
+          <input type="hidden" class="form-control" id="name" name="name" value="{{$pegawai->name}}" required>
+          <input type="hidden" class="form-control" id="email" name="email" value="{{$pegawai->email}}" required>
+          <input type="hidden" class="form-control" id="golongan_id" name="golongan_id" value="{{$pegawai->golongan_id}}" required>
+          <input type="hidden" class="form-control" id="kelompok_pegawai_id" name="kelompok_pegawai_id" value="{{$pegawai->kelompok_pegawai_id}}" required>
+          <input type="hidden" class="form-control" id="jenis_pegawai_id" name="jenis_pegawai_id" value="{{$pegawai->jenis_pegawai_id}}" required>
+          <input type="hidden" class="form-control" id="unit_kerja_id" name="unit_kerja_id" value="{{$pegawai->unit_kerja_id}}" required>
+          <input type="hidden" class="form-control" id="jurusan_id" name="jurusan_id" value="{{$pegawai->jurusan_id}}" required>
+          <input type="hidden" class="form-control" id="prodi_id" name="prodi_id" value="{{$pegawai->prodi_id}}" required>                   
+          <input type="hidden" class="form-control" id="grade_id" name="grade_id" value="{{$pegawai->grade_id}}" required>     
+          <input type="hidden" class="form-control" id="tamat_cpns" name="tamat_cpns" value="{{$pegawai->tamat_cpns}}" required>  
+          <input type="hidden" class="form-control" id="tamat_pns" name="tamat_pns" value="{{$pegawai->tamat_pns}}" required>
           <div class="mb-3">
             <label for="pendidikan_id" class="form-label">Pendidikan</label>
             <select class="form-control" id="pendidikan_id" name="pendidikan_id" required>
@@ -517,6 +774,95 @@
               @endforeach
             </select>
           </div>
+          <input type="hidden" class="form-control" id="jabatan_fungsional_id" name="jabatan_fungsional_id" value="{{$pegawai->jabatan_fungsional_id}}" required>
+          <input type="hidden" class="form-control" id="jabatan_struktural_id" name="jabatan_struktural_id" value="{{$pegawai->jabatan_struktural_id}}" required>             
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editJabatanStruktural{{$pegawai->id}}" tabindex="-1" aria-labelledby="editJabatanStruktural{{$pegawai->id}}" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editJabatanStrukturalLabel">Edit Data</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="{{ route('pegawai.update') }}" method="POST">
+        @csrf
+        @method('PUT')
+        <div class="modal-body">
+
+          <input type="hidden" class="form-control" id="nip" name="nip" value="{{$pegawai->nip}}" required>
+          <input type="hidden" class="form-control" id="id" name="id" value="{{$pegawai->id}}" required>
+          <input type="hidden" class="form-control" id="name" name="name" value="{{$pegawai->name}}" required>
+          <input type="hidden" class="form-control" id="email" name="email" value="{{$pegawai->email}}" required>
+          <input type="hidden" class="form-control" id="golongan_id" name="golongan_id" value="{{$pegawai->golongan_id}}" required>
+          <input type="hidden" class="form-control" id="kelompok_pegawai_id" name="kelompok_pegawai_id" value="{{$pegawai->kelompok_pegawai_id}}" required>
+          <input type="hidden" class="form-control" id="jenis_pegawai_id" name="jenis_pegawai_id" value="{{$pegawai->jenis_pegawai_id}}" required>
+          <input type="hidden" class="form-control" id="unit_kerja_id" name="unit_kerja_id" value="{{$pegawai->unit_kerja_id}}" required>
+          <input type="hidden" class="form-control" id="jurusan_id" name="jurusan_id" value="{{$pegawai->jurusan_id}}" required>
+          <input type="hidden" class="form-control" id="prodi_id" name="prodi_id" value="{{$pegawai->prodi_id}}" required>                   
+          <input type="hidden" class="form-control" id="grade_id" name="grade_id" value="{{$pegawai->grade_id}}" required>     
+          <input type="hidden" class="form-control" id="tamat_cpns" name="tamat_cpns" value="{{$pegawai->tamat_cpns}}" required>  
+          <input type="hidden" class="form-control" id="tamat_pns" name="tamat_pns" value="{{$pegawai->tamat_pns}}" required>
+          <input type="hidden" class="form-control" id="pendidikan_id" name="pendidikan_id" value="{{$pegawai->pendidikan_id}}" required>
+          <input type="hidden" class="form-control" id="jabatan_fungsional_id" name="jabatan_fungsional_id" value="{{$pegawai->jabatan_fungsional_id}}" required>
+          <div class="mb-3">
+            <label for="jabatan_struktural_id" class="form-label">Jabatan Struktural</label>
+            <select class="form-control" id="jabatan_struktural_id" name="jabatan_struktural_id" required>
+              @foreach($jabatan_struktural as $riwayat)
+                @if ($pegawai->jabatan_struktural_id == $riwayat->id)
+                  <option value="{{ $riwayat->id }}" selected>{{ $riwayat->name }}</option>
+                @else
+                  <option value="{{ $riwayat->id }}">{{ $riwayat->name }}</option>
+                @endif
+              @endforeach
+            </select>
+          </div>             
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editJabatanFungsional{{$pegawai->id}}" tabindex="-1" aria-labelledby="editJabatanFungsional{{$pegawai->id}}" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editJabatanFungsionalLabel">Edit Data</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="{{ route('pegawai.update') }}" method="POST">
+        @csrf
+        @method('PUT')
+        <div class="modal-body">
+
+          <input type="hidden" class="form-control" id="nip" name="nip" value="{{$pegawai->nip}}" required>
+          <input type="hidden" class="form-control" id="id" name="id" value="{{$pegawai->id}}" required>
+          <input type="hidden" class="form-control" id="name" name="name" value="{{$pegawai->name}}" required>
+          <input type="hidden" class="form-control" id="email" name="email" value="{{$pegawai->email}}" required>
+          <input type="hidden" class="form-control" id="golongan_id" name="golongan_id" value="{{$pegawai->golongan_id}}" required>
+          <input type="hidden" class="form-control" id="kelompok_pegawai_id" name="kelompok_pegawai_id" value="{{$pegawai->kelompok_pegawai_id}}" required>
+          <input type="hidden" class="form-control" id="jenis_pegawai_id" name="jenis_pegawai_id" value="{{$pegawai->jenis_pegawai_id}}" required>
+          <input type="hidden" class="form-control" id="unit_kerja_id" name="unit_kerja_id" value="{{$pegawai->unit_kerja_id}}" required>
+          <input type="hidden" class="form-control" id="jurusan_id" name="jurusan_id" value="{{$pegawai->jurusan_id}}" required>
+          <input type="hidden" class="form-control" id="prodi_id" name="prodi_id" value="{{$pegawai->prodi_id}}" required>                   
+          <input type="hidden" class="form-control" id="grade_id" name="grade_id" value="{{$pegawai->grade_id}}" required>     
+          <input type="hidden" class="form-control" id="tamat_cpns" name="tamat_cpns" value="{{$pegawai->tamat_cpns}}" required>  
+          <input type="hidden" class="form-control" id="tamat_pns" name="tamat_pns" value="{{$pegawai->tamat_pns}}" required>
+          <input type="hidden" class="form-control" id="pendidikan_id" name="pendidikan_id" value="{{$pegawai->pendidikan_id}}" required>
           <div class="mb-3">
             <label for="jabatan_fungsional_id" class="form-label">Jabatan Fungsional</label>
             <select class="form-control" id="jabatan_fungsional_id" name="jabatan_fungsional_id" required>
@@ -529,18 +875,8 @@
               @endforeach
             </select>
           </div>
-          <div class="mb-3">
-            <label for="jabatan_struktural_id" class="form-label">Jabatan Struktural</label>
-            <select class="form-control" id="jabatan_struktural_id" name="jabatan_struktural_id" required>
-              @foreach($jabatan_struktural as $riwayat)
-                @if ($pegawai->jabatan_struktural_id == $riwayat->id)
-                  <option value="{{ $riwayat->id }}" selected>{{ $riwayat->name }}</option>
-                @else
-                  <option value="{{ $riwayat->id }}">{{ $riwayat->name }}</option>
-                @endif
-              @endforeach
-            </select>
-          </div>
+          <input type="hidden" class="form-control" id="jabatan_struktural_id" name="jabatan_struktural_id" value="{{$pegawai->jabatan_struktural_id}}" required>             
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
