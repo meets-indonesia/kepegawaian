@@ -261,4 +261,15 @@ class Pegawai extends Model
     {
         return $this->hasMany(RiwayatMutasi::class);
     }
+
+    /**
+     * Get the riwayat_grade for the Pegawai
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @var \App\Models\RiwayatGrade
+     */
+    public function riwayatGrade()
+    {
+        return $this->hasMany(RiwayatGrade::class);
+    }
 }
