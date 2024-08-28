@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RiwayatPendidikan;
+use App\Models\RiwayatJenisPegawai;
 use Illuminate\Http\Request;
 
-class RiwayatPendidikanController extends Controller
+class RiwayatJenisPegawaiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class RiwayatPendidikanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(RiwayatPendidikan $riwayatPendidikan)
+    public function show(RiwayatJenisPegawai $riwayatJenisPegawai)
     {
         //
     }
@@ -42,7 +42,7 @@ class RiwayatPendidikanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(RiwayatPendidikan $riwayatPendidikan)
+    public function edit(RiwayatJenisPegawai $riwayatJenisPegawai)
     {
         //
     }
@@ -52,24 +52,21 @@ class RiwayatPendidikanController extends Controller
      */
     public function update(Request $request)
     {
-        $riwayatPendidikan = RiwayatPendidikan::whereId($request->id)->firstOrFail();
-
-        $validatedData = $request->validate([
-            'bidang_ilmu' => 'required',
-            'nama_sekolah' => 'required',
-            'tahun_selesai' => 'required|date',
+      $riwayatJenisPegawai = RiwayatJenisPegawai::whereId($request->id)->firstOrFail();
+      
+      $validatedData = $request->validate([
+        'tahun_mulai' => 'required|date',
         ]);
 
-        $riwayatPendidikan->update($validatedData);
+        $riwayatJenisPegawai->update($validatedData);
 
-        return redirect()->back()
-            ->with('success', 'Riwayat Pendidikan updated successfully.');
+        return redirect()->back()->with('success', 'Riwayat jenis pegawai updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(RiwayatPendidikan $riwayatPendidikan)
+    public function destroy(RiwayatJenisPegawai $riwayatJenisPegawai)
     {
         //
     }

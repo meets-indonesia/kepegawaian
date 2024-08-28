@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('pegawai_id')->constrained('pegawai')->onDelete('cascade');
             $table->foreignId('pendidikan_id')->constrained('pendidikan')->onDelete('cascade');
             $table->string('bidang_ilmu')->nullable();
-            $table->string('nama_sekolah');
-            $table->date('tahun')->nullable();
+            $table->string('nama_sekolah')->nullable();
+            $table->date('tahun_selesai')->nullable();
             $table->timestamps();
         });
     }

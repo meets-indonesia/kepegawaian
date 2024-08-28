@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RiwayatPendidikan;
+use App\Models\RiwayatGolongan;
 use Illuminate\Http\Request;
 
-class RiwayatPendidikanController extends Controller
+class RiwayatGolonganController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class RiwayatPendidikanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(RiwayatPendidikan $riwayatPendidikan)
+    public function show(RiwayatGolongan $riwayatGolongan)
     {
         //
     }
@@ -42,7 +42,7 @@ class RiwayatPendidikanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(RiwayatPendidikan $riwayatPendidikan)
+    public function edit(RiwayatGolongan $riwayatGolongan)
     {
         //
     }
@@ -52,24 +52,25 @@ class RiwayatPendidikanController extends Controller
      */
     public function update(Request $request)
     {
-        $riwayatPendidikan = RiwayatPendidikan::whereId($request->id)->firstOrFail();
+        // Retrieve the RiwayatGolongan instance by its ID
+        $riwayatGolongan = RiwayatGolongan::whereId($request->id)->firstOrFail();
 
+        // Validate the incoming request data
         $validatedData = $request->validate([
-            'bidang_ilmu' => 'required',
-            'nama_sekolah' => 'required',
-            'tahun_selesai' => 'required|date',
+            'tahun_mulai' => 'required|date',
         ]);
 
-        $riwayatPendidikan->update($validatedData);
+        // Update the RiwayatGolongan instance with the validated data
+        $riwayatGolongan->update($validatedData);
 
-        return redirect()->back()
-            ->with('success', 'Riwayat Pendidikan updated successfully.');
+        // Return a response indicating success
+        return redirect()->back()->with('success', 'Riwayat golongan berhasil diubah');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(RiwayatPendidikan $riwayatPendidikan)
+    public function destroy(RiwayatGolongan $riwayatGolongan)
     {
         //
     }

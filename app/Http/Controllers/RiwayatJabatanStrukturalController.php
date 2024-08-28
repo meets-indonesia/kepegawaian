@@ -56,7 +56,7 @@ class RiwayatJabatanStrukturalController extends Controller
         $riwayatJabatanStruktural = RiwayatJabatanStruktural::whereId($request->id)->firstOrFail();
         $riwayatJabatanStruktural->update($request->all());
 
-        return redirect()->route('riwayat-jabatan-struktural.index')
+        return redirect()->back()
                          ->with('success', 'Riwayat Jabatan Struktural updated successfully.');
     }
 

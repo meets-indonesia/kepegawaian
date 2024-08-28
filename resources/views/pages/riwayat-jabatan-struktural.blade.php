@@ -58,7 +58,7 @@
                         </form>
 
                         <!-- Edit Modal -->
-                        <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true">
+                        <div class="modal fade" id="editModalRiwayatJabatanStruktural{{ $item->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">

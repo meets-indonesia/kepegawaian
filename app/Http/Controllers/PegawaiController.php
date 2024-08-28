@@ -107,9 +107,30 @@ class PegawaiController extends Controller
             
         ])->whereId($request->id)->first();
 
+        $golongan = Golongan::all();
+        $kelompok_pegawai = KelompokPegawai::all();
+        $jenis_pegawai = JenisPegawai::all();
+        $unit_kerja = UnitKerja::all();
+        $jurusan = Jurusan::all();
+        $prodi = Prodi::all();
+        $grade = Grade::all();
+        $pendidikan = Pendidikan::all();
+        $jabatan_fungsional = JabatanFungsional::all();
+        $jabatan_struktural = JabatanStruktural::all();
+
         return view('pages.detail-pegawai', [
             'pagename' => "detail-pegawai",
-            'pegawai' => $pegawai
+            'pegawai' => $pegawai,
+            'golongan' => $golongan,
+            'kelompok_pegawai' => $kelompok_pegawai,
+            'jenis_pegawai' => $jenis_pegawai,
+            'unit_kerja' => $unit_kerja,
+            'jurusan' => $jurusan,
+            'prodi' => $prodi,
+            'grade' => $grade,
+            'pendidikan' => $pendidikan,
+            'jabatan_fungsional' => $jabatan_fungsional,
+            'jabatan_struktural' => $jabatan_struktural,
         ]);
     }
 
@@ -163,15 +184,15 @@ class PegawaiController extends Controller
            
         // find the pegawai 
         $data = Pegawai::with([
-            // 'golongan',
-            // 'kelompok_pegawai',
-            // 'jenis_pegawai',
-            // 'unit_kerja',
-            // 'jurusan',
-            // 'prodi',
-            // 'grade',
-            // 'pendidikan',
-            // 'jabatan_fungsional',
+            'golongan',
+            'kelompok_pegawai',
+            'jenis_pegawai',
+            'unit_kerja',
+            'jurusan',
+            'prodi',
+            'grade',
+            'pendidikan',
+            'jabatan_fungsional',
             'jabatan_struktural',
         ])->findOrFail($request->id);
 
@@ -215,8 +236,7 @@ class PegawaiController extends Controller
         if($originalData['golongan_id'] != $validated['golongan_id']){
             $riwayat = [
                 'pegawai_id' => $request->id,
-                'golongan_id' => $validated['golongan_id'],
-                'tahun_mulai' => now()
+                'golongan_id' => $originalData['golongan']['id'],
             ];
             RiwayatGolongan::create($riwayat);
         }
@@ -224,8 +244,7 @@ class PegawaiController extends Controller
         if($originalData['kelompok_pegawai_id'] != $validated['kelompok_pegawai_id']){
             $riwayat = [
                 'pegawai_id' => $request->id,
-                'kelompok_pegawai_id' => $validated['kelompok_pegawai_id'],
-                'tahun_mulai' => now()
+                'kelompok_pegawai_id' => $originalData['kelompok_pegawai']['id'],
             ];
             RiwayatKelompokPegawai::create($riwayat);
         }
@@ -233,26 +252,23 @@ class PegawaiController extends Controller
         if($originalData['jenis_pegawai_id'] != $validated['jenis_pegawai_id']){
             $riwayat = [
                 'pegawai_id' => $request->id,
-                'jenis_pegawai_id' => $validated['jenis_pegawai_id'],
-                'tahun_mulai' => now()
+                'jenis_pegawai_id' => $originalData['jenis_pegawai']['id'],
             ];
             RiwayatJenisPegawai::create($riwayat);
         }
 
-        // if($originalData['pendidikan_id'] != $validated['pendidikan_id']){
-        //     $riwayat = [
-        //         'pegawai_id' => $request->id,
-        //         'pendidikan_id' => $validated['pendidikan_id'],
-        //         'tahun_mulai' => now()
-        //     ];
-        //     RiwayatPendidikan::create($riwayat);
-        // }
+        if($originalData['pendidikan_id'] != $validated['pendidikan_id']){
+            $riwayat = [
+                'pegawai_id' => $request->id,
+                'pendidikan_id' => $originalData['pendidikan']['id'],
+            ];
+            RiwayatPendidikan::create($riwayat);
+        }
 
         if($originalData['jabatan_fungsional_id'] != $validated['jabatan_fungsional_id']){
             $riwayat = [
                 'pegawai_id' => $request->id,
-                'jabatan_fungsional_id' => $validated['jabatan_fungsional_id'],
-                'tahun_selesai' => now()->addYears($data->jabatan_fungsional->masa)
+                'jabatan_fungsional_id' => $originalData['jabatan_fungsional']['id'],
             ];
             RiwayatJabatanFungsional::create($riwayat);
         }
@@ -260,9 +276,7 @@ class PegawaiController extends Controller
         if($originalData['jabatan_struktural_id'] != $validated['jabatan_struktural_id']){
             $riwayat = [
                 'pegawai_id' => $request->id,
-                'jabatan_struktural_id' => $validated['jabatan_struktural_id'],
-                'tahun_mulai' => now(),
-                'tahun_selesai' => now()->addYears($data->jabatan_struktural->masa)
+                'jabatan_struktural_id' => $originalData['jabatan_struktural']['id'],
             ];
             RiwayatJabatanStruktural::create($riwayat);
         }
@@ -270,7 +284,7 @@ class PegawaiController extends Controller
         Pegawai::where('id', $request->id)->update($validated);
 
         // Redirect to a page or return a response
-        return redirect()->route('pegawai.index')->with('success', 'Pegawai updated successfully.');
+        return redirect()->back()->with('success', 'Pegawai updated successfully.');
     }
 
     /**

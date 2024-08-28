@@ -79,11 +79,6 @@
         </a>
         <ul id="components-nav" class="nav-content {{$collapseSetting}} " data-bs-parent="#sidebar-nav">
           <li>
-            <a class="{{$namepage == 'unit-kerja' ? 'active' : ''}}" href="/unit-kerja">
-              <i class="bi bi-circle"></i><span>Unit Kerja</span>
-            </a>
-          </li>
-          <li>
             <a class="{{$namepage == 'fakultas' ? 'active' : ''}}" href="/fakultas">
               <i class="bi bi-circle"></i><span>Fakultas</span>
             </a>
@@ -101,6 +96,11 @@
           <li>
             <a class="{{$namepage == 'kelompok-pegawai' ? 'active' : ''}}" href="/kelompok-pegawai">
               <i class="bi bi-circle"></i><span>Kelompok Pegawai</span>
+            </a>
+          </li>
+          <li>
+            <a class="{{$namepage == 'unit-kerja' ? 'active' : ''}}" href="/unit-kerja">
+              <i class="bi bi-circle"></i><span>Unit Kerja</span>
             </a>
           </li>
           <li>
@@ -122,13 +122,13 @@
             </a>
           </li>
           <li>
-            <a class="{{$namepage == 'struktur' ? 'active' : ''}}" href="/struktur">
-              <i class="bi bi-circle"></i><span>Struktur</span>
+            <a class="{{$namepage == 'gaji-pokok' ? 'active' : ''}}" href="/gaji-pokok">
+              <i class="bi bi-circle"></i><span>Gaji Pokok</span>
             </a>
           </li>
           <li>
-            <a class="{{$namepage == 'gaji-pokok' ? 'active' : ''}}" href="/gaji-pokok">
-              <i class="bi bi-circle"></i><span>Gaji Pokok</span>
+            <a class="{{$namepage == 'eselon' ? 'active' : ''}}" href="/eselon">
+              <i class="bi bi-circle"></i><span>Eselon</span>
             </a>
           </li>
           <li>
@@ -139,11 +139,6 @@
           <li>
             <a class="{{$namepage == 'jabatan-fungsional' ? 'active' : ''}}" href="/jabatan-fungsional">
               <i class="bi bi-circle"></i><span>Jabatan Fungsional</span>
-            </a>
-          </li>
-          <li>
-            <a class="{{$namepage == 'grade' ? 'active' : ''}}" href="/grade">
-              <i class="bi bi-circle"></i><span>Grade</span>
             </a>
           </li>
           <li>
@@ -162,34 +157,17 @@
             </a>
           </li>
           <li>
-            <a class="{{$namepage == 'eselon' ? 'active' : ''}}" href="/eselon">
-              <i class="bi bi-circle"></i><span>Eselon</span>
+            <a class="{{$namepage == 'grade' ? 'active' : ''}}" href="/grade">
+              <i class="bi bi-circle"></i><span>Grade</span>
+            </a>
+          </li>
+          <li>
+            <a class="{{$namepage == 'struktur' ? 'active' : ''}}" href="/struktur">
+              <i class="bi bi-circle"></i><span>Struktur</span>
             </a>
           </li>
         </ul>
       </li><!-- End Referensi Nav -->
-
-      @if (Auth::user()->role_id == 1)
-        <li class="nav-item">
-          <a class="nav-link {{$collapsedRiwayat}}" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-layout-text-window-reverse"></i><span>Riwayat Jabatan</span><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul id="tables-nav" class="nav-content {{$collapseRiwayat}} " data-bs-parent="#sidebar-nav">
-            <li>
-              <a class="{{$namepage == 'riwayat-jabatan-fungsional' ? 'active' : ''}}" href="/riwayat-jabatan-fungsional">
-                <i class="bi bi-circle"></i><span>Riwayat Jabatan Fungsional</span>
-              </a>
-            </li>
-            <li>
-              <a class="{{$namepage == 'riwayat-jabatan-struktural' ? 'active' : ''}}" href="/riwayat-jabatan-struktural">
-                <i class="bi bi-circle"></i><span>Riwayat Jabatan Struktural</span>
-              </a>
-            </li>
-          </ul>
-        </li><!-- End Usulan Perubahan Nav -->
-
-
-      @endif
 
       @if (Auth::user()->role_id == 1)
       <li class="nav-item">

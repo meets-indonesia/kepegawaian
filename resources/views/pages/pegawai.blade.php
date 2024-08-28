@@ -68,7 +68,6 @@
                       </button>
 
                     </a>
-                    <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal{{$pegawai->id}}">Edit</button>
                     <form action="{{ route('pegawai.destroy', $pegawai->id) }}" method="POST" style="display:inline;" id="delete-form-{{ $pegawai->id }}">
                         @csrf
                         @method('DELETE')

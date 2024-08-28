@@ -23,9 +23,12 @@ use App\Http\Controllers\StrukturController;
 use App\Http\Controllers\UnitKerjaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RiwayatGolonganController;
 use App\Http\Controllers\RiwayatJabatanStrukturalController;
 use App\Http\Controllers\RiwayatJabatanFungsionalController;
-use App\Models\RiwayatJabatanStruktural;
+use App\Http\Controllers\RiwayatKelompokPegawaiController;
+use App\Http\Controllers\RiwayatJenisPegawaiController;
+use App\Http\Controllers\RiwayatPendidikanController;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Route;
 
@@ -183,6 +186,11 @@ Route::middleware('auth', 'verified', 'superadminoradmin')->group(function () {
     Route::post('/riwayat-jabatan-fungsional', [RiwayatJabatanFungsionalController::class, 'store'])->name('riwayat-jabatan-fungsional.store');
     Route::put('/update-riwayat-jabatan-fungsional/{id}', [RiwayatJabatanFungsionalController::class, 'update'])->name('riwayat-jabatan-fungsional.update');
     Route::delete('/delete-riwayat-jabatan-fungsional/{id}', [RiwayatJabatanFungsionalController::class, 'destroy'])->name('riwayat-jabatan-fungsional.destroy');
+
+    Route::put('/update-riwayat-golongan/{id}', [RiwayatGolonganController::class, 'update'])->name('riwayat-golongan.update');
+    Route::put('/update-riwayat-kelompok-pegawai/{id}', [RiwayatKelompokPegawaiController::class, 'update'])->name('riwayat-kelompok-pegawai.update');
+    Route::put('/update-riwayat-jenis-pegawai/{id}', [RiwayatJenisPegawaiController::class, 'update'])->name('riwayat-jenis-pegawai.update');
+    Route::put('/update-riwayat-pendidikan/{id}', [RiwayatPendidikanController::class, 'update'])->name('riwayat-pendidikan.update');
 });
 
 

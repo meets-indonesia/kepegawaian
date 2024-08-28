@@ -46,14 +46,13 @@ class RiwayatJabatanFungsionalController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'tahun_mulai' => 'required|',
-            'tahun_selesai' => 'nullable|after_or_equal:tahun_mulai',
+            'tahun_selesai' => 'nullable',
         ]);
 
         $riwayatJabatanStruktural = RiwayatJabatanFungsional::whereId($request->id)->firstOrFail();
         $riwayatJabatanStruktural->update($request->all());
 
-        return redirect()->route('riwayat-jabatan-fungsional.index')
+        return redirect()->back()
             ->with('success', 'Riwayat Jabatan Fungsional updated successfully.');
     }
 
