@@ -431,9 +431,7 @@
             <label for="email" class="form-label">Email</label>
             <input type="email" class="form-control" id="email" name="email" value="{{$pegawai->email}}" required>
           </div>
-
-          <input type="hidden" class="form-control" id="golongan_id" name="golongan_id" value="{{$pegawai->golongan_id}}" required>
-          <!-- <div class="mb-3">
+          <div class="mb-3">
             <label for="golongan_id" class="form-label">Golongan</label>
             <select class="form-control" id="golongan_id" name="golongan_id" required>
               @foreach($golongan as $riwayat)
@@ -444,10 +442,8 @@
                 @endif
               @endforeach
             </select>
-          </div> -->
-
-          <input type="hidden" class="form-control" id="kelompok_pegawai_id" name="kelompok_pegawai_id" value="{{$pegawai->kelompok_pegawai_id}}" required>
-          <!-- <div class="mb-3">
+          </div>
+          <div class="mb-3">
             <label for="kelompok_pegawai_id" class="form-label">Kelompok Pegawai</label>
             <select class="form-control" id="kelompok_pegawai_id" name="kelompok_pegawai_id" required>
               @foreach($kelompok_pegawai as $riwayat)
@@ -458,10 +454,8 @@
                 @endif
               @endforeach
             </select>
-          </div> -->
-
-          <input type="hidden" class="form-control" id="jenis_pegawai_id" name="jenis_pegawai_id" value="{{$pegawai->jenis_pegawai_id}}" required>
-          <!-- <div class="mb-3">
+          </div>
+          <div class="mb-3">
             <label for="jenis_pegawai_id" class="form-label">Jenis Pegawai</label>
             <select class="form-control" id="jenis_pegawai_id" name="jenis_pegawai_id" required>
               @foreach($jenis_pegawai as $riwayat)
@@ -472,8 +466,7 @@
                 @endif
               @endforeach
             </select>
-          </div> -->
-
+          </div>
           <div class="mb-3">
             <label for="unit_kerja_id" class="form-label">Unit Kerja</label>
             <select class="form-control" id="unit_kerja_id" name="unit_kerja_id" required>
@@ -530,9 +523,7 @@
             <label for="tamat_pns" class="form-label">Tamat PNS</label>
             <input type="date" class="form-control" id="tamat_pns" name="tamat_pns" value="{{$pegawai->tamat_pns}}" required>
           </div>
-
-          <input type="hidden" class="form-control" id="pendidikan_id" name="pendidikan_id" value="{{$pegawai->pendidikan_id}}" required>
-          <!-- <div class="mb-3">
+          <div class="mb-3">
             <label for="pendidikan_id" class="form-label">Pendidikan</label>
             <select class="form-control" id="pendidikan_id" name="pendidikan_id" required>
               @foreach($pendidikan as $riwayat)
@@ -543,11 +534,8 @@
                 @endif
               @endforeach
             </select>
-          </div> -->
-
-          <input type="hidden" class="form-control" id="jabatan_fungsional_id" name="jabatan_fungsional_id" value="{{$pegawai->jabatan_fungsional_id}}" required>
+          </div>
           <div class="mb-3">
-          <!-- <div class="mb-3">
             <label for="jabatan_fungsional_id" class="form-label">Jabatan Fungsional</label>
             <select class="form-control" id="jabatan_fungsional_id" name="jabatan_fungsional_id" required>
               @foreach($jabatan_fungsional as $riwayat)
@@ -558,10 +546,8 @@
                 @endif
               @endforeach
             </select>
-          </div> -->
-
-          <input type="hidden" class="form-control" id="jabatan_struktural_id" name="jabatan_struktural_id" value="{{$pegawai->jabatan_struktural_id}}" required>   
-          <!-- <div class="mb-3">
+          </div>
+          <div class="mb-3">
             <label for="jabatan_struktural_id" class="form-label">Jabatan Struktural</label>
             <select class="form-control" id="jabatan_struktural_id" name="jabatan_struktural_id" required>
               @foreach($jabatan_struktural as $riwayat)
@@ -572,8 +558,7 @@
                 @endif
               @endforeach
             </select>
-          </div> -->
-
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
