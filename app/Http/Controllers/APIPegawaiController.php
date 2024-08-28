@@ -10,7 +10,7 @@ use Illuminate\Http\Response;
 class APIPegawaiController extends Controller
 {
     /**
-     * Get all records from Pegawai
+     * Get all records from Pegawai with pagination
      *
      * @return \Illuminate\Http\JsonResponse
      * @var \App\Models\Pegawai
@@ -18,7 +18,10 @@ class APIPegawaiController extends Controller
     public function getall()
     {
         try {
-            // Retrieve all records from Pegawai
+            // Retrieve the 'per_page' parameter from the request or default to 10
+            $perPage = request()->input('per_page', 10);
+
+            // Retrieve paginated records from Pegawai
             $pegawai = Pegawai::with([
                 'unit_kerja',
                 'jabatan_struktural',
@@ -30,7 +33,8 @@ class APIPegawaiController extends Controller
                 'jenis_pegawai',
                 'jurusan',
                 'prodi'
-            ])->get();
+            ])->paginate($perPage);
+
             // Check if the result is empty
             if ($pegawai->isEmpty()) {
                 // Return a 404 Not Found response
@@ -39,10 +43,16 @@ class APIPegawaiController extends Controller
                 ], Response::HTTP_NOT_FOUND);
             }
 
-            // Return the data with a 200 OK status
+            // Return the paginated data with a 200 OK status
             return response()->json([
                 'message' => 'Success',
-                'data' =>  PegawaiResource::collection($pegawai)
+                'data' => PegawaiResource::collection($pegawai),
+                'pagination' => [
+                    'total' => $pegawai->total(),
+                    'per_page' => $pegawai->perPage(),
+                    'current_page' => $pegawai->currentPage(),
+                    'total_pages' => $pegawai->lastPage()
+                ]
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             // Return a 500 Internal Server Error response
@@ -52,6 +62,8 @@ class APIPegawaiController extends Controller
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+
 
     /**
      * Get a record from Pegawai
