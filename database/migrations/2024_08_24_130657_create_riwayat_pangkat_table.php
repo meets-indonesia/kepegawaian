@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('pegawai_id')->constrained('pegawai')->cascadeOnDelete();
             $table->foreignId('jabatan_struktural_id')->constrained('jabatan_struktural')->cascadeOnDelete();
-            $table->date('tahun_mulai');
-            $table->date('tahun_selesai');
+            $table->date('tahun_mulai')->nullable();
+            $table->date('tahun_selesai')->nullable();
             $table->timestamps();
         });
     }

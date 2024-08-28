@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('pendidikan_id')->constrained('pendidikan')->onDelete('cascade');
             $table->string('bidang_ilmu')->nullable();
             $table->string('nama_sekolah');
-            $table->date('tahun');
+            $table->date('tahun')->nullable();
             $table->timestamps();
         });
     }
