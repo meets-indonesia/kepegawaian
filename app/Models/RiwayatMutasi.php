@@ -42,4 +42,38 @@ class RiwayatMutasi extends Model
     {
         return $this->belongsTo(Pegawai::class);
     }
+
+    /**
+     * Get the fakultas that owns the RiwayatMutasi
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @var \App\Models\Fakultas
+     */
+
+    public function fakultas()
+    {
+        return $this->belongsTo(Fakultas::class);
+    }
+
+    /**
+     * Get the jurusan that owns the RiwayatMutasi
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @var \App\Models\Jurusan
+     */
+    public function jurusan()
+    {
+        return $this->belongsTo(Jurusan::class);
+    }
+
+    /**
+     * Get the prodi that owns the RiwayatMutasi
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @var \App\Models\Prodi
+     */
+    public function prodi()
+    {
+        return $this->belongsTo(Prodi::class);
+    }
 }
