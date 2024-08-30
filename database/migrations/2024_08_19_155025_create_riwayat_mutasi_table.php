@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('riwayat_mutasi', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pegawai_id')->constrained('pegawai')->onDelete('cascade');
-            $table->string('no_sk', 100);
-            $table->enum('jenis', ['Masuk', 'Keluar', 'Pindah Antar Instansi', 'Pensiun', 'Wafat', 'Kenaikan Pangkat']);
+            $table->string('no_sk', 100)->nullable();
+            $table->enum('jenis', ['Masuk', 'Keluar', 'Pindah Antar Instansi', 'Pensiun', 'Wafat', 'Kenaikan Pangkat'])->nullable();
             $table->foreignId('fakultas_id')->constrained('fakultas')->nullable()->onDelete('cascade');
             $table->foreignId('jurusan_id')->constrained('jurusan')->nullable()->onDelete('cascade');
             $table->foreignId('prodi_id')->constrained('prodi')->nullable()->onDelete('cascade');
