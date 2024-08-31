@@ -24,6 +24,7 @@ use App\Http\Controllers\UnitKerjaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RiwayatGolonganController;
+use App\Http\Controllers\RiwayatGradeController;
 use App\Http\Controllers\RiwayatJabatanStrukturalController;
 use App\Http\Controllers\RiwayatJabatanFungsionalController;
 use App\Http\Controllers\RiwayatKelompokPegawaiController;
@@ -191,6 +192,7 @@ Route::middleware('auth', 'verified', 'superadminoradmin')->group(function () {
     Route::put('/update-riwayat-kelompok-pegawai/{id}', [RiwayatKelompokPegawaiController::class, 'update'])->name('riwayat-kelompok-pegawai.update');
     Route::put('/update-riwayat-jenis-pegawai/{id}', [RiwayatJenisPegawaiController::class, 'update'])->name('riwayat-jenis-pegawai.update');
     Route::put('/update-riwayat-pendidikan/{id}', [RiwayatPendidikanController::class, 'update'])->name('riwayat-pendidikan.update');
+    Route::put('/update-riwayat-grade/{id}', [RiwayatGradeController::class, 'update'])->name('riwayat-grade.update');
 });
 
 

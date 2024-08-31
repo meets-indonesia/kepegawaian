@@ -24,6 +24,8 @@ use App\Models\RiwayatPendidikan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\RiwayatGrade;
+use App\Models\RiwayatMutasi;
 
 class PegawaiController extends Controller
 {
@@ -104,6 +106,8 @@ class PegawaiController extends Controller
             'riwayatPendidikan',
             'riwayatJabatanStruktural',
             'riwayatJabatanFungsional',
+            'riwayatGrade',
+            'riwayatMutasi',
             
         ])->whereId($request->id)->first();
 
@@ -233,12 +237,31 @@ class PegawaiController extends Controller
         $originalData = $data->toArray();
         $originalData = array_slice($originalData, 1);
 
+        if($originalData['jurusan_id'] != $validated['jurusan_id'] || $originalData['prodi_id'] != $validated['prodi_id']){
+            $riwayat = [
+                'pegawai_id' => $request->id,
+                'fakultas_id' => $originalData['jurusan']['fakultas_id'],
+                'jurusan_id' => $originalData['jurusan']['id'],
+                'prodi_id' => $originalData['prodi']['id'],
+                'tanggal_sk' => now(),
+            ];
+            RiwayatMutasi::create($riwayat);
+        }
+
         if($originalData['golongan_id'] != $validated['golongan_id']){
             $riwayat = [
                 'pegawai_id' => $request->id,
                 'golongan_id' => $originalData['golongan']['id'],
             ];
             RiwayatGolongan::create($riwayat);
+        }
+
+        if($originalData['grade_id'] != $validated['grade_id']){
+            $riwayat = [
+                'pegawai_id' => $request->id,
+                'grade_id' => $originalData['grade']['id'],
+            ];
+            RiwayatGrade::create($riwayat);
         }
 
         if($originalData['kelompok_pegawai_id'] != $validated['kelompok_pegawai_id']){
