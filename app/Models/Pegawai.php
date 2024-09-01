@@ -272,4 +272,38 @@ class Pegawai extends Model
     {
         return $this->hasMany(RiwayatGrade::class);
     }
+
+    /**
+     * Get the riwayat_hukuman_disiplin for the Pegawai
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @var \App\Models\RiwayatHukumanDisiplin
+     */
+    public function riwayatHukumanDisiplin()
+    {
+        return $this->hasMany(RiwayatHukumanDisiplin::class);
+    }
+
+    /**
+     * Get the riwayat_penghargaan for the Pegawai
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @var \App\Models\RiwayatPenghargaan
+     */
+    public function riwayatPenghargaan()
+    {
+        return $this->hasMany(RiwayatPenghargaan::class);
+    }
+
+    /**
+     * Get the posisi_pegawai for the Pegawai
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @var \App\Models\PosisiPegawai
+     */
+
+    public function posisi_pegawai()
+    {
+        return $this->hasMany(PosisiPegawai::class);
+    }
 }

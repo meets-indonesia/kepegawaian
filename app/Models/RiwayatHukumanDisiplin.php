@@ -18,11 +18,23 @@ class RiwayatHukumanDisiplin extends Model
         'keterangan',
     ];
 
+    /**
+     * Get the pegawai that owns the RiwayatHukumanDisiplin
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @var \App\Models\Pegawai
+     */
     public function pegawai()
     {
         return $this->belongsTo(Pegawai::class, 'pegawai_id');
     }
 
+    /**
+     * Get the hukumanDisiplin that owns the RiwayatHukumanDisiplin
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @var \App\Models\HukumanDisiplin
+     */
     public function hukumanDisiplin()
     {
         return $this->belongsTo(HukumanDisiplin::class, 'hukuman_disiplin_id');
