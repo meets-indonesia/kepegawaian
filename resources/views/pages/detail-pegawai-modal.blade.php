@@ -108,11 +108,11 @@
           </div>
           <div class="mb-3">
             <label for="tamat_cpns" class="form-label">Tamat CPNS</label>
-            <input type="date" class="form-control" id="tamat_cpns" name="tamat_cpns" value="{{$pegawai->tamat_cpns}}" required>
+            <input type="date" class="form-control" id="tamat_cpns" name="tamat_cpns" value="{{$pegawai->tamat_cpns}}" >
           </div>
           <div class="mb-3">
             <label for="tamat_pns" class="form-label">Tamat PNS</label>
-            <input type="date" class="form-control" id="tamat_pns" name="tamat_pns" value="{{$pegawai->tamat_pns}}" required>
+            <input type="date" class="form-control" id="tamat_pns" name="tamat_pns" value="{{$pegawai->tamat_pns}}" >
           </div>
           <div class="mb-3">
             <label for="pendidikan_id" class="form-label">Pendidikan</label>
@@ -177,6 +177,7 @@
                     <th>Jurusan</th>
                     <th>Program Studi</th>
                     <th>Tanggal SK</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -188,6 +189,13 @@
                         <td>{{$riwayat->jurusan->name}}</td>
                         <td>{{$riwayat->prodi->name}}</td>
                         <td>{{ $riwayat->tanggal_sk }}</td>
+                        <td>
+                          <form action="{{ route('riwayat-mutasi.destroy', $riwayat->id) }}" method="POST" style="display:inline;" id="delete-form-{{ $riwayat->id }}">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                          </form>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

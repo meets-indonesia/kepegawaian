@@ -58,8 +58,12 @@ class RiwayatMutasiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(RiwayatMutasi $riwayatMutasi)
+    public function destroy(Request $request)
     {
-        //
+        $riwayat = RiwayatMutasi::findOrFail($request->id);
+
+        $riwayat->delete();
+
+        return redirect()->back()->with('success', 'Riwayat deleted successfully.');
     }
 }

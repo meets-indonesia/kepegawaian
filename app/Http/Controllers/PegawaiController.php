@@ -15,6 +15,8 @@ use App\Models\Pendidikan;
 use App\Models\JabatanFungsional;
 use App\Models\JabatanStruktural;
 use App\Models\PendingAction;
+use App\Models\Posisi;
+use App\Models\PosisiPegawai;
 use App\Models\RiwayatGolongan;
 use App\Models\RiwayatJabatanFungsional;
 use App\Models\RiwayatJabatanStruktural;
@@ -111,6 +113,14 @@ class PegawaiController extends Controller
             
         ])->whereId($request->id)->first();
 
+        $posisi = PosisiPegawai::with([
+            'posisi',
+            'unitKerja',
+            'jurusan',
+            'prodi',
+            'atasan',
+        ])->where('pegawai_id', $request->id)->first();
+
         $golongan = Golongan::all();
         $kelompok_pegawai = KelompokPegawai::all();
         $jenis_pegawai = JenisPegawai::all();
@@ -135,6 +145,7 @@ class PegawaiController extends Controller
             'pendidikan' => $pendidikan,
             'jabatan_fungsional' => $jabatan_fungsional,
             'jabatan_struktural' => $jabatan_struktural,
+            'posisi' => $posisi,
         ]);
     }
 
