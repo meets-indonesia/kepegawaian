@@ -35,17 +35,6 @@ class UnitKerja extends Model
         return $this->hasMany(Pegawai::class);
     }
 
-    /**
-     * Get the riwayat_pangkat_golongan for the UnitKerja
-     * 
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     * @var \App\Models\RiwayatPangkatGolongan
-     */
-
-    public function riwayatPangkatGolongan()
-    {
-        return $this->hasMany(RiwayatPangkatGolongan::class);
-    }
 
     /**
      * Get the riwayat_jabatan for the UnitKerja

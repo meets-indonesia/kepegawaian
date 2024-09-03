@@ -306,4 +306,16 @@ class Pegawai extends Model
     {
         return $this->hasMany(PosisiPegawai::class);
     }
+
+
+    /**
+     * Get the riwayat_unit_kerja for the Pegawai
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @var \App\Models\RiwayatUnitKerja
+     */
+    public function riwayatUnitKerja()
+    {
+        return $this->hasMany(RiwayatUnitKerja::class);
+    }
 }
