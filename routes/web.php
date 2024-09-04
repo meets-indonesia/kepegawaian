@@ -31,6 +31,7 @@ use App\Http\Controllers\RiwayatKelompokPegawaiController;
 use App\Http\Controllers\RiwayatJenisPegawaiController;
 use App\Http\Controllers\RiwayatMutasiController;
 use App\Http\Controllers\RiwayatPendidikanController;
+use App\Http\Controllers\RiwayatUnitKerjaController;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Route;
 
@@ -194,8 +195,16 @@ Route::middleware('auth', 'verified', 'superadminoradmin')->group(function () {
     Route::put('/update-riwayat-jenis-pegawai/{id}', [RiwayatJenisPegawaiController::class, 'update'])->name('riwayat-jenis-pegawai.update');
     Route::put('/update-riwayat-pendidikan/{id}', [RiwayatPendidikanController::class, 'update'])->name('riwayat-pendidikan.update');
     Route::put('/update-riwayat-grade/{id}', [RiwayatGradeController::class, 'update'])->name('riwayat-grade.update');
+    Route::put('/update-riwayat-mutasi/{id}', [RiwayatMutasiController::class, 'update'])->name('riwayat-mutasi.update');
+    Route::put('/update-riwayat-unit-kerja/{id}', [RiwayatUnitKerjaController::class, 'update'])->name('riwayat-unit-kerja.update');
 
+    Route::delete('/delete-riwayat-golongan/{id}', [RiwayatGolonganController::class, 'destroy'])->name('riwayat-golongan.destroy');
+    Route::delete('/delete-riwayat-kelompok-pegawai/{id}', [RiwayatKelompokPegawaiController::class, 'destroy'])->name('riwayat-kelompok-pegawai.destroy');
+    Route::delete('/delete-riwayat-jenis-pegawai/{id}', [RiwayatJenisPegawaiController::class, 'destroy'])->name('riwayat-jenis-pegawai.destroy');
+    Route::delete('/delete-riwayat-pendidikan/{id}', [RiwayatPendidikanController::class, 'destroy'])->name('riwayat-pendidikan.destroy');
+    Route::delete('/delete-riwayat-grade/{id}', [RiwayatGradeController::class, 'destroy'])->name('riwayat-grade.destroy');
     Route::delete('/delete-riwayat-mutasi/{id}', [RiwayatMutasiController::class, 'destroy'])->name('riwayat-mutasi.destroy');
+    Route::delete('/delete-riwayat-unit-kerja/{id}', [RiwayatUnitKerjaController::class, 'destroy'])->name('riwayat-unit-kerja.destroy');
 });
 
 

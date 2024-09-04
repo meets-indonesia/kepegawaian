@@ -66,8 +66,12 @@ class RiwayatJenisPegawaiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(RiwayatJenisPegawai $riwayatJenisPegawai)
+    public function destroy(Request $request)
     {
-        //
+        $riwayat = RiwayatJenisPegawai::findOrFail($request->id);
+
+        $riwayat->delete();
+
+        return redirect()->back()->with('success', 'Riwayat deleted successfully.');
     }
 }

@@ -70,8 +70,12 @@ class RiwayatGolonganController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(RiwayatGolongan $riwayatGolongan)
+    public function destroy(Request $request)
     {
-        //
+        $riwayat = RiwayatGolongan::findOrFail($request->id);
+
+        $riwayat->delete();
+
+        return redirect()->back()->with('success', 'Riwayat deleted successfully.');
     }
 }

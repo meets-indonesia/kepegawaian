@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\RiwayatGrade;
 use App\Models\RiwayatMutasi;
+use App\Models\RiwayatUnitKerja;
 
 class PegawaiController extends Controller
 {
@@ -110,6 +111,7 @@ class PegawaiController extends Controller
             'riwayatJabatanFungsional',
             'riwayatGrade',
             'riwayatMutasi',
+            'riwayatUnitKerja',
             
         ])->whereId($request->id)->first();
 
@@ -257,6 +259,14 @@ class PegawaiController extends Controller
                 'tanggal_sk' => now(),
             ];
             RiwayatMutasi::create($riwayat);
+        }
+
+        if($originalData['unit_kerja_id'] != $validated['unit_kerja_id']){
+            $riwayat = [
+                'pegawai_id' => $request->id,
+                'unit_kerja_id' => $originalData['unit_kerja']['id'],
+            ];
+            RiwayatUnitKerja::create($riwayat);
         }
 
         if($originalData['golongan_id'] != $validated['golongan_id']){

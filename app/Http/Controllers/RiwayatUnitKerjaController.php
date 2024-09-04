@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RiwayatPendidikan;
+use App\Models\RiwayatUnitKerja;
 use Illuminate\Http\Request;
 
-class RiwayatPendidikanController extends Controller
+class RiwayatUnitKerjaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class RiwayatPendidikanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(RiwayatPendidikan $riwayatPendidikan)
+    public function show(RiwayatUnitKerja $riwayatUnitKerja)
     {
         //
     }
@@ -42,7 +42,7 @@ class RiwayatPendidikanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(RiwayatPendidikan $riwayatPendidikan)
+    public function edit(RiwayatUnitKerja $riwayatUnitKerja)
     {
         //
     }
@@ -52,18 +52,19 @@ class RiwayatPendidikanController extends Controller
      */
     public function update(Request $request)
     {
-        $riwayatPendidikan = RiwayatPendidikan::whereId($request->id)->firstOrFail();
+        // Retrieve the RiwayatGolongan instance by its ID
+        $riwayatGolongan = RiwayatUnitKerja::whereId($request->id)->firstOrFail();
 
+        // Validate the incoming request data
         $validatedData = $request->validate([
-            'bidang_ilmu' => 'required',
-            'nama_sekolah' => 'required',
-            'tahun_selesai' => 'required|date',
+            'tanggal_mulai' => 'required|date',
         ]);
 
-        $riwayatPendidikan->update($validatedData);
+        // Update the RiwayatGolongan instance with the validated data
+        $riwayatGolongan->update($validatedData);
 
-        return redirect()->back()
-            ->with('success', 'Riwayat Pendidikan updated successfully.');
+        // Return a response indicating success
+        return redirect()->back()->with('success', 'Riwayat berhasil diubah');
     }
 
     /**
@@ -71,7 +72,7 @@ class RiwayatPendidikanController extends Controller
      */
     public function destroy(Request $request)
     {
-        $riwayat = RiwayatPendidikan::findOrFail($request->id);
+        $riwayat = RiwayatUnitKerja::findOrFail($request->id);
 
         $riwayat->delete();
 

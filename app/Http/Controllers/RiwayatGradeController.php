@@ -70,8 +70,12 @@ class RiwayatGradeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(RiwayatGrade $riwayatGrade)
+    public function destroy(Request $request)
     {
-        //
+        $riwayat = RiwayatGrade::findOrFail($request->id);
+
+        $riwayat->delete();
+
+        return redirect()->back()->with('success', 'Riwayat deleted successfully.');
     }
 }

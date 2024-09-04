@@ -36,7 +36,7 @@ class RiwayatJabatanFungsionalController extends Controller
 
         RiwayatJabatanFungsional::create($request->all());
 
-        return redirect()->route('riwayat-jabatan-fungsional.index')
+        return redirect()->back()
             ->with('success', 'Riwayat Jabatan Fungsional created successfully.');
     }
 
@@ -64,7 +64,7 @@ class RiwayatJabatanFungsionalController extends Controller
         $riwayatJabatanStruktural = RiwayatJabatanFungsional::whereId($request->id)->firstOrFail();
         $riwayatJabatanStruktural->delete();
 
-        return redirect()->route('riwayat-jabatan-fungsional.index')
+        return redirect()->back()
             ->with('success', 'Riwayat Jabatan Fungsional deleted successfully.');
     }
 }

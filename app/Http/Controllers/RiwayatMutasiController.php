@@ -50,9 +50,21 @@ class RiwayatMutasiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, RiwayatMutasi $riwayatMutasi)
+    public function update(Request $request)
     {
-        //
+        // Retrieve the RiwayatGolongan instance by its ID
+        $riwayatMutasi = RiwayatMutasi::whereId($request->id)->firstOrFail();
+
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'tanggal_sk' => 'required|date',
+        ]);
+
+        // Update the RiwayatGolongan instance with the validated data
+        $riwayatMutasi->update($validatedData);
+
+        // Return a response indicating success
+        return redirect()->back()->with('success', 'Riwayat mutasi berhasil diubah');
     }
 
     /**

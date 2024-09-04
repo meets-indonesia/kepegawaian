@@ -23,6 +23,7 @@
             <div class="d-flex">
                 <h5 class="card-title">Riwayat Kepegawaian</h5>
             </div>
+            <button type="button" class="btn btn-outline-primary my-1 w-100" data-bs-toggle="modal" data-bs-target="#unitKerjaModal">Unit Kerja</button>
             <button type="button" class="btn btn-outline-primary my-1 w-100" data-bs-toggle="modal" data-bs-target="#mutasiModal">Mutasi</button>
             <button type="button" class="btn btn-outline-primary my-1 w-100" data-bs-toggle="modal" data-bs-target="#gradeModal">Grade</button>
             <button type="button" class="btn btn-outline-primary my-1 w-100" data-bs-toggle="modal" data-bs-target="#golonganModal">Golongan</button>
