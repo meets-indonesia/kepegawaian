@@ -63,6 +63,41 @@ class APIPegawaiController extends Controller
         }
     }
 
+    /**
+     * Get all records from Pegawai (email only)
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     * @var \App\Models\Pegawai
+     * 
+     */
+    public function getemail()
+    {
+        try {
+            // Retrieve paginated records from Pegawai
+            $pegawai = Pegawai::select('email')->get();
+
+            // Check if the result is empty
+            if ($pegawai->isEmpty()) {
+                // Return a 404 Not Found response
+                return response()->json([
+                    'message' => 'No records found'
+                ], Response::HTTP_NOT_FOUND);
+            }
+
+            // Return the paginated data with a 200 OK status
+            return response()->json([
+                'message' => 'Success',
+                'data' => $pegawai
+
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            // Return a 500 Internal Server Error response
+            return response()->json([
+                'message' => 'Internal Server Error',
+                'error' => $th->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
     /**

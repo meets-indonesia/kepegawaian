@@ -60,6 +60,7 @@ Route::middleware('apikey')->group(function () {
 
     // Pegawai API
     Route::get('/pegawai', [APIPegawaiController::class, 'getall']);
+    Route::get('/pegawai-email', [APIPegawaiController::class, 'getemail']);
     Route::get('/pegawai/{id}', [APIPegawaiController::class, 'get']);
     Route::post('/pegawai', [APIPegawaiController::class, 'create']);
     Route::put('/pegawai/{id}', [APIPegawaiController::class, 'update']);
