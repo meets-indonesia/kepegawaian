@@ -23,6 +23,7 @@ use App\Http\Controllers\StrukturController;
 use App\Http\Controllers\UnitKerjaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HierarkiPegawaiController;
 use App\Http\Controllers\RiwayatGolonganController;
 use App\Http\Controllers\RiwayatGradeController;
 use App\Http\Controllers\RiwayatJabatanStrukturalController;
@@ -91,6 +92,12 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/struktur', [StrukturController::class, 'index'])->name('struktur.index');
 
     Route::get('/gaji-pokok', [GajiPokokController::class, 'index'])->name('gaji-pokok.index');
+
+    Route::get('/jabatan-struktural/options', [JabatanStrukturalController::class, 'getJabatanOptions'])
+        ->name('jabatan-struktural.options');
+
+    Route::get('/hierarki-pegawai', [HierarkiPegawaiController::class, 'index'])->name('hierarki-pegawai');
+    Route::get('/hierarki-pegawai/pdf', [HierarkiPegawaiController::class, 'downloadPdf'])->name('hierarki-pegawai.pdf');
 
     Route::get('/jabatan-struktural', [JabatanStrukturalController::class, 'index'])->name('jabatan-struktural.index');
 

@@ -40,7 +40,7 @@ class RiwayatJabatanStrukturalController extends Controller
         RiwayatJabatanStruktural::create($request->all());
 
         return redirect()->back()
-                         ->with('success', 'Riwayat Jabatan Struktural created successfully.');
+            ->with('success', 'Riwayat Jabatan Struktural created successfully.');
     }
 
     /**
@@ -49,7 +49,7 @@ class RiwayatJabatanStrukturalController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'tahun_mulai' => 'required|',
+            'tahun_mulai' => 'nullable|',
             'tahun_selesai' => 'nullable|after_or_equal:tahun_mulai',
         ]);
 
@@ -57,7 +57,7 @@ class RiwayatJabatanStrukturalController extends Controller
         $riwayatJabatanStruktural->update($request->all());
 
         return redirect()->back()
-                         ->with('success', 'Riwayat Jabatan Struktural updated successfully.');
+            ->with('success', 'Riwayat Jabatan Struktural updated successfully.');
     }
 
     /**
@@ -69,6 +69,6 @@ class RiwayatJabatanStrukturalController extends Controller
         $riwayatJabatanStruktural->delete();
 
         return redirect()->back()
-                         ->with('success', 'Riwayat Jabatan Struktural deleted successfully.');
+            ->with('success', 'Riwayat Jabatan Struktural deleted successfully.');
     }
 }
