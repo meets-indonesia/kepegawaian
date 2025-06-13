@@ -39,16 +39,35 @@ class HierarkiPegawaiController extends Controller
             }
 
             // Build the hierarchy
-            $maxLevel = $request->input('level') !== 'all' ? (int) $request->input('level') : null;
+            $maxLevel = null;
             $hierarchy = $this->buildHierarchy($rootJabatan, 0, $maxLevel);
 
             // Store in cache
             Cache::put($cacheKey, $hierarchy, $cacheDuration);
         }
+        function getHierarchyDepth($node) {
+            // If the node has no children, its depth is 1
+            if (empty($node['children'])) {
+                return 1;
+            }
 
+            $maxChildDepth = 0;
+            // Find the maximum depth among all children
+            foreach ($node['children'] as $child) {
+                $childDepth = getHierarchyDepth($child);
+                if ($childDepth > $maxChildDepth) {
+                    $maxChildDepth = $childDepth;
+                }
+            }
+
+            // The depth of the current node is 1 + the depth of its deepest child
+            return $maxChildDepth + 1;
+        }
+        $maxDepth = getHierarchyDepth($hierarchy);
         return view('pages.hierarki-pegawai', [
             'hierarchy' => $hierarchy,
-            'jenisPegawai' => JenisPegawai::all()
+            'jenisPegawai' => JenisPegawai::all(),
+            'maxDepth' => $maxDepth
         ]);
     }
 

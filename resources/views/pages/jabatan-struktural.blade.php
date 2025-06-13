@@ -20,7 +20,7 @@
                         <h5 class="card-title">Jabatan Struktural</h5>
                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                             <button type="button" class="btn btn-success ms-auto mt-3" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">Tambah data</button>
+                                data-bs-target="#createModal">Tambah data</button>
                         @endif
 
                     </div>

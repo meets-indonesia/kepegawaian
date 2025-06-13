@@ -40,6 +40,7 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  @yield('additional-styles')
 </head>
 
 <body>
@@ -111,6 +112,7 @@
         ],
     });
   </script>
+      @yield('additional-scripts')
 </body>
 
 </html>
